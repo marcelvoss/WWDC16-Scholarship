@@ -88,6 +88,8 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
     func setupViews() {
         aWindow?.addSubview(self)
         
+        
+        // TODO: Fix broken animation (NSLOG)
         let blur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         effectView = UIVisualEffectView(effect: blur)
         effectView.frame = self.frame

@@ -7,12 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+// TODO: Good idea -> continue it
+typedef NS_ENUM(NSInteger, Options) {
+    OptionsMap,
+    OptionsGeneric,
+    OptionsNone
+};
 
 @interface Topic : NSObject
 
 @property (nonatomic) NSString *topicTitle;
-@property (nonatomic) NSString *text;
+@property (nonatomic) NSString *topicText;
+@property (nonatomic) UIImage *topicImage;
+//@property (nonatomic)
 
-- (instancetype)initWithTitle:(NSString *)title text:(NSString *)text;
+- (instancetype)initWithTitle:(NSString *)topicTitle text:(NSString *)topicText image:(UIImage *)topicImage option:(Options)topicOption;
 
 @end

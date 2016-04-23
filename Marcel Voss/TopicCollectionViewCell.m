@@ -44,7 +44,6 @@
         _headlineLabel = [[UILabel alloc] init];
         _headlineLabel.textAlignment = NSTextAlignmentCenter;
         _headlineLabel.font = [UIFont boldSystemFontOfSize:25];
-        _headlineLabel.text = @"About Me";
         _headlineLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:_headlineLabel];
         
@@ -56,7 +55,6 @@
         _textLabel = [[UILabel alloc] init];
         _textLabel.textAlignment = NSTextAlignmentCenter;
         _textLabel.font = [UIFont systemFontOfSize:17];
-        _textLabel.text = @"Ich bin ein kleiner Hunge";
         _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:_textLabel];
         
@@ -65,6 +63,16 @@
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_headlineLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
     }
     return self;
+}
+
+- (void)setTopic:(Topic *)topic
+{
+    _topic = topic;
+    
+    // TODO: Continue this
+    _headlineLabel.text = topic.topicTitle;
+    _textLabel.text = topic.topicText;
+    _headerImageView.image = topic.topicImage;
 }
 
 @end

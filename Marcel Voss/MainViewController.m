@@ -12,15 +12,24 @@
 
 #import "FBShimmering.h"
 
-#import "Topic.h"
+
 #import "TopicCollectionViewCell.h"
 #import "CustomMenuButton.h"
 
+#import "Topic.h"
 #import "ArrayUtilities.h"
 
 static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
+static CGFloat const kPanTriggerFadeOutDistance = 200.0;
 
-@interface MainViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate>
+typedef NS_ENUM(NSInteger, MenuTopic) {
+    MenuTopicAbout,
+    MenuTopicEducation,
+    MenuTopicProjects,
+    MenuTopicSkills
+};
+
+@interface MainViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UIGestureRecognizerDelegate>
 {
     CGFloat width;
     CGFloat height;
@@ -46,8 +55,8 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     CustomMenuButton *skillsButton;
     
     InteractiveImageView *avatarImageView;
-    
-    UIWindow *aWindow;
+
+    UIVisualEffectView *visualEffectViewBlurred2;
 }
 
 @property (nonatomic) TopicLayout *layout;
@@ -76,31 +85,8 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     return self;
 }
 
-- (CGFloat)cardScaleRatio
-{
-    return self.cardSize.width / self.view.frame.size.width;
-}
+#pragma mark - Lifecycle
 
-- (CGSize)cardSize
-{
-    CGRect frame = self.view.bounds;
-    frame.size.width -= self.layout.sectionInset.left + self.layout.sectionInset.right;
-    frame.size.height = CGRectGetHeight(self.collectionViewFrame) - (self.layout.sectionInset.top + _bottomInset + 140);
-    return frame.size;
-}
-
-- (CGRect)collectionViewFrame
-{
-    CGRect frame = CGRectZero;
-    frame.origin.y = height;
-    frame.size.width = CGRectGetWidth(self.view.frame);
-    //frame.size.height = CGRectGetHeight(self.view.frame) - frame.origin.y + self.bottomInset;
-    frame.size.height = height;
-    return frame;
-}
-
-
-#pragma mark - etc
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -232,9 +218,13 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     [self setupMenuView];
     [self showStartAnimation];
     //[self startArrowAnimation];
-    [self setupAboutTopics];
     
-    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)setupMenuView
@@ -260,7 +250,6 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     educationButton.gradientImage = [UIImage imageNamed:@"SchoolPhoto"];
     educationButton.backgroundImage = [UIImage imageNamed:@"GreenBackground"];
     [educationButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
-    educationButton.backgroundColor = [UIColor greenColor];
     
     //View 3
     projectsButton = [CustomMenuButton buttonWithType:UIButtonTypeSystem];
@@ -270,7 +259,6 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     projectsButton.gradientImage = [UIImage imageNamed:@"NDRAppShot"];
     projectsButton.backgroundImage = [UIImage imageNamed:@"VioletBackground"];
     [projectsButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
-    projectsButton.backgroundColor = [UIColor magentaColor];
     
     //View 4
     skillsButton = [CustomMenuButton buttonWithType:UIButtonTypeSystem];
@@ -280,7 +268,6 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     skillsButton.gradientImage = [UIImage imageNamed:@"NDRCodePhoto"];
     skillsButton.backgroundImage = [UIImage imageNamed:@"OrangeBackground"];
     [skillsButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
-    skillsButton.backgroundColor = [UIColor magentaColor];
 
     
     //Stack View
@@ -313,25 +300,188 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     
 }
 
+#pragma mark - Custom Collection View
+
+- (CGFloat)cardScaleRatio
+{
+    return self.cardSize.width / self.view.frame.size.width;
+}
+
+- (CGSize)cardSize
+{
+    CGRect frame = self.view.bounds;
+    frame.size.width -= self.layout.sectionInset.left + self.layout.sectionInset.right;
+    frame.size.height = CGRectGetHeight(self.collectionViewFrame) - (self.layout.sectionInset.top + _bottomInset + 140);
+    return frame.size;
+}
+
+- (CGRect)collectionViewFrame
+{
+    CGRect frame = CGRectZero;
+    frame.origin.y = height;
+    frame.size.width = CGRectGetWidth(self.view.frame);
+    //frame.size.height = CGRectGetHeight(self.view.frame) - frame.origin.y + self.bottomInset;
+    frame.size.height = height;
+    return frame;
+}
+
+- (void)restoreLayout:(BOOL)animated
+{
+    NSTimeInterval duration = animated ? 0.25 : 0;
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        menuCollectionView.frame = [self collectionViewFrame];
+    } completion:NULL];
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)pan
+{
+    // TODO: Change code -> make better, safer, faster
+    CGPoint velocity = [pan velocityInView:pan.view];
+    CGPoint point = [pan translationInView:pan.view];
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:
+            
+            break;
+        case UIGestureRecognizerStateChanged:
+            if (velocity.y > 0) {
+                CGFloat alpha = 1 - fabs(point.y/kPanTriggerFadeOutDistance);
+                self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:alpha];
+                
+                CGRect frame = menuCollectionView.frame;
+                frame.origin.y = self.collectionViewFrame.origin.y + MAX(point.y, 0);
+                menuCollectionView.frame = frame;
+            }
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+            if (velocity.y > 0) {
+                BOOL shouldDismiss = CGRectGetMinY(menuCollectionView.frame) > kPanTriggerFadeOutDistance;
+                
+                if (shouldDismiss) {
+                    [self fadeOut];
+                } else {
+                    [self restoreLayout:YES];
+                }
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)fadeOut
+{
+    [UIView transitionWithView:self.view duration:0.25 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        menuCollectionView.frame = CGRectOffset(menuCollectionView.frame, 0, CGRectGetHeight(self.view.frame));
+        visualEffectViewBlurred2.effect = nil;
+        
+    } completion:^(BOOL finished) {
+        scrollView.scrollEnabled = YES;
+        [menuCollectionView removeFromSuperview];
+        [visualEffectViewBlurred2 removeFromSuperview];
+    }];
+}
+
+#pragma mark - Menu Control
+
 - (void)aboutPressed:(id)sender
+{
+    [self setupTopicsForMenuTopic:MenuTopicAbout];
+    [self setupCollectionViewForMenuTopic:MenuTopicAbout];
+}
+
+- (void)educationPressed:(id)sender
+{
+    [self setupTopicsForMenuTopic:MenuTopicEducation];
+    [self setupCollectionViewForMenuTopic:MenuTopicEducation];
+}
+
+- (void)projectsPressed:(id)sender
+{
+    [self setupTopicsForMenuTopic:MenuTopicProjects];
+    [self setupCollectionViewForMenuTopic:MenuTopicProjects];
+}
+
+- (void)skillsPressed:(id)sender
+{
+    [self setupTopicsForMenuTopic:MenuTopicSkills];
+    [self setupCollectionViewForMenuTopic:MenuTopicSkills];
+}
+
+- (void)setupTopicsForMenuTopic:(MenuTopic)menuTopic
+{
+    // TODO: make this better and add the other stuff
+    _cardsArray = [NSMutableArray array];
+    
+    // TODO: Finish content
+    switch (menuTopic) {
+        case MenuTopicAbout:
+        {
+            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            
+            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+        }
+            break;
+        case MenuTopicEducation:
+        {
+            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            
+            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+        }
+            break;
+        case MenuTopicProjects:
+        {
+            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            
+            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+        }
+            break;
+        case MenuTopicSkills:
+        {
+            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            
+            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+        }
+            break;
+    }
+    
+    //Topic *aboutMe = [[Topic alloc] initWithTitle:@"About Me" text:@"I was born in a small town called Heide."];
+    //[_cardsArray addObject:aboutMe];
+}
+
+- (void)setupCollectionViewForMenuTopic:(MenuTopic)menuTopic
 {
     scrollView.scrollEnabled = NO;
     
-    /*// Background blur with UIVisualEffectView and UIBlurEffect
-    UIBlurEffect *blurEffect2 = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *visualEffectViewBlurred2 = [[UIVisualEffectView alloc] initWithEffect:blurEffect2];
+    visualEffectViewBlurred2 = [[UIVisualEffectView alloc] init];
     visualEffectViewBlurred2.frame = CGRectMake(0, height, self.view.frame.size.width, height);
-    visualEffectViewBlurred2.alpha = 0;
     [backgroundImageView addSubview:visualEffectViewBlurred2];
     
-    [UIView animateWithDuration:0.5 delay:0.2 usingSpringWithDamping:0.6 initialSpringVelocity:0.5 options:UIViewAnimationOptionTransitionNone animations:^{
-        visualEffectViewBlurred2.alpha = 1;
-    } completion:^(BOOL finished) {
-        
-    }];*/
+    [UIView animateWithDuration:0.3 animations:^{
+        visualEffectViewBlurred2.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    }];
     
     
-    menuCollectionView = [[UICollectionView alloc] initWithFrame:self.collectionViewFrame collectionViewLayout:_layout];
+    // Setting a temporary frame to move the menuCollectionView out of the view
+    CGRect tempFrame = CGRectMake(0, height * 3, CGRectGetWidth(self.view.frame), height);
+    menuCollectionView = [[UICollectionView alloc] initWithFrame:tempFrame collectionViewLayout:_layout];
     menuCollectionView.delegate = self;
     menuCollectionView.alpha = 1;
     menuCollectionView.dataSource = self;
@@ -339,32 +489,41 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     menuCollectionView.showsHorizontalScrollIndicator = NO;
     [backgroundImageView addSubview:menuCollectionView];
     
-    
     [menuCollectionView registerClass:[TopicCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     
-    [UIView animateWithDuration:0.4 animations:^{
-        
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [menuCollectionView addGestureRecognizer:panRecognizer];
+    
+    
+    // TODO: missing implementation
+    switch (menuTopic) {
+        case MenuTopicAbout:
+            
+            
+            
+            break;
+        case MenuTopicEducation:
+            
+            break;
+        case MenuTopicProjects:
+            
+            break;
+        case MenuTopicSkills:
+            
+            break;
+    }
+    
+    
+    [UIView animateWithDuration:0.4 delay:0.3 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        menuCollectionView.frame = CGRectMake(0, height, CGRectGetWidth(self.view.frame), height);
     } completion:^(BOOL finished) {
         
     }];
-    
 }
 
 
-- (void)educationPressed:(id)sender
-{
-    
-}
-
-- (void)projectsPressed:(id)sender
-{
-    menuCollectionView.alpha = 1;
-}
-
-- (void)skillsPressed:(id)sender
-{
-    
-}
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -373,7 +532,8 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 5;
+    // TODO: refactor cardsArray name
+    return [_cardsArray count];
 }
 
 - (TopicCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -392,13 +552,7 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     
 }
 
-- (void)setupAboutTopics
-{
-    _cardsArray = [NSMutableArray array];
-    
-    Topic *aboutMe = [[Topic alloc] initWithTitle:@"About Me" text:@"I was born in a small town called Heide."];
-    [_cardsArray addObject:aboutMe];
-}
+#pragma mark - Pure Animation
 
 - (void)startArrowAnimation
 {
@@ -443,12 +597,6 @@ static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
     } completion:^(BOOL finished) {
         
     }];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

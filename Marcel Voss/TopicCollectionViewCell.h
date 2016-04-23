@@ -8,14 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Topic.h"
 #import "InteractiveImageView.h"
-
-typedef NS_ENUM(NSInteger, TopicType) {
-    TopicTypeProject
-};
 
 @interface TopicCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic) Topic *topic;
 @property (nonatomic) UILabel *headlineLabel;
 @property (nonatomic) InteractiveImageView *headerImageView;
 @property (nonatomic) UILabel *textLabel;

@@ -10,12 +10,12 @@
 
 @implementation Topic
 
-- (instancetype)initWithTitle:(NSString *)title text:(NSString *)text
+- (instancetype)initWithTitle:(NSString *)topicTitle text:(NSString *)topicText image:(UIImage *)topicImage option:(Options)topicOption
 {
     self = [super init];
     if (self) {
-        _topicTitle = title;
-        _text = text;
+        _topicTitle = topicTitle;
+        _topicText = topicText;
     }
     return self;
 }
