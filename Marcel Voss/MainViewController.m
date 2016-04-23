@@ -62,12 +62,10 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 @property (nonatomic) TopicLayout *layout;
 @property (nonatomic) NSMutableArray *cardsArray;
 
-
 - (CGSize)cardSize;
 - (CGFloat)cardScaleRatio;
 - (CGRect)collectionViewFrame;
 - (UICollectionViewCell *)selectedCell;
-
 
 @end
 
@@ -229,7 +227,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (void)setupMenuView
 {
-    
     CGFloat menuButtonWidth = width - 60;
     
     //View 1
@@ -292,7 +289,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:height / 2]];
-    
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
