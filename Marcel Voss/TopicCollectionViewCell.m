@@ -8,6 +8,28 @@
 
 #import "TopicCollectionViewCell.h"
 
+#import "Topic.h"
+#import "AppCustomButton.h"
+#import "InteractiveImageView.h"
+
+#import "Constants.h"
+
+#import <MapKit/MapKit.h>
+
+@interface TopicCollectionViewCell ()
+{
+    UILabel *headlineLabel;
+    UILabel *subtitleLabel;
+    UILabel *textLabel;
+    InteractiveImageView *headerImageView;
+    AppCustomButton *appButton;
+    
+    NSLayoutConstraint *headlineYConstraint;
+    
+}
+
+@end
+
 @implementation TopicCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -17,11 +39,12 @@
         self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = 12;
         
-        _headerImageView = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"FriendsWWDC"] annotation:@""];
-        _headerImageView.frame = CGRectMake(0, 0, self.frame.size.width, 200);
-        _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _headerImageView.layer.masksToBounds = YES;
-        [self.contentView addSubview:_headerImageView];
+        headerImageView = [[InteractiveImageView alloc] init];
+        headerImageView.viewerType = ViewerTypeImage;
+        headerImageView.frame = CGRectMake(0, 0, self.frame.size.width, 150);
+        headerImageView.layer.masksToBounds = YES;
+        headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.contentView addSubview:headerImageView];
         
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.contentView.bounds byRoundingCorners:( UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(12.0, 12.0)];
         
@@ -31,36 +54,41 @@
         self.contentView.layer.mask = maskLayer;
    
         
+        
         // Gradient for fading out the image view into the white background
         CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-        gradientLayer.frame = _headerImageView.bounds;
+        gradientLayer.frame = headerImageView.bounds;
         gradientLayer.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
         gradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
         gradientLayer.endPoint = CGPointMake(0.1f, 0.9f);
-        _headerImageView.layer.mask = gradientLayer;
+        headerImageView.layer.mask = gradientLayer;
         
         
         
-        _headlineLabel = [[UILabel alloc] init];
-        _headlineLabel.textAlignment = NSTextAlignmentCenter;
-        _headlineLabel.font = [UIFont boldSystemFontOfSize:25];
-        _headlineLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.contentView addSubview:_headlineLabel];
+        headlineLabel = [[UILabel alloc] init];
+        headlineLabel.textAlignment = NSTextAlignmentCenter;
+        headlineLabel.font = [UIFont boldSystemFontOfSize:25];
+        headlineLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:headlineLabel];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_headlineLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_headlineLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:20]];
+        headlineYConstraint = [NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:headerImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-5];
+        [self addConstraint:headlineYConstraint];
         
         
-        _textLabel = [[UILabel alloc] init];
-        _textLabel.textAlignment = NSTextAlignmentCenter;
-        _textLabel.font = [UIFont systemFontOfSize:17];
-        _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.contentView addSubview:_textLabel];
+        textLabel = [[UILabel alloc] init];
+        textLabel.textAlignment = NSTextAlignmentCenter;
+        textLabel.font = [UIFont systemFontOfSize:15];
+        textLabel.numberOfLines = 0;
+        textLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:textLabel];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_textLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_headlineLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:headlineLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-40]];
     }
     return self;
 }
@@ -68,11 +96,118 @@
 - (void)setTopic:(Topic *)topic
 {
     _topic = topic;
+    [self setupLayoutForOption:topic.topicOption];
+}
+
+- (void)setupLayoutForOption:(Options)option
+{
+    switch (option) {
+        case OptionsGeneric:
+        {
+            headlineLabel.text = _topic.topicTitle;
+            headerImageView.image = _topic.topicImage;
+            textLabel.text = _topic.topicText;
+            headerImageView.annotationString = _topic.annotation;
+        }
+            break;
+        case OptionsMap:
+        {
+            headerImageView.viewerType = ViewerTypeMap;
+            
+            headlineYConstraint.constant = - 75;
+            [self layoutIfNeeded];
+            
+            headlineLabel.text = _topic.topicTitle;
+            textLabel.text = _topic.topicText;
+            
+            
+            MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
+            options.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(HEIDE_LATITUDE, HEIDE_LONGTITUDE), MKCoordinateSpanMake(0.05, 0.05));
+            options.size = CGSizeMake(self.frame.size.width, 150);
+            options.scale = [[UIScreen mainScreen] scale];
+            
+            MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
+            [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
+                if (error) {
+                    
+                    // TODO: Add logic for better error instead of alert -> icon or something
+                    
+                    
+                    return;
+                } else {
+                    UIImage *mapShot = snapshot.image;
+                    headerImageView.alpha = 0;
+                    
+                    headlineYConstraint.constant = -5;
+                    [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        headerImageView.image = mapShot;
+                        headerImageView.alpha = 1;
+                        [self layoutIfNeeded];
+                    } completion:^(BOOL finished) {
+                        
+                    }];
+                }
+            }];
+            
+        }
+            break;
+        case OptionsApp:
+        {
+            headerImageView.alpha = 0;
+            
+            appButton = [AppCustomButton buttonWithType:UIButtonTypeCustom];
+            [appButton setAppStoreURL:_topic.topicURL
+                              appIcon:_topic.topicImage];
+            appButton.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:appButton];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:appButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:75]];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:appButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:75]];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:appButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:headerImageView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:20]];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:appButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:headerImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:-10]];
+
+        }
+            break;
+        case OptionsNone:
+        {
+            
+        }
+            break;
+        case OptionsIntro:
+        {
+            headerImageView.alpha = 0;
+            
+            headlineLabel = [[UILabel alloc] init];
+            headlineLabel.textAlignment = NSTextAlignmentCenter;
+            headlineLabel.font = [UIFont boldSystemFontOfSize:25];
+            headlineLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            headlineLabel.text = _topic.topicTitle;
+            [self.contentView addSubview:headlineLabel];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
     
-    // TODO: Continue this
-    _headlineLabel.text = topic.topicTitle;
-    _textLabel.text = topic.topicText;
-    _headerImageView.image = topic.topicImage;
+    headlineLabel.text = nil;
+    subtitleLabel.text = nil;
+    headerImageView.image = nil;
+    textLabel.text = nil;
+    
+    // TODO: Implement for error caching collection view
+    
 }
 
 @end

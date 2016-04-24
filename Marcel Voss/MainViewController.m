@@ -10,17 +10,18 @@
 
 #import "InteractiveImageView.h"
 
-#import "FBShimmering.h"
-
+#import "FBShimmeringView.h"
 
 #import "TopicCollectionViewCell.h"
 #import "CustomMenuButton.h"
+#import "WeatherCard.h"
 
 #import "Topic.h"
 #import "ArrayUtilities.h"
 
 static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
 static CGFloat const kPanTriggerFadeOutDistance = 200.0;
+static CGFloat const kPanTriggerExpandDistance = 50.0;
 
 typedef NS_ENUM(NSInteger, MenuTopic) {
     MenuTopicAbout,
@@ -60,7 +61,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 }
 
 @property (nonatomic) TopicLayout *layout;
-@property (nonatomic) NSMutableArray *cardsArray;
+@property (nonatomic) NSMutableArray *topicsArray;
 
 - (CGSize)cardSize;
 - (CGFloat)cardScaleRatio;
@@ -117,6 +118,21 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addSubview:visualEffectViewBlurred];
     
     
+    // Invisible view to make AL easier
+    UIView *canvasView = [[UIView alloc] init];
+    canvasView.translatesAutoresizingMaskIntoConstraints = NO;
+    canvasView.backgroundColor = [UIColor clearColor];
+    [backgroundImageView addSubview:canvasView];
+    
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:canvasView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:canvasView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:- (0.5 * height)]];
+    
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:canvasView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:350]];
+    
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:canvasView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:300]];
+    
+    
     nameLabel = [[UILabel alloc] init];
     nameLabel.text = @"Hi, I'm Marcel.";
     nameLabel.textColor = [UIColor whiteColor];
@@ -125,9 +141,9 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [backgroundImageView addSubview:nameLabel];
     
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:- (0.5 * height)]];
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:10]];
     
     
     welcomeLabel = [[UILabel alloc] init];
@@ -138,12 +154,12 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     welcomeLabel.alpha = 0;
     [backgroundImageView addSubview:welcomeLabel];
     
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:welcomeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:welcomeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:nameLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
     
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:welcomeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
-    avatarImageView = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple."];
+    
+    avatarImageView = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple." type:ViewerTypeImage];
     avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     avatarImageView.layer.borderWidth = 2.0;
     avatarImageView.layer.masksToBounds = YES;
@@ -152,9 +168,9 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     avatarImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [backgroundImageView addSubview:avatarImageView];
     
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:nameLabel attribute:NSLayoutAttributeTop multiplier:1.0 constant:-50]];
+    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:-10]];
     
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:100]];
     
@@ -176,9 +192,9 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:arrowImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:18]];
     
-   
+
     
-    
+    /*
     UIView *factsView = [[UIView alloc] init];
     factsView.backgroundColor = [UIColor whiteColor];
     factsView.layer.cornerRadius = 8;
@@ -208,7 +224,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView1 attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-50]];
     
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView1 attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:factsView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
-    
+    */
 
     
     
@@ -230,8 +246,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     CGFloat menuButtonWidth = width - 60;
     
     //View 1
-    aboutButton = [CustomMenuButton buttonWithType:UIButtonTypeSystem];
-    aboutButton.gradientImage = [UIImage imageNamed:@"EntranceWWDC"];
+    aboutButton = [CustomMenuButton buttonWithType:UIButtonTypeCustom];
+    aboutButton.gradientImage = [UIImage imageNamed:@"WWDCEntrance"];
     aboutButton.mainLabel.text = @"About Me";
     [aboutButton addTarget:self action:@selector(aboutPressed:) forControlEvents:UIControlEventTouchUpInside];
     aboutButton.backgroundImage = [UIImage imageNamed:@"RedBackground"];
@@ -240,7 +256,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     
     //View 2
-    educationButton = [CustomMenuButton buttonWithType:UIButtonTypeSystem];
+    educationButton = [CustomMenuButton buttonWithType:UIButtonTypeCustom];
     [educationButton.heightAnchor constraintEqualToConstant:70].active = YES;
     educationButton.mainLabel.text = @"Education";
     [educationButton addTarget:self action:@selector(educationPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -249,7 +265,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [educationButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
     
     //View 3
-    projectsButton = [CustomMenuButton buttonWithType:UIButtonTypeSystem];
+    projectsButton = [CustomMenuButton buttonWithType:UIButtonTypeCustom];
     [projectsButton.heightAnchor constraintEqualToConstant:70].active = YES;
     projectsButton.mainLabel.text = @"Projects";
     [projectsButton addTarget:self action:@selector(projectsPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -258,7 +274,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [projectsButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
     
     //View 4
-    skillsButton = [CustomMenuButton buttonWithType:UIButtonTypeSystem];
+    skillsButton = [CustomMenuButton buttonWithType:UIButtonTypeCustom];
     [skillsButton.heightAnchor constraintEqualToConstant:70].active = YES;
     skillsButton.mainLabel.text = @"Skills";
     [skillsButton addTarget:self action:@selector(skillsPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,13 +285,11 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     //Stack View
     UIStackView *stackView = [[UIStackView alloc] init];
-    stackView.backgroundColor = [UIColor redColor];
     
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.distribution = UIStackViewDistributionEqualSpacing;
     stackView.alignment = UIStackViewAlignmentCenter;
     stackView.spacing = 10;
-    
     
     [stackView addArrangedSubview:aboutButton];
     [stackView addArrangedSubview:educationButton];
@@ -329,41 +343,152 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     } completion:NULL];
 }
 
-- (void)handlePan:(UIPanGestureRecognizer *)pan
+- (void)handlePan:(UIPanGestureRecognizer *)gesture
 {
-    // TODO: Change code -> make better, safer, faster
-    CGPoint velocity = [pan velocityInView:pan.view];
-    CGPoint point = [pan translationInView:pan.view];
-    switch (pan.state) {
-        case UIGestureRecognizerStateBegan:
-            
-            break;
-        case UIGestureRecognizerStateChanged:
-            if (velocity.y > 0) {
-                CGFloat alpha = 1 - fabs(point.y/kPanTriggerFadeOutDistance);
-                self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:alpha];
-                
-                CGRect frame = menuCollectionView.frame;
-                frame.origin.y = self.collectionViewFrame.origin.y + MAX(point.y, 0);
-                menuCollectionView.frame = frame;
+    typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
+        UIPanGestureRecognizerDirectionUndefined,
+        UIPanGestureRecognizerDirectionUp,
+        UIPanGestureRecognizerDirectionDown
+    };
+    
+    static UIPanGestureRecognizerDirection direction = UIPanGestureRecognizerDirectionUndefined;
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan: {
+            if (direction == UIPanGestureRecognizerDirectionUndefined) {
+                CGPoint velocity = [gesture velocityInView:gesture.view];
+                if (velocity.y > 0) {
+                    direction = UIPanGestureRecognizerDirectionDown;
+                } else {
+                    direction = UIPanGestureRecognizerDirectionUp;
+                    //[self.delegate cardPickerCollectionViewController:self preparePresentingView:self.presentingView fromSelectedCell:self.selectedCell];
+                }
             }
-            break;
             
-        case UIGestureRecognizerStateEnded:
-            if (velocity.y > 0) {
+            break;
+        }
+            
+        case UIGestureRecognizerStateChanged: {
+            CGPoint point = [gesture translationInView:self.view];
+            if (direction == UIPanGestureRecognizerDirectionDown) {
+                if (point.y<0) {
+                    [self restoreLayout:NO];
+                }
+                else {
+                    CGFloat alpha = 1 - fabs(point.y/kPanTriggerFadeOutDistance);
+                    self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:alpha];
+                    
+                    CGRect frame = menuCollectionView.frame;
+                    frame.origin.y = self.collectionViewFrame.origin.y + MAX(point.y, 0);
+                    menuCollectionView.frame = frame;
+                }
+            }
+            else if (direction == UIPanGestureRecognizerDirectionUp) {
+                UICollectionViewCell *cell = self.selectedCell;
+                if (point.y>0) {
+                    [self restoreCellLayout:cell isAnimated:NO];
+                }
+            }
+            
+            break;
+        }
+            
+        case UIGestureRecognizerStateEnded: {
+            if (direction == UIPanGestureRecognizerDirectionDown) {
                 BOOL shouldDismiss = CGRectGetMinY(menuCollectionView.frame) > kPanTriggerFadeOutDistance;
-                
                 if (shouldDismiss) {
                     [self fadeOut];
-                } else {
+                }
+                else {
                     [self restoreLayout:YES];
                 }
             }
-            break;
+            else if (direction == UIPanGestureRecognizerDirectionUp) {
+                CGFloat xScale = visualEffectViewBlurred2.transform.a;
+                CGFloat halfScale = self.cardScaleRatio + (1-self.cardScaleRatio)/2;
+                if (xScale < halfScale) {
+                    [self restoreCellLayout:self.selectedCell isAnimated:YES];
+                }
+            }
             
+            direction = UIPanGestureRecognizerDirectionUndefined;
+            break;
+        }
         default:
             break;
     }
+}
+
+- (void)expandPresentingViewWithCell:(UICollectionViewCell *)cell andScaleDelta:(CGFloat )delta
+{
+    CGFloat scale = 1 + delta * 0.18;
+    cell.transform = CGAffineTransformMakeScale(scale,scale);
+    cell.alpha = 1 - delta * 2;
+    //self.presentingView.alpha = delta * 2;
+    
+    scale = self.cardScaleRatio + delta * (1 - self.cardScaleRatio);
+    CGFloat topOffset = self.collectionViewFrame.origin.y * self.cardScaleRatio;
+    CGAffineTransform t = CGAffineTransformMakeTranslation(0.0, topOffset - topOffset * delta);
+    CGAffineTransform s = CGAffineTransformMakeScale(scale, scale);
+    self.view.transform = CGAffineTransformConcat(s, t);
+}
+
+- (void)restoreCellLayout:(UICollectionViewCell *)cell isAnimated:(BOOL)animated
+{
+    NSTimeInterval duration = animated ? 0.25 : 0;
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        cell.transform = CGAffineTransformMakeScale(1, 1);
+        cell.alpha = 1;
+        //self.presentingView.alpha = 0;
+        //self.presentingView.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    } completion:NULL];
+}
+
+- (UICollectionViewCell *)selectedCell
+{
+    return [menuCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.layout.currentIndex inSection:0]];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView
+{
+    if (aScrollView == menuCollectionView) {
+        return;
+    }
+    
+    if (scrollView.panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        CGFloat y = scrollView.contentOffset.y;
+        if (y<0) {
+            CGFloat delta = 1 - MIN(1, fabs(y/kPanTriggerExpandDistance));
+            [self expandPresentingViewWithCell:self.selectedCell andScaleDelta:delta];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView willDecelerate:(BOOL)decelerate
+{
+    if (aScrollView == menuCollectionView) {
+        return;
+    }
+    
+    CGPoint velocity = [scrollView.panGestureRecognizer velocityInView:scrollView.panGestureRecognizer.view];
+    if (velocity.y>0 && scrollView.contentOffset.y <=0) {
+        [self restoreCellLayout:self.selectedCell isAnimated:YES];
+    }
+    else {
+        [self expandPresentingViewWithCell:self.selectedCell andScaleDelta:1];
+    }
+    
+}
+
+#pragma mark - UIGestureRecongizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+    CGPoint velocity = [panGestureRecognizer velocityInView:menuCollectionView];
+    BOOL isVerticalPan = fabs(velocity.y) > fabs(velocity.x);
+    BOOL isScrolling = menuCollectionView.isDragging || menuCollectionView.isDecelerating;
+    return isVerticalPan && !isScrolling;
 }
 
 - (void)fadeOut
@@ -376,6 +501,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         scrollView.scrollEnabled = YES;
         [menuCollectionView removeFromSuperview];
         [visualEffectViewBlurred2 removeFromSuperview];
+        _topicsArray = nil;
     }];
 }
 
@@ -407,59 +533,134 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (void)setupTopicsForMenuTopic:(MenuTopic)menuTopic
 {
-    // TODO: make this better and add the other stuff
-    _cardsArray = [NSMutableArray array];
+    _topicsArray = [NSMutableArray array];
     
     // TODO: Finish content
     switch (menuTopic) {
         case MenuTopicAbout:
         {
-            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *a = [[Topic alloc] initWithTitle:@"Beginning of a Journey"
+                                           subtitle:@""
+                                               text:@"I grew up in the small town of Heide in northern Germany.\n\nFrom early on I was fascinated by technology."
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:OptionsMap];
             
-            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+            
+            
+            Topic *b = [[Topic alloc] initWithTitle:@"Jugend hackt"
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@"JugendHackt"]
+                                         annotation:@"hgui"
+                                             option:OptionsGeneric];
+            
+            Topic *c = [[Topic alloc] initWithTitle:@"WWDC 2015"
+                                           subtitle:@""
+                                               text:@"Last year, I participated for the first time in Apple's scholarship challenge. Luckily, I won a ticket and attended the conference.\n\nIt was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a ton of new stuff.\n\nFinally visiting the actual conference after streaming it for years still gives me goosebumps."
+                                              image:[UIImage imageNamed:@"FriendsWWDC"]
+                                         annotation:@""
+                                             option:OptionsGeneric];
+            
+            
+            Topic *d = [[Topic alloc] initWithTitle:@""
+                                           subtitle:@"" text:@""
+                                              image:[UIImage imageNamed:@"JugendHackt"]
+                                         annotation:@""
+                                             option:OptionsGeneric];
+            
+            Topic *e = [[Topic alloc] initWithTitle:@""
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:0];
+            
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
         }
             break;
         case MenuTopicEducation:
         {
-            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *a = [[Topic alloc] initWithTitle:@""
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@"SchoolPhoto"]
+                                         annotation:@""
+                                             option:OptionsGeneric];
             
-            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+            
+            Topic *b = [[Topic alloc] initWithTitle:@"After that?"
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:OptionsGeneric];
+            
+            Topic *c = [[Topic alloc] initWithTitle:@""
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:0];
+            
+            Topic *d = [[Topic alloc] initWithTitle:@""
+                                           subtitle:@"" text:@""
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:0];
+            
+            Topic *e = [[Topic alloc] initWithTitle:@""
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:0];
+            
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
         }
             break;
         case MenuTopicProjects:
         {
-            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            // TODO: UI is very ugly
+            Topic *a = [[Topic alloc] initWithTitle:@"PhoneBattery"
+                                           subtitle:@"Your phone's battery, on your wrist"
+                                               text:@""
+                                              image:[UIImage imageNamed:@"PhoneBatteryIcon"]
+                                         annotation:@""
+                                             option:OptionsApp];
             
-            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+            Topic *b = [[Topic alloc] initWithTitle:@"Grain"
+                                           subtitle:@"The perfect utility for fans of analog photography"
+                                               text:@""
+                                              image:[UIImage imageNamed:@"GrainIcon"]
+                                         annotation:@""
+                                             option:OptionsApp];
+            
+            Topic *c = [[Topic alloc] initWithTitle:@"BluePixel"
+                                           subtitle:@""
+                                               text:@""
+                                              image:[UIImage imageNamed:@""]
+                                         annotation:@""
+                                             option:0];
+            
+            Topic *d = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            Topic *e = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
         }
             break;
         case MenuTopicSkills:
         {
-            Topic *a = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *b = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *c = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *d = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
-            Topic *e = [[Topic alloc] initWithTitle:@"" text:@"" image:[UIImage imageNamed:@""] option:0];
+            Topic *a = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            Topic *b = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            Topic *c = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            Topic *d = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            Topic *e = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             
-            [_cardsArray addObjectsFromArray:@[a, b, c, d, e]];
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
         }
             break;
     }
-    
-    //Topic *aboutMe = [[Topic alloc] initWithTitle:@"About Me" text:@"I was born in a small town called Heide."];
-    //[_cardsArray addObject:aboutMe];
 }
 
 - (void)setupCollectionViewForMenuTopic:(MenuTopic)menuTopic
@@ -479,7 +680,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     CGRect tempFrame = CGRectMake(0, height * 3, CGRectGetWidth(self.view.frame), height);
     menuCollectionView = [[UICollectionView alloc] initWithFrame:tempFrame collectionViewLayout:_layout];
     menuCollectionView.delegate = self;
-    menuCollectionView.alpha = 1;
     menuCollectionView.dataSource = self;
     menuCollectionView.backgroundColor = [UIColor clearColor];
     menuCollectionView.showsHorizontalScrollIndicator = NO;
@@ -489,6 +689,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    panRecognizer.delegate = self;
     [menuCollectionView addGestureRecognizer:panRecognizer];
     
     
@@ -529,7 +730,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     // TODO: refactor cardsArray name
-    return [_cardsArray count];
+    return [_topicsArray count];
 }
 
 - (TopicCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -537,8 +738,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     TopicCollectionViewCell *cell = [collectionView
                                         dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.layer.cornerRadius = 12;
+    cell.topic = _topicsArray[indexPath.row];
     
     return cell;
 }
@@ -547,6 +747,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 {
     
 }
+
 
 #pragma mark - Pure Animation
 

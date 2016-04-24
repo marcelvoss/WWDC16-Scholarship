@@ -8,14 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Topic.h"
-#import "InteractiveImageView.h"
+@class Topic;
 
 @interface TopicCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) Topic *topic;
-@property (nonatomic) UILabel *headlineLabel;
-@property (nonatomic) InteractiveImageView *headerImageView;
-@property (nonatomic) UILabel *textLabel;
 
 @end

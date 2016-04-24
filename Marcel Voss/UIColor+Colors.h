@@ -10,4 +10,11 @@
 
 @interface UIColor (Colors)
 
++ (UIColor *)greenDubColor;
++ (UIColor *)pinkDubColor;
++ (UIColor *)orangeDubColor;
++ (UIColor *)redDubColor;
++ (UIColor *)blueDubColor;
+
+
 @end

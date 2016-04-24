@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		1F4C7DA41CCAECA300F11033 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C7DA31CCAECA300F11033 /* Data.json */; };
 		1F4C7DA71CCAECCB00F11033 /* ArrayUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C7DA61CCAECCB00F11033 /* ArrayUtilities.m */; };
+		1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F676F601CCCA349003763F5 /* AppCustomButton.m */; };
+		1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF5F71CCCFA5D00EE14C3 /* OWMManager.m */; };
+		1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF5FC1CCD11E700EE14C3 /* OWMObject.m */; };
+		1F7FF6051CCD32A900EE14C3 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
+		1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF60B1CCD3A4300EE14C3 /* MapViewer.swift */; };
+		1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */; };
+		1F7FF6141CCD63E900EE14C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7FF6131CCD63E900EE14C3 /* MapKit.framework */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
 		1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
@@ -49,6 +56,17 @@
 		1F4C7DA31CCAECA300F11033 /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		1F4C7DA51CCAECCB00F11033 /* ArrayUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayUtilities.h; sourceTree = "<group>"; };
 		1F4C7DA61CCAECCB00F11033 /* ArrayUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayUtilities.m; sourceTree = "<group>"; };
+		1F676F5F1CCCA349003763F5 /* AppCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCustomButton.h; sourceTree = "<group>"; };
+		1F676F601CCCA349003763F5 /* AppCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCustomButton.m; sourceTree = "<group>"; };
+		1F7FF5F01CCCCD3B00EE14C3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1F7FF5F61CCCFA5D00EE14C3 /* OWMManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMManager.h; sourceTree = "<group>"; };
+		1F7FF5F71CCCFA5D00EE14C3 /* OWMManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMManager.m; sourceTree = "<group>"; };
+		1F7FF5FB1CCD11E700EE14C3 /* OWMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OWMObject.h; sourceTree = "<group>"; };
+		1F7FF5FC1CCD11E700EE14C3 /* OWMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OWMObject.m; sourceTree = "<group>"; };
+		1F7FF60B1CCD3A4300EE14C3 /* MapViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewer.swift; sourceTree = "<group>"; };
+		1F7FF6101CCD5F2A00EE14C3 /* WeatherCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCard.h; sourceTree = "<group>"; };
+		1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCard.m; sourceTree = "<group>"; };
+		1F7FF6131CCD63E900EE14C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
 		1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionViewCell.h; sourceTree = "<group>"; };
@@ -91,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7FF6141CCD63E900EE14C3 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +130,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F7FF5F31CCCD9E000EE14C3 /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				1F93C57D1CCAC3F1001EA941 /* CustomMenuButton.h */,
+				1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */,
+				1F676F5F1CCCA349003763F5 /* AppCustomButton.h */,
+				1F676F601CCCA349003763F5 /* AppCustomButton.m */,
+			);
+			name = UIButton;
+			sourceTree = "<group>";
+		};
+		1F7FF5F41CCCF66500EE14C3 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1F7FF5F51CCCFA3A00EE14C3 /* OpenWeatherMap */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		1F7FF5F51CCCFA3A00EE14C3 /* OpenWeatherMap */ = {
+			isa = PBXGroup;
+			children = (
+				1F7FF5FB1CCD11E700EE14C3 /* OWMObject.h */,
+				1F7FF5FC1CCD11E700EE14C3 /* OWMObject.m */,
+				1F7FF5F61CCCFA5D00EE14C3 /* OWMManager.h */,
+				1F7FF5F71CCCFA5D00EE14C3 /* OWMManager.m */,
+			);
+			name = OpenWeatherMap;
+			sourceTree = "<group>";
+		};
+		1F7FF5F91CCCFD7A00EE14C3 /* Topics */ = {
+			isa = PBXGroup;
+			children = (
+				1FBDFAE11CCA2A0900F73CDA /* Topic.h */,
+				1FBDFAE21CCA2A0900F73CDA /* Topic.m */,
+			);
+			name = Topics;
+			sourceTree = "<group>";
+		};
+		1F7FF5FA1CCD11B700EE14C3 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				1FBDFB101CCA735000F73CDA /* FBShimmering */,
+			);
+			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		1F7FF6041CCD221B00EE14C3 /* Viewers */ = {
+			isa = PBXGroup;
+			children = (
+				1FA94B7B1CCAE1CB0014B659 /* ImageViewer.swift */,
+				1F7FF60B1CCD3A4300EE14C3 /* MapViewer.swift */,
+			);
+			name = Viewers;
+			sourceTree = "<group>";
+		};
 		1FBDFA7B1CC97F3200F73CDA = {
 			isa = PBXGroup;
 			children = (
@@ -136,8 +211,9 @@
 			children = (
 				1FBDFA8A1CC97F3200F73CDA /* AppDelegate.h */,
 				1FBDFA8B1CC97F3200F73CDA /* AppDelegate.m */,
-				1FBDFB101CCA735000F73CDA /* FBShimmering */,
+				1F7FF5FA1CCD11B700EE14C3 /* Third Party */,
 				1FBDFAB91CC9858300F73CDA /* Helpers */,
+				1F7FF5F41CCCF66500EE14C3 /* API */,
 				1FBDFAB41CC97F3900F73CDA /* Views */,
 				1FBDFAB51CC97F3C00F73CDA /* View Controller */,
 				1FBDFA871CC97F3200F73CDA /* Supporting Files */,
@@ -155,6 +231,7 @@
 				1FBDFA881CC97F3200F73CDA /* main.m */,
 				1FBDFAD21CCA096A00F73CDA /* Marcel Voss-Bridging-Header.h */,
 				1FBDFA8D1CC97F3200F73CDA /* Assets.xcassets */,
+				1F7FF6131CCD63E900EE14C3 /* MapKit.framework */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -180,17 +257,17 @@
 		1FBDFAB41CC97F3900F73CDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1FBDFAE11CCA2A0900F73CDA /* Topic.h */,
-				1FBDFAE21CCA2A0900F73CDA /* Topic.m */,
-				1FA94B7B1CCAE1CB0014B659 /* ImageViewer.swift */,
+				1F7FF5F91CCCFD7A00EE14C3 /* Topics */,
+				1F7FF6041CCD221B00EE14C3 /* Viewers */,
+				1F7FF5F31CCCD9E000EE14C3 /* UIButton */,
+				1F7FF6101CCD5F2A00EE14C3 /* WeatherCard.h */,
+				1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */,
 				1FBDFAF31CCA46D200F73CDA /* InteractiveImageView.h */,
 				1FBDFAF41CCA46D200F73CDA /* InteractiveImageView.m */,
 				1F93C5701CCA8B8F001EA941 /* TopicLayout.h */,
 				1F93C5711CCA8B8F001EA941 /* TopicLayout.m */,
 				1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */,
 				1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */,
-				1F93C57D1CCAC3F1001EA941 /* CustomMenuButton.h */,
-				1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -207,6 +284,7 @@
 		1FBDFAB91CC9858300F73CDA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1F7FF5F01CCCCD3B00EE14C3 /* Constants.h */,
 				1FBDFABD1CC9859A00F73CDA /* UIColor+Colors.h */,
 				1FBDFABE1CC9859A00F73CDA /* UIColor+Colors.m */,
 				1F4C7DA51CCAECCB00F11033 /* ArrayUtilities.h */,
@@ -296,6 +374,11 @@
 					1FBDFA831CC97F3200F73CDA = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 2379EAXEPK;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					1FBDFA961CC97F3200F73CDA = {
 						CreatedOnToolsVersion = 7.3;
@@ -359,18 +442,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
 				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
 				1FBDFA8C1CC97F3200F73CDA /* AppDelegate.m in Sources */,
 				1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */,
+				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
 				1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */,
 				1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */,
 				1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */,
 				1FBDFAB81CC97F4F00F73CDA /* MainViewController.m in Sources */,
 				1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */,
+				1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */,
 				1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */,
 				1FBDFA891CC97F3200F73CDA /* main.m in Sources */,
 				1F4C7DA71CCAECCB00F11033 /* ArrayUtilities.m in Sources */,
+				1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */,
+				1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */,
 				1FBDFAF51CCA46D200F73CDA /* InteractiveImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7FF6051CCD32A900EE14C3 /* TopicCollectionViewCell.m in Sources */,
 				1FBDFA9C1CC97F3200F73CDA /* Marcel_VossTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +593,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Marcel Voss/Info.plist";
@@ -520,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Marcel Voss/Info.plist";

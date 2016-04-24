@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
-
 @interface AppDelegate ()
 
 @end
@@ -27,6 +26,24 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    // TODO: Finish URL schemes
+    if ([url.absoluteString isEqualToString:@"marcelvoss://about"]) {
+        //UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        //UIViewController *vc = window.rootViewController;
+        
+        
+    } else if ([url.absoluteString isEqualToString:@"marcelvoss://education"]) {
+        
+    } else if ([url.absoluteString isEqualToString:@"marcelvoss://projects"]) {
+        
+    } else if ([url.absoluteString isEqualToString:@"marcelvoss://skills"]) {
+        
+    }
     return YES;
 }
 
