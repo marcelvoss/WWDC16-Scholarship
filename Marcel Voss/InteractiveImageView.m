@@ -15,6 +15,10 @@
 #import "Marcel_Voss-Swift.h"
 
 @implementation InteractiveImageView
+{
+    NSInteger currentImageIndex;
+    NSTimer *timer;
+}
 
 #pragma mark - Initializers
 
@@ -24,6 +28,9 @@
     if (self) {
         self.userInteractionEnabled = YES;
         self.contentMode = UIViewContentModeScaleToFill;
+        
+        _slideTime = 8;
+        _fadeTime = 1;
         
         [self gestureForViewerType:_viewerType];
     }
@@ -40,17 +47,23 @@
     return self;
 }
 
-- (instancetype)initWithImage:(UIImage *)image annotation:(NSString *)annotation type:(ViewerType)viewerType
+- (instancetype)initWithImages:(NSArray *)imageArray type:(ViewerType)viewerType
 {
-    self = [super initWithImage:image];
+    TopicImage *firstImage = imageArray[0];
+    self = [super initWithImage:firstImage.topicImage];
     if (self) {
-        _annotationString = annotation;
-        _viewerType = viewerType;
+        
+        if (imageArray.count > 1) {
+            [self setupTimer];
+        }
+        
+        _viewerType = ViewerTypeImage;
+        _imageArray = imageArray;
         
         self.userInteractionEnabled = YES;
         self.contentMode = UIViewContentModeScaleToFill;
         
-        [self gestureForViewerType:viewerType];
+        [self gestureForViewerType:ViewerTypeImage];
     }
     return self;
 }
@@ -79,27 +92,59 @@
     }
 }
 
+- (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType
+{
+    TopicImage *firstImage = imageArray[0];
+    self.image = firstImage.topicImage;
+
+    
+    _imageArray = imageArray;
+    _viewerType = viewerType;
+    
+    if (imageArray.count > 1) {
+        [self setupTimer];
+    }
+}
+
 - (void)setViewerType:(ViewerType)viewerType
 {
     _viewerType = viewerType;
     [self gestureForViewerType:viewerType];
 }
 
-#pragma mark - Public
-
-- (void)setImage:(UIImage *)image annotation:(NSString *)annotation type:(ViewerType)viewerType
+- (void)fadeToNextImage
 {
-    self.image = image;
-    _annotationString = annotation;
-    _viewerType = viewerType;
+    // Increment image index
+    currentImageIndex++;
+    
+    // If last image in array reached, reset currentImageIndex back to 0
+    if ([_imageArray count] == currentImageIndex) {
+        currentImageIndex = 0;
+    }
+    
+    [UIView transitionWithView:self duration:_fadeTime options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        TopicImage *singleTopic = _imageArray[currentImageIndex];
+        self.image = singleTopic.topicImage;
+    } completion:NULL];
 }
+
+- (void)setupTimer
+{
+    if (timer == nil) {
+        timer = [NSTimer scheduledTimerWithTimeInterval:_slideTime target:self selector:@selector(fadeToNextImage) userInfo:nil repeats:YES];
+    }
+}
+
+#pragma mark - Public
 
 - (void)showImageViewer
 {
     ImageViewer *viewer = [[ImageViewer alloc] init];
     
-    if (_annotationString != nil) {
-        viewer.annotationLabel.text = self.annotationString;
+    // TODO: Add annotations
+    TopicImage *image = _imageArray[currentImageIndex];
+    if (image.topicAnnotation != nil) {
+        viewer.annotationLabel.text = image.topicAnnotation;
     }
     
     if (self.image != nil) {

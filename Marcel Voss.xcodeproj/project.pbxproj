@@ -16,6 +16,11 @@
 		1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF60B1CCD3A4300EE14C3 /* MapViewer.swift */; };
 		1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */; };
 		1F7FF6141CCD63E900EE14C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7FF6131CCD63E900EE14C3 /* MapKit.framework */; };
+		1F7FF6181CCE0F8500EE14C3 /* DistanceCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6171CCE0F8500EE14C3 /* DistanceCard.m */; };
+		1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF61A1CCE325600EE14C3 /* TopicImage.m */; };
+		1F7FF61F1CCE544700EE14C3 /* GenericCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF61E1CCE544700EE14C3 /* GenericCollectionViewCell.m */; };
+		1F7FF6221CCE544E00EE14C3 /* MapCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6211CCE544E00EE14C3 /* MapCollectionViewCell.m */; };
+		1F7FF6251CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
 		1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
@@ -67,6 +72,16 @@
 		1F7FF6101CCD5F2A00EE14C3 /* WeatherCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCard.h; sourceTree = "<group>"; };
 		1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCard.m; sourceTree = "<group>"; };
 		1F7FF6131CCD63E900EE14C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1F7FF6161CCE0F8500EE14C3 /* DistanceCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceCard.h; sourceTree = "<group>"; };
+		1F7FF6171CCE0F8500EE14C3 /* DistanceCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistanceCard.m; sourceTree = "<group>"; };
+		1F7FF6191CCE325600EE14C3 /* TopicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicImage.h; sourceTree = "<group>"; };
+		1F7FF61A1CCE325600EE14C3 /* TopicImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicImage.m; sourceTree = "<group>"; };
+		1F7FF61D1CCE544700EE14C3 /* GenericCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericCollectionViewCell.h; sourceTree = "<group>"; };
+		1F7FF61E1CCE544700EE14C3 /* GenericCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericCollectionViewCell.m; sourceTree = "<group>"; };
+		1F7FF6201CCE544E00EE14C3 /* MapCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapCollectionViewCell.h; sourceTree = "<group>"; };
+		1F7FF6211CCE544E00EE14C3 /* MapCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCollectionViewCell.m; sourceTree = "<group>"; };
+		1F7FF6231CCE5F5E00EE14C3 /* ProjectCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectCollectionViewCell.h; sourceTree = "<group>"; };
+		1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectCollectionViewCell.m; sourceTree = "<group>"; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
 		1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionViewCell.h; sourceTree = "<group>"; };
@@ -165,6 +180,8 @@
 			children = (
 				1FBDFAE11CCA2A0900F73CDA /* Topic.h */,
 				1FBDFAE21CCA2A0900F73CDA /* Topic.m */,
+				1F7FF6191CCE325600EE14C3 /* TopicImage.h */,
+				1F7FF61A1CCE325600EE14C3 /* TopicImage.m */,
 			);
 			name = Topics;
 			sourceTree = "<group>";
@@ -184,6 +201,32 @@
 				1F7FF60B1CCD3A4300EE14C3 /* MapViewer.swift */,
 			);
 			name = Viewers;
+			sourceTree = "<group>";
+		};
+		1F7FF6151CCE0F6200EE14C3 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				1F7FF6101CCD5F2A00EE14C3 /* WeatherCard.h */,
+				1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */,
+				1F7FF6161CCE0F8500EE14C3 /* DistanceCard.h */,
+				1F7FF6171CCE0F8500EE14C3 /* DistanceCard.m */,
+			);
+			name = Cards;
+			sourceTree = "<group>";
+		};
+		1F7FF61C1CCE543800EE14C3 /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */,
+				1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */,
+				1F7FF61D1CCE544700EE14C3 /* GenericCollectionViewCell.h */,
+				1F7FF61E1CCE544700EE14C3 /* GenericCollectionViewCell.m */,
+				1F7FF6201CCE544E00EE14C3 /* MapCollectionViewCell.h */,
+				1F7FF6211CCE544E00EE14C3 /* MapCollectionViewCell.m */,
+				1F7FF6231CCE5F5E00EE14C3 /* ProjectCollectionViewCell.h */,
+				1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */,
+			);
+			name = "Collection View Cells";
 			sourceTree = "<group>";
 		};
 		1FBDFA7B1CC97F3200F73CDA = {
@@ -257,17 +300,15 @@
 		1FBDFAB41CC97F3900F73CDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F7FF6151CCE0F6200EE14C3 /* Cards */,
 				1F7FF5F91CCCFD7A00EE14C3 /* Topics */,
 				1F7FF6041CCD221B00EE14C3 /* Viewers */,
 				1F7FF5F31CCCD9E000EE14C3 /* UIButton */,
-				1F7FF6101CCD5F2A00EE14C3 /* WeatherCard.h */,
-				1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */,
 				1FBDFAF31CCA46D200F73CDA /* InteractiveImageView.h */,
 				1FBDFAF41CCA46D200F73CDA /* InteractiveImageView.m */,
 				1F93C5701CCA8B8F001EA941 /* TopicLayout.h */,
 				1F93C5711CCA8B8F001EA941 /* TopicLayout.m */,
-				1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */,
-				1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */,
+				1F7FF61C1CCE543800EE14C3 /* Collection View Cells */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -443,9 +484,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
+				1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */,
 				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
 				1FBDFA8C1CC97F3200F73CDA /* AppDelegate.m in Sources */,
+				1F7FF6221CCE544E00EE14C3 /* MapCollectionViewCell.m in Sources */,
 				1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */,
 				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
 				1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */,
@@ -456,7 +499,10 @@
 				1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */,
 				1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */,
 				1FBDFA891CC97F3200F73CDA /* main.m in Sources */,
+				1F7FF6251CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m in Sources */,
+				1F7FF61F1CCE544700EE14C3 /* GenericCollectionViewCell.m in Sources */,
 				1F4C7DA71CCAECCB00F11033 /* ArrayUtilities.m in Sources */,
+				1F7FF6181CCE0F8500EE14C3 /* DistanceCard.m in Sources */,
 				1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */,
 				1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */,
 				1FBDFAF51CCA46D200F73CDA /* InteractiveImageView.m in Sources */,

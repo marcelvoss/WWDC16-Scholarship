@@ -13,8 +13,7 @@
 - (instancetype)initWithTitle:(NSString *)topicTitle
                      subtitle:(NSString *)topicSubtitle
                          text:(NSString *)topicText
-                        image:(UIImage *)topicImage
-                   annotation:(NSString *)annotationString
+                       images:(NSArray *)imagesArray
                        option:(Options)topicOption
 {
     self = [super init];
@@ -22,9 +21,8 @@
         _topicTitle = topicTitle;
         _topicText = topicText;
         _topicOption = topicOption;
-        _topicImage = topicImage;
+        _images = imagesArray;
         _topicSubtitle = topicSubtitle;
-        _annotation = annotationString;
     }
     return self;
 }

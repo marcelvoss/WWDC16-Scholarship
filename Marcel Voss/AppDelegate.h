@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic) MKMapView *theMapView;
+@property (nonatomic) UIImage *mapShot;
 
 
 @end

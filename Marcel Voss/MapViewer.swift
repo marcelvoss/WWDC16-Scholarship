@@ -25,6 +25,8 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     var cardView1 : UIView?
     var cardView2 : UIView?
     
+    let locationLabel = UILabel()
+    
     init() {
         super.init(frame: UIScreen.mainScreen().bounds)
         aWindow = UIApplication.sharedApplication().keyWindow!
@@ -56,6 +58,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.startUpdatingLocation()
     }
@@ -73,10 +76,13 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
             self.effectView.effect = nil
             self.closeButton.alpha = 0
         }) { (finished) -> Void in
-            self.mapView!.delegate = nil;
             self.scrollView = nil
-            self.mapView!.removeFromSuperview();
+            self.mapView!.mapType = .Standard
+            self.mapView!.delegate = nil;
+            self.mapView!.removeFromSuperview()
             self.mapView = nil;
+            
+            
             self.locationManager?.delegate = nil
             self.locationManager = nil
             
@@ -148,7 +154,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         
         let canvasPageView = UIView()
-        canvasPageView.backgroundColor = UIColor.clearColor()
+        canvasPageView.backgroundColor = UIColor.purpleColor()
         canvasPageView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(canvasPageView)
         
@@ -163,13 +169,16 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         self.addConstraint(NSLayoutConstraint(item: canvasPageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1.0, constant: dis))
         
 
+        self.layoutIfNeeded()
         
         
+        // TODO: page control doesn't show up?!
         // Page Control
         pageControl = UIPageControl()
         pageControl?.addTarget(self, action: #selector(self.changePage), forControlEvents: UIControlEvents.ValueChanged)
         pageControl?.currentPage = 0
         pageControl?.numberOfPages = 3
+        pageControl?.backgroundColor = UIColor.redColor()
         pageControl?.tintColor = UIColor.whiteColor()
         pageControl?.translatesAutoresizingMaskIntoConstraints = false
         canvasPageView.addSubview(pageControl!)
@@ -179,6 +188,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         canvasPageView.addConstraint(NSLayoutConstraint(item: pageControl!, attribute: .CenterY, relatedBy: .Equal, toItem: canvasPageView, attribute: .CenterY, multiplier: 1.0, constant: 0))
         
         
+        self.layoutIfNeeded()
         
         
         self .setupCards()
@@ -267,17 +277,24 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
-        let userLocation = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
-        print(userLocation)
-        
-        print("Test")
+        // TODO: Move this to either a seperate view or create the labels before
         
         locationManager?.stopUpdatingLocation()
         
-        // TODO: Move this to either a seperate view or create the labels before
+    
+        // Retrieve location name for coordinates
+        let reverseGeoCoder = CLGeocoder()
+        reverseGeoCoder.reverseGeocodeLocation(newLocation) { (placemarks, error) in
+            if (error != nil) {
+                print("reverse geodcode fail: \(error!.localizedDescription)")
+            } else {
+                self.displayLocationInformation(placemarks![0])
+            }
+        }
         
-        let locationLabel = UILabel()
-        locationLabel.text = "You're in Cupertino, CA" // TODO: Add logic for finding place name with code
+        // TODO: Placemark also supports timezone; use for time difference card
+
+        
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         cardView1?.addSubview(locationLabel)
         
@@ -298,6 +315,10 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
         
         scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 10))
+    }
+    
+    func displayLocationInformation(placemark: CLPlacemark?) {
+        locationLabel.text = String(format: "You're in %@, %@", (placemark?.locality)!, (placemark?.administrativeArea)!)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {

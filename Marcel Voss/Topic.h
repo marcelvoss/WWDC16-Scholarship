@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+#import "TopicImage.h"
+
 typedef NS_ENUM(NSInteger, Options) {
     OptionsMap,
     OptionsGeneric,
@@ -23,10 +25,9 @@ typedef NS_ENUM(NSInteger, Options) {
 @property (nonatomic) NSString *topicTitle;
 @property (nonatomic) NSString *topicSubtitle;
 @property (nonatomic) NSString *topicText;
-@property (nonatomic) UIImage *topicImage;
 @property (nonatomic) Options topicOption;
 @property (nonatomic) NSURL *topicURL;
-@property (nonatomic) NSString *annotation;
+@property (nonatomic) NSArray *images; // An array of TopicImage objects
 
 @property (nonatomic) MKCoordinateRegion *locationRegion;
 
@@ -35,8 +36,7 @@ typedef NS_ENUM(NSInteger, Options) {
 - (instancetype)initWithTitle:(NSString *)topicTitle
                      subtitle:(NSString *)topicSubtitle
                          text:(NSString *)topicText
-                        image:(UIImage *)topicImage
-                   annotation:(NSString *)annotationString
+                       images:(NSArray *)imagesArray
                        option:(Options)topicOption;
 
 @end

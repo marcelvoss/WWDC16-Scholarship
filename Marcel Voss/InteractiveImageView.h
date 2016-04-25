@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TopicImage.h"
 
 typedef NS_ENUM(NSInteger, ViewerType) {
     ViewerTypeMap,
@@ -15,10 +16,12 @@ typedef NS_ENUM(NSInteger, ViewerType) {
 
 @interface InteractiveImageView : UIImageView <UIGestureRecognizerDelegate>
 
-@property (nonatomic) NSString *annotationString;
+@property (nonatomic) NSArray *imageArray; // TODO: implement
 @property (nonatomic) ViewerType viewerType;
+@property (nonatomic) CGFloat slideTime; // Time in seconds for each image in imageArray
+@property (nonatomic) CGFloat fadeTime; // Time in seconds for each image in imageArray
 
-- (instancetype)initWithImage:(UIImage *)image annotation:(NSString *)annotation type:(ViewerType)viewerType;
-- (void)setImage:(UIImage *)image annotation:(NSString *)annotation type:(ViewerType)viewerType;
+- (instancetype)initWithImages:(NSArray *)imageArray type:(ViewerType)viewerType;
+- (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType;
 
 @end

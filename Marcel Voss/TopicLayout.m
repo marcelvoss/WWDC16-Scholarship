@@ -45,7 +45,8 @@
     return self;
 }
 
-- (CGFloat)cardWidth {
+- (CGFloat)cardWidth
+{
     return self.itemSize.width + self.minimumLineSpacing;
 }
 
@@ -70,7 +71,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
-                       context:(void *)context {
+                       context:(void *)context
+{
     
     if ([keyPath isEqualToString:@"collectionView.contentOffset"]) {
         NSInteger newIndex = round(self.collectionView.contentOffset.x / [self cardWidth]);

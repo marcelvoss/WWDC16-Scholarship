@@ -13,6 +13,9 @@
 #import "FBShimmeringView.h"
 
 #import "TopicCollectionViewCell.h"
+#import "GenericCollectionViewCell.h"
+#import "MapCollectionViewCell.h"
+
 #import "CustomMenuButton.h"
 #import "WeatherCard.h"
 
@@ -159,7 +162,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:welcomeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
     
-    avatarImageView = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple." type:ViewerTypeImage];
+    TopicImage *avatarImage = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple."];
+    avatarImageView = [[InteractiveImageView alloc] initWithImages:@[avatarImage] type:ViewerTypeImage];
     avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     avatarImageView.layer.borderWidth = 2.0;
     avatarImageView.layer.masksToBounds = YES;
@@ -343,6 +347,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     } completion:NULL];
 }
 
+// TODO: Code optimieren
 - (void)handlePan:(UIPanGestureRecognizer *)gesture
 {
     typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
@@ -499,6 +504,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         
     } completion:^(BOOL finished) {
         scrollView.scrollEnabled = YES;
+        menuCollectionView = nil;
         [menuCollectionView removeFromSuperview];
         [visualEffectViewBlurred2 removeFromSuperview];
         _topicsArray = nil;
@@ -539,30 +545,46 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     switch (menuTopic) {
         case MenuTopicAbout:
         {
+            // TODO: Finish this and check for spelling and grammar
             Topic *a = [[Topic alloc] initWithTitle:@"Beginning of a Journey"
                                            subtitle:@""
-                                               text:@"I grew up in the small town of Heide in northern Germany.\n\nFrom early on I was fascinated by technology."
-                                              image:[UIImage imageNamed:@""]
-                                         annotation:@""
+                                               text:@"I grew up in the small town of Heide in northern Germany.\n\nFrom early on I was fascinated by technology and wanted to understand how software and hardware work. This was intensed when I bought my first iPod touch back in 2009. This new ecosystem"
+                                             images:nil
                                              option:OptionsMap];
             
             
-            
+            TopicImage *bImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHackt"] annotation:@""];
+            TopicImage *bImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHacktGroup"] annotation:@"\"Jugend hackt\" (German for \"Youth's hacking\") was one of the first hackathons in Germany, which is why there weren't that many people. It was fun, though."];
+            TopicImage *bImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHacktStage"] annotation:@"sfa"];
             Topic *b = [[Topic alloc] initWithTitle:@"Jugend hackt"
                                            subtitle:@""
-                                               text:@""
-                                              image:[UIImage imageNamed:@"JugendHackt"]
-                                         annotation:@"hgui"
+                                               text:@"In 2013, just one year after I started learning Objective-C, I participated in my first hackathon which was \"Jugend hackt\" in Berlin.\n\nWe built a small app with a corresponding web service, called \"Kleiderfrosch\", that recommended you what kind of clothes to wear for the whole day – based on the weather forecast.\n\nThe jury really liked our idea and awarded us in the category \"I Wish I'd Thought of That\"\n\nIt was a great experience that showed me I'm not the only teenager who is interested in software development.\n\nUnfortunately, hackathons still aren't as popular in Germany as they are in the USA."
+                                             images:@[bImage1, bImage2, bImage3]
                                              option:OptionsGeneric];
             
-            Topic *c = [[Topic alloc] initWithTitle:@"WWDC 2015"
+            
+            TopicImage *cImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"EscalatorWWDC"] annotation:@"The moment everyone waited for: the opening keynote. What a feeling to be there!"];
+            TopicImage *cImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"VenueWWDC"] annotation:@"When I saw those banners on the other building I started realizing I'm in San Francisco for WWDC. I couldn't believe it until then."];
+            TopicImage *cImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FriendsWWDC"] annotation:@"On Sunday, at registration, I met a couple of other scholars and eventual friends."];
+            TopicImage *cImage4 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"DoorsWWDC"] annotation:@"Doors"];
+            TopicImage *cImage5 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FirstEveningWWDC"] annotation:@"On the first day in San Francisco, a couple of friends and I enjoyed ourselves. We had a great time!"];
+             Topic *c = [[Topic alloc] initWithTitle:@"WWDC 2015"
+                                            subtitle:@""
+                                                text:@"Last year, I took part in Apple's WWDC scholarship challenge. Luckily, I won a ticket and was able to attended the conference.\n\nSeriously, it was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a load of new stuff.\n\nFinally visiting the actual conference after streaming it for years still gives me goosebumps."
+                                              images:@[cImage1, cImage2, cImage3, cImage4, cImage5]
+                                              option:OptionsGeneric];
+            
+
+            
+            /*Topic *c = [[Topic alloc] initWithTitle:@"WWDC 2015"
                                            subtitle:@""
-                                               text:@"Last year, I participated for the first time in Apple's scholarship challenge. Luckily, I won a ticket and attended the conference.\n\nIt was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a ton of new stuff.\n\nFinally visiting the actual conference after streaming it for years still gives me goosebumps."
+                                               text:@"Last year, I took part in Apple's WWDC scholarship challenge. Luckily, I won a ticket and was able to attended the conference.\n\nSeriously, it was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a load of new stuff.\n\nFinally visiting the actual conference after streaming it for years still gives me goosebumps."
                                               image:[UIImage imageNamed:@"FriendsWWDC"]
                                          annotation:@""
-                                             option:OptionsGeneric];
+                                             option:OptionsGeneric];*/
             
             
+            /*
             Topic *d = [[Topic alloc] initWithTitle:@""
                                            subtitle:@"" text:@""
                                               image:[UIImage imageNamed:@"JugendHackt"]
@@ -574,13 +596,14 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                                text:@""
                                               image:[UIImage imageNamed:@""]
                                          annotation:@""
-                                             option:0];
+                                             option:0];*/
             
-            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
+            [_topicsArray addObjectsFromArray:@[a, b, c]];
         }
             break;
         case MenuTopicEducation:
         {
+            /*
             Topic *a = [[Topic alloc] initWithTitle:@""
                                            subtitle:@""
                                                text:@""
@@ -617,10 +640,12 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                              option:0];
             
             [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
+             */
         }
             break;
         case MenuTopicProjects:
         {
+            /*
             // TODO: UI is very ugly
             Topic *a = [[Topic alloc] initWithTitle:@"PhoneBattery"
                                            subtitle:@"Your phone's battery, on your wrist"
@@ -647,17 +672,19 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             Topic *e = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             
             [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
+             */
         }
             break;
         case MenuTopicSkills:
         {
+            /*
             Topic *a = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             Topic *b = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             Topic *c = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             Topic *d = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             Topic *e = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
             
-            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];*/
         }
             break;
     }
@@ -685,7 +712,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     menuCollectionView.showsHorizontalScrollIndicator = NO;
     [backgroundImageView addSubview:menuCollectionView];
     
-    [menuCollectionView registerClass:[TopicCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [menuCollectionView registerClass:[GenericCollectionViewCell class] forCellWithReuseIdentifier:@"CellGeneric"];
+    [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
     
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
@@ -729,25 +757,31 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    // TODO: refactor cardsArray name
     return [_topicsArray count];
 }
 
-- (TopicCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    TopicCollectionViewCell *cell = [collectionView
-                                        dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    GenericCollectionViewCell *cellGeneric = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellGeneric" forIndexPath:indexPath];
+    MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap" forIndexPath:indexPath];
     
-    cell.topic = _topicsArray[indexPath.row];
+    Topic *topic = _topicsArray[indexPath.row];
     
-    return cell;
+    if (topic.topicOption == OptionsGeneric) {
+        cellGeneric.topic = _topicsArray[indexPath.row];
+        return cellGeneric;
+    } else if (topic.topicOption == OptionsMap) {
+        cellMap.topic = _topicsArray[indexPath.row];
+        return cellMap;
+    } else {
+        return nil;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }
-
 
 #pragma mark - Pure Animation
 

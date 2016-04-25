@@ -10,6 +10,8 @@ import UIKit
 
 class ImageViewer: UIView, UIGestureRecognizerDelegate {
     
+    // TODO: add a button or something that opens a website related to the photo
+    
     var foregroundImageView : UIImageView?
     var aWindow : UIWindow?
     var effectView = UIVisualEffectView()
@@ -36,6 +38,8 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         self.foregroundImageView = UIImageView()
         self.foregroundImageView?.image = foregroundImage
         self.setupViews()
+        
+        // TODO: Add pan gesture to dismiss
         
         if ((annotationLabel.text) != nil) {
             
