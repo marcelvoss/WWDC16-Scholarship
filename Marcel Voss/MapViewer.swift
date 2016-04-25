@@ -20,7 +20,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     
     var locationManager : CLLocationManager?
     var scrollView : UIScrollView?
-    var pageControl : UIPageControl?
+    var pageControl = UIPageControl()
     
     var cardView1 : UIView?
     var cardView2 : UIView?
@@ -154,7 +154,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         
         let canvasPageView = UIView()
-        canvasPageView.backgroundColor = UIColor.purpleColor()
+        canvasPageView.backgroundColor = UIColor.clearColor()
         canvasPageView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(canvasPageView)
         
@@ -174,35 +174,32 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         // TODO: page control doesn't show up?!
         // Page Control
-        pageControl = UIPageControl()
-        pageControl?.addTarget(self, action: #selector(self.changePage), forControlEvents: UIControlEvents.ValueChanged)
-        pageControl?.currentPage = 0
-        pageControl?.numberOfPages = 3
-        pageControl?.backgroundColor = UIColor.redColor()
-        pageControl?.tintColor = UIColor.whiteColor()
-        pageControl?.translatesAutoresizingMaskIntoConstraints = false
-        canvasPageView.addSubview(pageControl!)
+        pageControl.addTarget(self, action: #selector(self.changePage), forControlEvents: UIControlEvents.ValueChanged)
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = 3
+        pageControl.backgroundColor = UIColor.clearColor()
+        pageControl.tintColor = UIColor.whiteColor()
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        canvasPageView.addSubview(pageControl)
         
-        canvasPageView.addConstraint(NSLayoutConstraint(item: pageControl!, attribute: .CenterX, relatedBy: .Equal, toItem: canvasPageView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        canvasPageView.addConstraint(NSLayoutConstraint(item: pageControl, attribute: .CenterX, relatedBy: .Equal, toItem: canvasPageView, attribute: .CenterX, multiplier: 1.0, constant: 0))
         
-        canvasPageView.addConstraint(NSLayoutConstraint(item: pageControl!, attribute: .CenterY, relatedBy: .Equal, toItem: canvasPageView, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        canvasPageView.addConstraint(NSLayoutConstraint(item: pageControl, attribute: .Top, relatedBy: .Equal, toItem: canvasPageView, attribute: .Top, multiplier: 1.0, constant: 0))
         
         
         self.layoutIfNeeded()
-        
-        
         self .setupCards()
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-        pageControl?.currentPage = Int(pageNumber)
+        pageControl.currentPage = Int(pageNumber)
         
     }
     
     func changePage() {
-        let x = CGFloat(pageControl!.currentPage) * scrollView!.frame.size.width
+        let x = CGFloat(pageControl.currentPage) * scrollView!.frame.size.width
         scrollView!.setContentOffset(CGPointMake(x, 0), animated: true)
     }
     
@@ -255,6 +252,10 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .Width, relatedBy: .Equal, toItem: scrollView, attribute: .Width, multiplier: 1.0, constant: -20))
         
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
+        
+        
+
+        
         
         
         self.layoutIfNeeded()

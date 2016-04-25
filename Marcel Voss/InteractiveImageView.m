@@ -29,7 +29,7 @@
         self.userInteractionEnabled = YES;
         self.contentMode = UIViewContentModeScaleToFill;
         
-        _slideTime = 8;
+        _slideTime = 5;
         _fadeTime = 1;
         
         [self gestureForViewerType:_viewerType];

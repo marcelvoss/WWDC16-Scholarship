@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "OWMManager.h"
+@class OWMObject;
 
 @interface WeatherCard : UIView
+
+@property (nonatomic) OWMObject *weatherObject;
+
+- (OWMObject *)fetchWeather;
 
 @end
