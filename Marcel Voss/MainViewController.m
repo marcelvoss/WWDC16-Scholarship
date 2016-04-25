@@ -621,31 +621,31 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         case MenuTopicEducation:
         {
             TopicImage *aImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"SchoolPhoto"]
-                                                         annotation:@"That is my high school. Not the prettiest one but I had a couple of good years here."];
+                                                         annotation:@"That is my high school. It's not the prettiest one but I had a couple of good years here."];
             Topic *a = [[Topic alloc] initWithTitle:@"High School"
                                            subtitle:nil
-                                               text:@"At the moment, I am a grade 11 student at the \"Gymnasium Heide-Ost\". It's a high school with about 1500 students. Next summer, I will, hopefully, finish high school and pass the secondary school exams.\n\n"
+                                               text:@"At the moment, I am a grade 11 student at the \"Gymnasium Heide-Ost\". It's a high school with about 1500 students. Next summer, I will, hopefully, finish high school and pass the secondary school exams.\n\nIn school I'm very interested in English, Biology and History.\n\nUnfortunately, there aren't any \"real\" CS classes. I put that in quotes, because the classes basically consist of copying Java code from the Internet into Eclipse or they are about the correct usage of word processors."
                                              images:@[aImage1]
                                              option:OptionsGeneric];
             
             
-            TopicImage *bImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"SchoolPhoto"]
-                                                         annotation:@"That is my high school. Not the prettiest one but I had a couple of good years here."];
+            TopicImage *bImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"CollegeStanford"]
+                                                         annotation:@"Studying in Silicon Valley would be obviously awesome."];
             Topic *b = [[Topic alloc] initWithTitle:@"Studying or Working?"
                                            subtitle:nil
                                                text:@"Well, there are two things that I would like to do after finishing high school: either studying computer science at a college (preferable an American one) or immediately working as an iOS developer.\n\nStudying is interesting because education and knowledge are two of the most important resources we, as human race, have. More education is great but studying is very theoretically.\n\nI also want to make or create something. That's why I also want to work."
                                              images:@[bImage1]
                                              option:OptionsGeneric];
             
-            TopicImage *cImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"SchoolPhoto"]
-                                                         annotation:@"That is my high school. Not the prettiest one but I had a couple of good years here."];
-            Topic *c = [[Topic alloc] initWithTitle:@"" subtitle:nil text:@"" images:@[cImage1] option:OptionsGeneric];
-            
-            TopicImage *dImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"SchoolPhoto"] annotation:@"That is my high school. Not the prettiest one but I had a couple of good years here."];
-            Topic *d = [[Topic alloc] initWithTitle:@"" subtitle:nil text:@"" images:@[dImage1] option:OptionsGeneric];
-            
+            TopicImage *cImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"NewspaperPhoto"]
+                                                         annotation:@"Yep, the local newspaper took a couple of photo, too."];
+            Topic *c = [[Topic alloc] initWithTitle:@"Volunteer Engagement"
+                                           subtitle:nil
+                                               text:@"Helping young people and minority groups is an important task, in my opinion.\n\nFor example I am volunteering in a program that teaches Syrian refugees fundamental German skills.\n\nLast year, the principal and I also organized a course for boys and girls to teach them the basics of writing code and making them interested in continuing on their own. It was quite successful which shows that there aren't enough, free, coding courses for kids."
+                                             images:@[cImage1]
+                                             option:OptionsGeneric];
 
-            [_topicsArray addObjectsFromArray:@[a, b, c, d]];
+            [_topicsArray addObjectsFromArray:@[a, b, c]];
         }
             break;
         case MenuTopicProjects:

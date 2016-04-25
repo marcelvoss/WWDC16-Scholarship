@@ -21,6 +21,7 @@
 		1F7FF61F1CCE544700EE14C3 /* GenericCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF61E1CCE544700EE14C3 /* GenericCollectionViewCell.m */; };
 		1F7FF6221CCE544E00EE14C3 /* MapCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6211CCE544E00EE14C3 /* MapCollectionViewCell.m */; };
 		1F7FF6251CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */; };
+		1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
 		1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
@@ -82,6 +83,8 @@
 		1F7FF6211CCE544E00EE14C3 /* MapCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCollectionViewCell.m; sourceTree = "<group>"; };
 		1F7FF6231CCE5F5E00EE14C3 /* ProjectCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectCollectionViewCell.h; sourceTree = "<group>"; };
 		1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectCollectionViewCell.m; sourceTree = "<group>"; };
+		1F7FF6261CCEB07C00EE14C3 /* TopicApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicApp.h; sourceTree = "<group>"; };
+		1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicApp.m; sourceTree = "<group>"; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
 		1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionViewCell.h; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				1FBDFAE21CCA2A0900F73CDA /* Topic.m */,
 				1F7FF6191CCE325600EE14C3 /* TopicImage.h */,
 				1F7FF61A1CCE325600EE14C3 /* TopicImage.m */,
+				1F7FF6261CCEB07C00EE14C3 /* TopicApp.h */,
+				1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */,
 			);
 			name = Topics;
 			sourceTree = "<group>";
@@ -496,6 +501,7 @@
 				1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */,
 				1FBDFAB81CC97F4F00F73CDA /* MainViewController.m in Sources */,
 				1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */,
+				1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */,
 				1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */,
 				1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */,
 				1FBDFA891CC97F3200F73CDA /* main.m in Sources */,
