@@ -12,51 +12,56 @@
 #import "OWMObject.h"
 #import "Constants.h"
 
+#define WEATHER_RAIN 🌧
+#define WEATHER_RAIN_SUN 🌦
+#define WEATHER_CLEAR ☀️
+#define WEATHER_SUN 🌤
+#define WEATHER_SNOW 🌨
+#define WEATHER_CLOUD ☁️
+
 @implementation WeatherCard
 {
     UILabel *weatherLabel;
+    
+    UILabel *minLabel;
+    UILabel *maxLabel;
 }
 
-- (instancetype)init
+- (instancetype)initWithLocation:(CLLocation *)location
 {
     self = [super init];
     if (self) {
-        // FIXME: Crashes when used
+        // TODO: Finish card and add better description
         
-        
-        /*
-        [self fetchWeather];
-        
+        // TODO: Add metric and imperial system
         
         weatherLabel = [[UILabel alloc] init];
         weatherLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        weatherLabel.text = [_weatherObject.mainTemperature stringValue];
         [self addSubview:weatherLabel];
-         */
         
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self layoutIfNeeded];
+        
+        CLLocationCoordinate2D tempCoordinate = CLLocationCoordinate2DMake(location.coordinate.latitude,
+                                                                           location.coordinate.longitude);
+        
+        OWMManager *manager = [OWMManager sharedManager];
+        [manager retrieveForecastForCoordinates:tempCoordinate success:^(OWMObject *weatherObject, NSHTTPURLResponse *response) {
+            
+            self.weatherObject = weatherObject;
+            weatherLabel.text = [weatherObject.mainTemperature stringValue];
+            
+            
+        } failure:^(NSError *error, NSHTTPURLResponse *response) {
+            
+        }];
         
     }
     return self;
 }
-
-- (OWMObject *)fetchWeather
-{
-    CLLocationCoordinate2D heideCoordinate = CLLocationCoordinate2DMake(HEIDE_LATITUDE, HEIDE_LONGTITUDE);
-    
-    
-    OWMManager *manager = [OWMManager sharedManager];
-    [manager retrieveForecastForCoordinates:heideCoordinate success:^(OWMObject *weatherObject, NSHTTPURLResponse *response) {
-        
-        self.weatherObject = weatherObject;
-        
-    } failure:^(NSError *error, NSHTTPURLResponse *response) {
-        
-    }];
-    
-    return self.weatherObject;
-}
-
 
 
 @end

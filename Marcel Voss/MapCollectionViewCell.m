@@ -14,7 +14,6 @@
 #import "AppDelegate.h"
 
 #import "Constants.h"
-#import <MapKit/MapKit.h>
 
 @interface MapCollectionViewCell ()
 {
@@ -105,47 +104,6 @@
     
     headlineLabel.text = _topic.topicTitle;
     textLabel.text = _topic.topicText;
-    
-    
-    if (self.mapShot == nil) {
-        headlineYConstraint.constant = - 75;
-        [self layoutIfNeeded];
-        
-        MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
-        options.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(HEIDE_LATITUDE, HEIDE_LONGTITUDE), MKCoordinateSpanMake(0.05, 0.05));
-        options.size = CGSizeMake(self.frame.size.width, 150);
-        options.scale = [[UIScreen mainScreen] scale];
-        
-        MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
-        [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
-            if (error) {
-                
-                // TODO: Add logic for better error instead of alert -> icon or something
-                
-                
-                return;
-            } else {
-                self.mapShot = snapshot.image;
-                headerImageView.alpha = 0;
-                
-                headlineYConstraint.constant = -5;
-                [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    TopicImage *topicImage = [[TopicImage alloc] initWithImage:self.mapShot annotation:nil];
-                    [headerImageView setImages:@[topicImage] type:ViewerTypeMap];
-                    headerImageView.alpha = 1;
-                    [self layoutIfNeeded];
-                } completion:^(BOOL finished) {
-                    
-                }];
-            }
-        }];
-    } else {
-        headlineYConstraint.constant = -5;
-        [self layoutIfNeeded];
-        
-        TopicImage *topicImage = [[TopicImage alloc] initWithImage:self.mapShot annotation:nil];
-        [headerImageView setImages:@[topicImage] type:ViewerTypeMap];
-    }
     
     
 }

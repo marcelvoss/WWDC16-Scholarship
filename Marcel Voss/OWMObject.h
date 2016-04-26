@@ -9,7 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-@interface OWMObject : NSObject
+#import "MVModel.h"
+
+typedef NS_ENUM(NSInteger, WeatherCondition) {
+    WeatherConditionSnow,
+    WeatherConditionClear,
+    WeatherConditionClouds,
+    WeatherConditionWind,
+    WeatherConditionFog,
+    WeatherConditionThunderstorm
+};
+
+@interface OWMObject : MVModel
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic) NSString *cityName;
@@ -27,6 +38,7 @@
 @property (nonatomic) NSNumber *mainPressure;
 @property (nonatomic) NSNumber *temperatureMin;
 @property (nonatomic) NSNumber *temperatureMax;
+@property (nonatomic) WeatherCondition condition;
 
 @property (nonatomic) NSNumber *windSpeed; // Metric: meter/sec; Imperial: miles/hour
 @property (nonatomic) NSNumber *windDirections; // in degrees

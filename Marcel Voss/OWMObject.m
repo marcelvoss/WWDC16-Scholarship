@@ -14,12 +14,14 @@
 {
     self = [super init];
     if (self) {
-        NSDictionary *weather = dictionary[@"weather"];
-        NSDictionary *wind = dictionary[@"wind"];
-        NSDictionary *sys = dictionary[@"sys"];
-        NSDictionary *main = dictionary[@"main"];
-        NSDictionary *coordinates = dictionary[@"coord"];
-        NSDictionary *clouds = dictionary[@"clouds"];
+        // FIXME: Fix crashes
+        
+        NSDictionary *weather = [self objectForKeyOrNil:dictionary[@"weather"]];
+        NSDictionary *wind = [self objectForKeyOrNil:dictionary[@"wind"]];
+        NSDictionary *sys = [self objectForKeyOrNil:dictionary[@"sys"]];
+        NSDictionary *main = [self objectForKeyOrNil:dictionary[@"main"]];
+        NSDictionary *coordinates = [self objectForKeyOrNil:dictionary[@"coord"]];
+        NSDictionary *clouds = [self objectForKeyOrNil:dictionary[@"clouds"]];
         
         
         NSNumber *longtitude = coordinates[@"lat"];
@@ -28,27 +30,32 @@
         CLLocationDegrees longtitudeDegrees = [longtitude floatValue];
         CLLocationDegrees latitudeDegrees = [latitude floatValue];
         
-        _coordinate = CLLocationCoordinate2DMake(latitudeDegrees, longtitudeDegrees);
         
-        _cityName = dictionary[@"name"];
-        _weatherDescription = weather[@"description"];
-        _countryCode = sys[@"country"];
-        _weatherID = weather[@"id"];
-        _weatherMain = weather[@"main"];
-        _message = sys[@"message"];
+        //_coordinate = CLLocationCoordinate2DMake(latitudeDegrees, longtitudeDegrees);
         
-        _sunriseTime = sys[@"sunrise"];
-        _sunsetTime = sys[@"sunset"];
-        _cityID = dictionary[@"id"];
-        _cloudiness = clouds[@"all"];
+        //_cityName = dictionary[@"name"];
+        //_weatherDescription = weather[@"description"];
+        //_countryCode = sys[@"country"];
+        //_weatherID = weather[@"id"];
+        //_weatherMain = [self objectForKeyOrNil:weather[@"main"]];
+        //NSLog(@"%@", _weatherMain);
+        //_message = sys[@"message"];
         
-        _humidity = main[@"humidity"];
-        _mainTemperature = main[@"temp"];
-        _temperatureMin = main[@"temp_min"];
-        _temperatureMax = main[@"temp_max"];
+        //_sunriseTime = sys[@"sunrise"];
+        //_sunsetTime = sys[@"sunset"];
+        //_cityID = dictionary[@"id"];
+        _cloudiness = [self objectForKeyOrNil:clouds[@"all"]];
         
+        //_humidity = main[@"humidity"];*/
+        _mainTemperature = [self objectForKeyOrNil:main[@"temp"]];
+        NSLog(@"%@", _mainTemperature);
+        
+        _temperatureMin = [self objectForKeyOrNil:main[@"temp_min"]];
+        _temperatureMax = [self objectForKeyOrNil:main[@"temp_max"]];
+        
+         /*
         _windSpeed = wind[@"deg"];
-        _windDirections = wind[@"speed"];
+        _windDirections = wind[@"speed"];*/
     }
     return self;
 }

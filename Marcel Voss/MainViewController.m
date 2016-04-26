@@ -11,6 +11,7 @@
 #import "InteractiveImageView.h"
 
 #import "FBShimmeringView.h"
+#import "Constants.h"
 
 #import "TopicCollectionViewCell.h"
 #import "GenericCollectionViewCell.h"
@@ -38,8 +39,10 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     CGFloat width;
     CGFloat height;
     
-    UIImageView *backgroundImageView;
+    UIImage *mapShot;
     
+    UIImageView *backgroundImageView;
+    BOOL firstScrollDown;
     
     UILabel *nameLabel;
     UILabel *welcomeLabel;
@@ -255,7 +258,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     aboutButton.gradientImage = [UIImage imageNamed:@"WWDCEntrance"];
     aboutButton.mainLabel.text = @"About Me";
     [aboutButton addTarget:self action:@selector(aboutPressed:) forControlEvents:UIControlEventTouchUpInside];
-    aboutButton.backgroundImage = [UIImage imageNamed:@"GreenBackground"];
+    aboutButton.backgroundImage = [UIImage imageNamed:@"RedBackground"];
     [aboutButton.heightAnchor constraintEqualToConstant:70].active = YES;
     [aboutButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
     
@@ -266,7 +269,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     educationButton.mainLabel.text = @"Education";
     [educationButton addTarget:self action:@selector(educationPressed:) forControlEvents:UIControlEventTouchUpInside];
     educationButton.gradientImage = [UIImage imageNamed:@"SchoolPhoto"];
-    educationButton.backgroundImage = [UIImage imageNamed:@"VioletBackground"];
+    educationButton.backgroundImage = [UIImage imageNamed:@"BlueBackground"];
     [educationButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
     
     //View 3
@@ -284,17 +287,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     skillsButton.mainLabel.text = @"Skills";
     [skillsButton addTarget:self action:@selector(skillsPressed:) forControlEvents:UIControlEventTouchUpInside];
     skillsButton.gradientImage = [UIImage imageNamed:@"NDRCodePhoto"];
-    skillsButton.backgroundImage = [UIImage imageNamed:@"RedBackground"];
+    skillsButton.backgroundImage = [UIImage imageNamed:@"GreenBackground"];
     [skillsButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
-    
-    //View 5
-    moreButton = [CustomMenuButton buttonWithType:UIButtonTypeCustom];
-    [moreButton.heightAnchor constraintEqualToConstant:70].active = YES;
-    moreButton.mainLabel.text = @"More";
-    [moreButton addTarget:self action:@selector(skillsPressed:) forControlEvents:UIControlEventTouchUpInside];
-    moreButton.gradientImage = [UIImage imageNamed:@"BetaPhoto"];
-    moreButton.backgroundImage = [UIImage imageNamed:@"BlueBackground"];
-    [moreButton.widthAnchor constraintEqualToConstant:menuButtonWidth].active = YES;
 
     
     //Stack View
@@ -320,7 +314,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:height - 250]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:height - 300]];
     
 }
 
@@ -511,10 +505,10 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [UIView transitionWithView:self.view duration:0.25 options:UIViewAnimationOptionCurveEaseOut animations:^{
         menuCollectionView.frame = CGRectOffset(menuCollectionView.frame, 0, CGRectGetHeight(self.view.frame));
         visualEffectViewBlurred2.effect = nil;
-        
     } completion:^(BOOL finished) {
         scrollView.scrollEnabled = YES;
         menuCollectionView = nil;
+        _topicsArray = nil;
         [menuCollectionView removeFromSuperview];
         [visualEffectViewBlurred2 removeFromSuperview];
         _topicsArray = nil;
@@ -720,29 +714,14 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [menuCollectionView registerClass:[GenericCollectionViewCell class] forCellWithReuseIdentifier:@"CellGeneric"];
     [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
     
+    if (menuTopic == MenuTopicAbout) {
+        [self setupMapShot];
+    }
+    
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     panRecognizer.delegate = self;
     [menuCollectionView addGestureRecognizer:panRecognizer];
-    
-    
-    // TODO: missing implementation
-    switch (menuTopic) {
-        case MenuTopicAbout:
-            
-            
-            
-            break;
-        case MenuTopicEducation:
-            
-            break;
-        case MenuTopicProjects:
-            
-            break;
-        case MenuTopicSkills:
-            
-            break;
-    }
     
     
     [UIView animateWithDuration:0.4 delay:0.3 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -768,19 +747,12 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GenericCollectionViewCell *cellGeneric = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellGeneric" forIndexPath:indexPath];
-    MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap" forIndexPath:indexPath];
+    //MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap" forIndexPath:indexPath];
     
     Topic *topic = _topicsArray[indexPath.row];
+    cellGeneric.topic = topic;
     
-    if (topic.topicOption == OptionsGeneric) {
-        cellGeneric.topic = _topicsArray[indexPath.row];
-        return cellGeneric;
-    } else if (topic.topicOption == OptionsMap) {
-        cellMap.topic = _topicsArray[indexPath.row];
-        return cellMap;
-    } else {
-        return nil;
-    }
+    return cellGeneric;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -833,6 +805,49 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)setupMapShot
+{
+    if (mapShot == nil) {
+       // headlineYConstraint.constant = - 75;
+        //[self layoutIfNeeded];
+        
+        CGSize cardSizeHeader = CGSizeMake(self.cardSize.width, 150);
+        
+        MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
+        options.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(HEIDE_LATITUDE, HEIDE_LONGTITUDE), MKCoordinateSpanMake(0.05, 0.05));
+        
+        
+        options.size = cardSizeHeader;
+        options.scale = [[UIScreen mainScreen] scale];
+        
+        MKMapSnapshotter *snapshotter = [[MKMapSnapshotter alloc] initWithOptions:options];
+        [snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
+            if (error) {
+                
+                // TODO: Add logic for better error instead of alert -> icon or something
+                
+                
+                return;
+            } else {
+                mapShot = snapshot.image;
+                //headerImageView.alpha = 0;
+                
+                //headlineYConstraint.constant = -5;
+                [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    //TopicImage *topicImage = [[TopicImage alloc] initWithImage:self.mapShot annotation:nil];
+                    //[headerImageView setImages:@[topicImage] type:ViewerTypeMap];
+                    //headerImageView.alpha = 1;
+                    //[self layoutIfNeeded];
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }
+        }];
+    } else {
+        NSLog(@"Map shot has already been created");
+    }
 }
 
 

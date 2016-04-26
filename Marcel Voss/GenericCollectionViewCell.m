@@ -11,7 +11,6 @@
 #import "Topic.h"
 #import "TopicImage.h"
 #import "AppCustomButton.h"
-#import "InteractiveImageView.h"
 #import "AppDelegate.h"
 
 #import "Constants.h"
@@ -21,11 +20,9 @@
     UILabel *headlineLabel;
     UILabel *subtitleLabel;
     UILabel *textLabel;
-    InteractiveImageView *headerImageView;
     
     NSLayoutConstraint *headlineYConstraint;
 }
-
 
 @end
 
@@ -42,20 +39,27 @@
     return self;
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    [self setNeedsDisplay];
+}
+
 - (void)setTopic:(Topic *)topic
 {
     _topic = topic;
+    
     [self setupLayoutForOption:topic.topicOption];
 }
 
 - (void)setupLayoutForOption:(Options)option
 {
-    headerImageView = [[InteractiveImageView alloc] init];
-    headerImageView.viewerType = ViewerTypeImage;
-    headerImageView.frame = CGRectMake(0, 0, self.frame.size.width, 150);
-    headerImageView.layer.masksToBounds = YES;
-    headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.contentView addSubview:headerImageView];
+    _headerImageView = [[InteractiveImageView alloc] init];
+    _headerImageView.viewerType = ViewerTypeImage;
+    _headerImageView.frame = CGRectMake(0, 0, self.frame.size.width, 150);
+    _headerImageView.layer.masksToBounds = YES;
+    _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.contentView addSubview:_headerImageView];
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.contentView.bounds byRoundingCorners:( UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(12.0, 12.0)];
     
@@ -74,7 +78,7 @@
     
     
     // TODO: Remove headlineYConstraint
-    headlineYConstraint = [NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:headerImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-5];
+    headlineYConstraint = [NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_headerImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-5];
     [self addConstraint:headlineYConstraint];
     
     
@@ -96,22 +100,22 @@
     
     // Gradient for fading out the image view into the white background
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = headerImageView.bounds;
+    gradientLayer.frame = _headerImageView.bounds;
     gradientLayer.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
     gradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
     gradientLayer.endPoint = CGPointMake(0.0f, 1.f);
-    headerImageView.layer.mask = gradientLayer;
+    _headerImageView.layer.mask = gradientLayer;
     
     headlineLabel.text = _topic.topicTitle;
     textLabel.text = _topic.topicText;
     
-    headerImageView.image = nil;
-    headerImageView.imageArray = nil;
+    _headerImageView.image = nil;
+    _headerImageView.imageArray = nil;
     
     if ([_topic.images count] == 1) {
-        [headerImageView  setImages:_topic.images type:ViewerTypeImage];;
+        [_headerImageView  setImages:_topic.images type:ViewerTypeImage];;
     } else {
-        [headerImageView setImages:_topic.images type:ViewerTypeImage];
+        [_headerImageView setImages:_topic.images type:ViewerTypeImage];
     }
 }
 
@@ -121,15 +125,15 @@
     
     // Clean up collection view cell
     // FIXME: FUCKING THING STILL SHOWS WRONG IMAGES AFTER SCROLLING
-    [headerImageView removeFromSuperview];
-    [textLabel removeFromSuperview];
-    [headlineLabel removeFromSuperview];
+    //[textLabel removeFromSuperview];
+    //[headlineLabel removeFromSuperview];
+    
     
     headlineLabel.text = nil;
     subtitleLabel.text = nil;
-    headerImageView = nil;
-    headerImageView.image = nil;
-    headerImageView.imageArray = nil;
+    _headerImageView = nil;
+    _headerImageView.image = nil;
+    _headerImageView.imageArray = nil;
     textLabel.text = nil;
     _topic = nil;
     

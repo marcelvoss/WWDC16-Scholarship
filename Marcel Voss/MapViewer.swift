@@ -22,10 +22,15 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     var scrollView : UIScrollView?
     var pageControl = UIPageControl()
     
-    var cardView1 : UIView?
+    var cardView1 : WeatherCard?
     var cardView2 : UIView?
     
+    // Distance
     let locationLabel = UILabel()
+    let distanceLabel = UILabel()
+    
+    // Time Zone
+    //let distanceLabel = UILabel()
     
     init() {
         super.init(frame: UIScreen.mainScreen().bounds)
@@ -45,7 +50,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         })
         
         UIView.animateWithDuration(0.4, delay: 0.4, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .TransitionNone, animations: { () -> Void in
-            self.constraintY!.constant = -10 // TODO: Find a better value / UI
+            self.constraintY!.constant = -0 // TODO: Find a better value / UI
             self.layoutIfNeeded()
         }) { (finished) -> Void in
             UIView.animateWithDuration(0.4, delay: 0.2, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.6, options: .TransitionNone, animations: {
@@ -77,14 +82,18 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
             self.closeButton.alpha = 0
         }) { (finished) -> Void in
             self.scrollView = nil
-            self.mapView!.mapType = .Standard
-            self.mapView!.delegate = nil;
-            self.mapView!.removeFromSuperview()
-            self.mapView = nil;
+            
+            
             
             
             self.locationManager?.delegate = nil
             self.locationManager = nil
+            
+            self.mapView!.mapType = .Standard
+            self.mapView!.showsUserLocation = false
+            self.mapView!.delegate = nil
+            self.mapView!.removeFromSuperview()
+            self.mapView = nil
             
             self.effectView.removeFromSuperview()
             self.removeFromSuperview()
@@ -112,18 +121,36 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         self.addConstraint(NSLayoutConstraint(item: closeButton, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 20))
         
-        // Map
-        mapView?.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(mapView!)
+        let mapBackgroundCanvas = UIView()
+        mapBackgroundCanvas.translatesAutoresizingMaskIntoConstraints = false
+        mapBackgroundCanvas.backgroundColor = UIColor.whiteColor()
+        mapBackgroundCanvas.layer.cornerRadius = 12
+        self.addSubview(mapBackgroundCanvas)
         
-        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: mapBackgroundCanvas, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
         
-        constraintY = NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: -self.frame.size.height)
+        constraintY = NSLayoutConstraint(item: mapBackgroundCanvas, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: -self.frame.size.height)
         self.addConstraint(constraintY!)
         
-        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: mapBackgroundCanvas, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
         
-        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: mapBackgroundCanvas, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: -20))
+        
+        self.layoutIfNeeded()
+        
+        // Map
+        mapView?.translatesAutoresizingMaskIntoConstraints = false
+        mapView?.layer.cornerRadius = 6
+        mapBackgroundCanvas.addSubview(mapView!)
+        
+        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: mapBackgroundCanvas, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
+        
+        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: mapBackgroundCanvas, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0))
+        
+        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: mapBackgroundCanvas, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 0))
+        
+        self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: mapBackgroundCanvas, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
+        
         
         
         // FIXME: Missing option to dismiss view
@@ -137,7 +164,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView?.pagingEnabled = true
         scrollView?.delegate = self
         scrollView?.showsHorizontalScrollIndicator = false
-        scrollView?.contentSize = CGSizeMake(self.frame.size.width * 3, 100)
+        scrollView?.contentSize = CGSizeMake(self.frame.size.width * 4, 100)
         scrollView?.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(scrollView!)
         
@@ -176,7 +203,7 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         // Page Control
         pageControl.addTarget(self, action: #selector(self.changePage), forControlEvents: UIControlEvents.ValueChanged)
         pageControl.currentPage = 0
-        pageControl.numberOfPages = 3
+        pageControl.numberOfPages = 4
         pageControl.backgroundColor = UIColor.clearColor()
         pageControl.tintColor = UIColor.whiteColor()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -208,13 +235,55 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         // Get width of screen
         let width = UIScreen.mainScreen().bounds.size.width
         
-        cardView1 = UIView()
+        let HEIDE_LATITUDE = 54.196111 // Latitude of my hometown
+        let HEIDE_LONGTITUDE = 9.093333 // Longtitude of my hometown
+        
+        let cardView0 = UIView()
+        cardView0.translatesAutoresizingMaskIntoConstraints = false
+        cardView0.backgroundColor = UIColor.whiteColor()
+        cardView0.layer.cornerRadius = 6
+        scrollView!.addSubview(cardView0)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView0, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView0, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView0, attribute: .Width, relatedBy: .Equal, toItem: scrollView, attribute: .Width, multiplier: 1.0, constant: -20))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView0, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
+        
+        
+        let introHeadLabel = UILabel()
+        introHeadLabel.text = "Facts & Stats"
+        introHeadLabel.translatesAutoresizingMaskIntoConstraints = false
+        introHeadLabel.font = UIFont.boldSystemFontOfSize(20)
+        scrollView!.addSubview(introHeadLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: introHeadLabel, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: introHeadLabel, attribute: .Bottom, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        
+        
+        let introSubLabel = UILabel()
+        introSubLabel.text = "Want to learn a bit more?"
+        introSubLabel.translatesAutoresizingMaskIntoConstraints = false
+        introSubLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+        scrollView!.addSubview(introSubLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: introSubLabel, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: introSubLabel, attribute: .Top, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        
+        
+        
+        let tempLocation = CLLocation(latitude: HEIDE_LATITUDE, longitude: HEIDE_LONGTITUDE)
+        cardView1 = WeatherCard(location:tempLocation)
         cardView1?.translatesAutoresizingMaskIntoConstraints = false
         cardView1?.backgroundColor = UIColor.whiteColor()
         cardView1?.layer.cornerRadius = 6
         scrollView?.addSubview(cardView1!)
         
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView1!, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView1!, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: width))
         
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView1!, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
         
@@ -224,13 +293,13 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         
         
-        let cardView2 = WeatherCard()
+        let cardView2 = UIView()
         cardView2.translatesAutoresizingMaskIntoConstraints = false
         cardView2.backgroundColor = UIColor.whiteColor()
         cardView2.layer.cornerRadius = 6
         scrollView!.addSubview(cardView2)
         
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView2, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: width))
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView2, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: width * 2))
         
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView2, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
         
@@ -239,13 +308,32 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView2, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
         
         
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        locationLabel.text = "Location Label"
+        cardView2.addSubview(locationLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: locationLabel, attribute: .CenterX, relatedBy: .Equal, toItem: cardView2, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: locationLabel, attribute: .Bottom, relatedBy: .Equal, toItem: cardView2, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        
+        
+        distanceLabel.text = "Distance Label"
+        distanceLabel.translatesAutoresizingMaskIntoConstraints = false
+        cardView2.addSubview(distanceLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .CenterX, relatedBy: .Equal, toItem: cardView2, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .Top, relatedBy: .Equal, toItem: cardView2, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        
+        
+        
         let cardView3 = UIView()
         cardView3.translatesAutoresizingMaskIntoConstraints = false
         cardView3.backgroundColor = UIColor.whiteColor()
         cardView3.layer.cornerRadius = 6
         scrollView!.addSubview(cardView3)
         
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: width * 2))
+        scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: width * 3))
         
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
         
@@ -259,7 +347,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         
         self.layoutIfNeeded()
-        
     }
     
     func distanceForLocale(distance: CLLocationDistance) -> String {
@@ -281,7 +368,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         // TODO: Move this to either a seperate view or create the labels before
         
         locationManager?.stopUpdatingLocation()
-        
     
         // Retrieve location name for coordinates
         let reverseGeoCoder = CLGeocoder()
@@ -294,28 +380,13 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         }
         
         // TODO: Placemark also supports timezone; use for time difference card
-
-        
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        cardView1?.addSubview(locationLabel)
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: locationLabel, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: locationLabel, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: -10))
-        
         
         
         let myLocation = CLLocation(latitude: 54.196111, longitude: 9.093333)
         let distance = newLocation.distanceFromLocation(myLocation)
         
-        let distanceLabel = UILabel()
-        distanceLabel.text = String(format: "We're about %@ away. ✈️", self.distanceForLocale(distance)) // TODO: Change text
-        distanceLabel.translatesAutoresizingMaskIntoConstraints = false
-        cardView1?.addSubview(distanceLabel)
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 10))
+        distanceLabel.text = String(format: "That's about %@ away from here. ✈️", self.distanceForLocale(distance)) // TODO: Change text
+
     }
     
     func displayLocationInformation(placemark: CLPlacemark?) {
@@ -324,10 +395,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         // TODO: Add error handling
-    }
-    
-    func setupDistanceCard(userLocation: CLLocation) {
-        // TODO: implement
     }
     
 }

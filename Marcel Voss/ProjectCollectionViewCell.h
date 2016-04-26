@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class TopicApp;
+
 @interface ProjectCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic)
+@property (nonatomic) TopicApp *app;
 
 @end

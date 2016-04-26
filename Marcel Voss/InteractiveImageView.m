@@ -9,6 +9,7 @@
 #import "InteractiveImageView.h"
 
 #import "Constants.h"
+#import "UIImage+Helpers.h"
 
 #import <MapKit/MapKit.h>
 
@@ -27,7 +28,7 @@
     self = [super init];
     if (self) {
         self.userInteractionEnabled = YES;
-        self.contentMode = UIViewContentModeScaleToFill;
+        //self.contentMode = UIViewContentModeCenter;
         
         _slideTime = 5;
         _fadeTime = 1;
@@ -42,7 +43,7 @@
     self = [super initWithImage:image];
     if (self) {
         self.userInteractionEnabled = YES;
-        self.contentMode = UIViewContentModeScaleToFill;
+       // self.contentMode = UIViewContentModeScaleToFill;
     }
     return self;
 }
@@ -61,7 +62,7 @@
         _imageArray = imageArray;
         
         self.userInteractionEnabled = YES;
-        self.contentMode = UIViewContentModeScaleToFill;
+        //self.contentMode = UIViewContentModeScaleToFill;
         
         [self gestureForViewerType:ViewerTypeImage];
     }
@@ -94,6 +95,15 @@
 
 - (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType
 {
+    /*
+    NSMutableArray *newArray = [NSMutableArray arrayWithCapacity:imageArray.count];
+    for (TopicImage *img in imageArray) {
+        
+        TopicImage *image = [[TopicImage alloc] initWithImage:[UIImage imageResize:img.topicImage andResizeTo:CGSizeMake(self.frame.size.width, self.frame.size.height)] annotation:img.topicAnnotation];
+        
+        [newArray addObject:image];
+    }*/
+    
     TopicImage *firstImage = imageArray[0];
     self.image = firstImage.topicImage;
 

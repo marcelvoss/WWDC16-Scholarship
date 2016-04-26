@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class OWMObject;
 
@@ -14,6 +15,6 @@
 
 @property (nonatomic) OWMObject *weatherObject;
 
-- (OWMObject *)fetchWeather;
+- (instancetype)initWithLocation:(CLLocation *)location;
 
 @end

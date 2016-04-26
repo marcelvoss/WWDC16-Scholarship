@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InteractiveImageView.h"
 
 @class Topic;
+
 
 @interface GenericCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) Topic *topic;
+@property (nonatomic) InteractiveImageView *headerImageView;
 
 @end
