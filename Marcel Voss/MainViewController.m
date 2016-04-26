@@ -760,7 +760,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (void)startArrowAnimation
 {
-    arrowYConstraint.constant = -5;
+    
+    arrowYConstraint.constant = 5;
     [UIView animateWithDuration:2.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction animations:^{
         
         

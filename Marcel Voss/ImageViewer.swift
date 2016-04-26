@@ -85,6 +85,8 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         UIView.animateWithDuration(0.4, delay: 0.25, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
             self.alpha = 0;
         }) { (finished) -> Void in
+            self.theImage = nil
+            self.foregroundImageView = nil
             self.removeFromSuperview()
             self.effectView.removeFromSuperview()
         }
