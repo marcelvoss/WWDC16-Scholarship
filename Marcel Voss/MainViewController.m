@@ -16,12 +16,17 @@
 #import "TopicCollectionViewCell.h"
 #import "GenericCollectionViewCell.h"
 #import "MapCollectionViewCell.h"
+#import "ProjectCollectionViewCell.h"
 
 #import "CustomMenuButton.h"
 #import "WeatherCard.h"
 
 #import "Topic.h"
+#import "TopicApp.h"
 #import "ArrayUtilities.h"
+#import "UIImage+Helpers.h"
+
+#import "Marcel_Voss-Swift.h"
 
 static CGFloat const kMCCardPickerCollectionViewBottomInset = 4;
 static CGFloat const kPanTriggerFadeOutDistance = 200.0;
@@ -30,8 +35,7 @@ static CGFloat const kPanTriggerExpandDistance = 50.0;
 typedef NS_ENUM(NSInteger, MenuTopic) {
     MenuTopicAbout,
     MenuTopicEducation,
-    MenuTopicProjects,
-    MenuTopicSkills
+    MenuTopicProjects
 };
 
 @interface MainViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UIGestureRecognizerDelegate>
@@ -40,6 +44,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     CGFloat height;
     
     UIImage *mapShot;
+    UIStackView *stackView;
     
     UIImageView *backgroundImageView;
     BOOL firstScrollDown;
@@ -98,6 +103,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    firstScrollDown = YES;
+    
     width = [[UIScreen mainScreen] bounds].size.width;
     height = [[UIScreen mainScreen] bounds].size.height;
     
@@ -106,6 +113,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     scrollView.contentSize = CGSizeMake(width, height * 2);
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.bounces = NO;
+    scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
     scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:scrollView];
@@ -166,7 +174,9 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:welcomeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
     
-    TopicImage *avatarImage = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple."];
+    //[UIImage imageNamed:@"AvatarPhoto"]
+    UIImage *tempAvatarImage = [UIImage resizeImage:[UIImage imageNamed:@"AvatarPhoto"] withWidth:100 withHeight:100];
+    TopicImage *avatarImage = [[TopicImage alloc] initWithSDImage:tempAvatarImage HDImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple."];
     avatarImageView = [[InteractiveImageView alloc] initWithImages:@[avatarImage] type:ViewerTypeImage];
     avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     avatarImageView.layer.borderWidth = 2.0;
@@ -199,42 +209,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:arrowYConstraint];
     
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:arrowImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:18]];
-    
-
-    
-    /*
-    UIView *factsView = [[UIView alloc] init];
-    factsView.backgroundColor = [UIColor whiteColor];
-    factsView.layer.cornerRadius = 8;
-    factsView.translatesAutoresizingMaskIntoConstraints = NO;
-    [backgroundImageView addSubview:factsView];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:150]];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-50]];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-height-50]];
-    
-    
-    UIView *factsView1 = [[UIView alloc] init];
-    factsView1.backgroundColor = [UIColor whiteColor];
-    factsView1.layer.cornerRadius = 8;
-    factsView1.transform = CGAffineTransformMakeRotation(0.05);
-    factsView1.translatesAutoresizingMaskIntoConstraints = NO;
-    [backgroundImageView addSubview:factsView1];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView1 attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView1 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:150]];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView1 attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-50]];
-    
-    [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:factsView1 attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:factsView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
-    */
-
-    
     
     
     [self setupMenuView];
@@ -292,7 +266,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
     
     //Stack View
-    UIStackView *stackView = [[UIStackView alloc] init];
+    stackView = [[UIStackView alloc] init];
     
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.distribution = UIStackViewDistributionEqualSpacing;
@@ -467,11 +441,12 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     if (scrollView.panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat y = scrollView.contentOffset.y;
-        if (y<0) {
+        if (y < 0) {
             CGFloat delta = 1 - MIN(1, fabs(y/kPanTriggerExpandDistance));
             [self expandPresentingViewWithCell:self.selectedCell andScaleDelta:delta];
         }
     }
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)aScrollView willDecelerate:(BOOL)decelerate
@@ -487,7 +462,15 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     else {
         [self expandPresentingViewWithCell:self.selectedCell andScaleDelta:1];
     }
-    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView
+{
+    if (aScrollView == scrollView) {
+        if (firstScrollDown) {
+            [self showMenuAnimation];
+        }
+    }
 }
 
 #pragma mark - UIGestureRecongizerDelegate
@@ -507,9 +490,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         visualEffectViewBlurred2.effect = nil;
     } completion:^(BOOL finished) {
         scrollView.scrollEnabled = YES;
-        menuCollectionView = nil;
         _topicsArray = nil;
-        [menuCollectionView removeFromSuperview];
         [visualEffectViewBlurred2 removeFromSuperview];
         _topicsArray = nil;
     }];
@@ -537,8 +518,36 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (void)skillsPressed:(id)sender
 {
-    [self setupTopicsForMenuTopic:MenuTopicSkills];
-    [self setupCollectionViewForMenuTopic:MenuTopicSkills];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        aboutButton.alpha = 0;
+        
+        
+    } completion:nil];
+    
+    
+    [UIView animateWithDuration:0.2 delay:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        educationButton.alpha = 0;
+    } completion:nil];
+    
+    [UIView animateWithDuration:0.2 delay:0.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        projectsButton.alpha = 0;
+    } completion:nil];
+    
+    [UIView animateWithDuration:0.2 delay:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        skillsButton.alpha = 0;
+    } completion:^(BOOL finished) {
+        stackView.hidden = YES;
+        
+        // Show the skill view after completing last animation
+        
+        
+
+        // TODO: Implement skills
+        
+        
+        
+    }];
+    
 }
 
 - (void)setupTopicsForMenuTopic:(MenuTopic)menuTopic
@@ -549,11 +558,13 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     switch (menuTopic) {
         case MenuTopicAbout:
         {
+            [self setupMapShot];
             // TODO: Finish this and check for spelling and grammar
+            TopicImage *aImage = [[TopicImage alloc] initWithImage:mapShot annotation:nil];
             Topic *a = [[Topic alloc] initWithTitle:@"Beginning of a Journey"
                                            subtitle:@""
                                                text:@"I grew up in the small town of Heide in northern Germany.\n\nFrom early on I was fascinated by technology and wanted to understand how, both, software and hardware work. This fascination was intensified when I bought my first iPod touch back in 2009. I couldn't believe how unique the entire ecosystem was (even though I called it differently back then), how simple it was and how beautiful the software was.\n\nTwo years later, I got my first Intel-based Mac. This was basically the beginning of the story. I downloaded Xcode, talked to experienced developers on the Internet, read books and slowly got into the matter.\n\nCrazy it's almost been 4 years since then."
-                                             images:nil
+                                             images:@[aImage]
                                              option:OptionsMap];
             
             // TODO: Finish the annotations and check for spelling and grammar
@@ -644,46 +655,16 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             break;
         case MenuTopicProjects:
         {
-            /*
             // TODO: UI is very ugly
-            Topic *a = [[Topic alloc] initWithTitle:@"PhoneBattery"
-                                           subtitle:@"Your phone's battery, on your wrist"
-                                               text:@""
-                                              image:[UIImage imageNamed:@"PhoneBatteryIcon"]
-                                         annotation:@""
-                                             option:OptionsApp];
+            TopicApp *a = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"PhoneBatteryIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"PhoneBattery" subtitle:@"" description:@"" screenshots:@[]];
             
-            Topic *b = [[Topic alloc] initWithTitle:@"Grain"
-                                           subtitle:@"The perfect utility for fans of analog photography"
-                                               text:@""
-                                              image:[UIImage imageNamed:@"GrainIcon"]
-                                         annotation:@""
-                                             option:OptionsApp];
+            TopicApp *b = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"BluePixelIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"BluePixel" subtitle:@"" description:@"" screenshots:@[]];
             
-            Topic *c = [[Topic alloc] initWithTitle:@"BluePixel"
-                                           subtitle:@""
-                                               text:@""
-                                              image:[UIImage imageNamed:@""]
-                                         annotation:@""
-                                             option:0];
+            TopicApp *c = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"GrainIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"Grain" subtitle:@"" description:@"" screenshots:@[]];
             
-            Topic *d = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
-            Topic *e = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
+            TopicApp *d = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@""] url:[NSURL URLWithString:dribbbleURLString] name:@"MVDribbbleKit" subtitle:@"" description:@"" screenshots:@[]];
             
-            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
-             */
-        }
-            break;
-        case MenuTopicSkills:
-        {
-            /*
-            Topic *a = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
-            Topic *b = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
-            Topic *c = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
-            Topic *d = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
-            Topic *e = [[Topic alloc] initWithTitle:@"" subtitle:@"" text:@"" image:[UIImage imageNamed:@""] annotation:@"" option:0];
-            
-            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];*/
+            [_topicsArray addObjectsFromArray:@[a, b, c, d]];
         }
             break;
     }
@@ -713,6 +694,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     [menuCollectionView registerClass:[GenericCollectionViewCell class] forCellWithReuseIdentifier:@"CellGeneric"];
     [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
+    [menuCollectionView registerClass:[ProjectCollectionViewCell class] forCellWithReuseIdentifier:@"CellProjects"];
+    
     
     if (menuTopic == MenuTopicAbout) {
         [self setupMapShot];
@@ -722,7 +705,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     panRecognizer.delegate = self;
     [menuCollectionView addGestureRecognizer:panRecognizer];
-    
     
     [UIView animateWithDuration:0.4 delay:0.3 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
         menuCollectionView.frame = CGRectMake(0, height, CGRectGetWidth(self.view.frame), height);
@@ -746,18 +728,32 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GenericCollectionViewCell *cellGeneric = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellGeneric" forIndexPath:indexPath];
-    //MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap" forIndexPath:indexPath];
+    GenericCollectionViewCell *cellGeneric = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellGeneric"
+                                                                                       forIndexPath:indexPath];
+    MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap"
+                                                                               forIndexPath:indexPath];
+    ProjectCollectionViewCell *cellProjects = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProjects"
+                                                                               forIndexPath:indexPath];
     
     Topic *topic = _topicsArray[indexPath.row];
-    cellGeneric.topic = topic;
+    if (topic.topicOption == OptionsMap) {
+        
+        cellMap.topic = topic;
+        
+        return cellMap;
+    } else if (topic.topicOption == OptionsGeneric) {
+        
+        cellGeneric.topic = topic;
+        
+        return cellGeneric;
+        
+    } else if (topic.topicOption == OptionsApp) {
+        
+        return cellProjects;
+        
+    } else
     
     return cellGeneric;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 #pragma mark - Pure Animation
@@ -773,7 +769,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         // set the new frame
     } completion:nil];
 }
-
 
 - (void)showStartAnimation
 {
@@ -836,8 +831,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                 
                 //headlineYConstraint.constant = -5;
                 [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    //TopicImage *topicImage = [[TopicImage alloc] initWithImage:self.mapShot annotation:nil];
-                    //[headerImageView setImages:@[topicImage] type:ViewerTypeMap];
+                    /*TopicImage *topicImage = [[TopicImage alloc] initWithImage:mapShot annotation:nil];
+                    [headerImageView setImages:@[topicImage] type:ViewerTypeMap];*/
                     //headerImageView.alpha = 1;
                     //[self layoutIfNeeded];
                 } completion:^(BOOL finished) {
@@ -850,5 +845,11 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     }
 }
 
+- (void)showMenuAnimation
+{
+    
+    
+    firstScrollDown = NO;
+}
 
 @end

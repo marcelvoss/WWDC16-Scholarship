@@ -86,6 +86,7 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
             self.alpha = 0;
         }) { (finished) -> Void in
             self.removeFromSuperview()
+            self.effectView.removeFromSuperview()
         }
     }
     

@@ -12,38 +12,59 @@
 
 + (UIImage *)imageResize:(UIImage *)img andResizeTo:(CGSize)newSize
 {
-    CGFloat scale = [[UIScreen mainScreen]scale];
-    /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
-    //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-    [img drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width, newSize.height));
+    CGImageRef imageRef = img.CGImage;
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, newSize.height);
+    
+    CGContextConcatCTM(context, flipVertical);
+    CGContextDrawImage(context, newRect, imageRef);
+    
+    CGImageRef newImageRef = CGBitmapContextCreateImage(context);
+    UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
+    
+    CGImageRelease(newImageRef);
     UIGraphicsEndImageContext();
     return newImage;
 }
 
-+ (NSArray *)resizeImages:(NSArray *)images resizeTo:(CGSize)newSize
+- (UIImage *)croppIngimageByImageName:(UIImage *)imageToCrop toRect:(CGRect)rect
 {
-    NSMutableArray *finalArray = [NSMutableArray arrayWithCapacity:[images count]];
+    //CGRect CropRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height+15);
     
-    for (UIImage *img in images) {
-        CGFloat scale = [[UIScreen mainScreen]scale];
-        
-        /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
-        //UIGraphicsBeginImageContext(newSize);
-        
-        
-        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-        [img drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        [finalArray addObject:newImage];
+    CGImageRef imageRef = CGImageCreateWithImageInRect([imageToCrop CGImage], rect);
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
+    return cropped;
+}
+
++ (UIImage *)resizeImage:(UIImage*)image withWidth:(CGFloat)width withHeight:(CGFloat)height
+{
+    CGSize newSize = CGSizeMake(width, height);
+    CGFloat widthRatio = newSize.width/image.size.width;
+    CGFloat heightRatio = newSize.height/image.size.height;
+    
+    if(widthRatio > heightRatio)
+    {
+        newSize=CGSizeMake(image.size.width*heightRatio,image.size.height*heightRatio);
+    }
+    else
+    {
+        newSize=CGSizeMake(image.size.width*widthRatio,image.size.height*widthRatio);
     }
     
-    return [finalArray copy];
     
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
-    
+    return newImage;
 }
 
 @end

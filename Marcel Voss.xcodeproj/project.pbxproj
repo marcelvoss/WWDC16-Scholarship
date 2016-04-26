@@ -23,6 +23,7 @@
 		1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */; };
 		1F7FF62B1CCF484A00EE14C3 /* MVModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF62A1CCF484A00EE14C3 /* MVModel.m */; };
 		1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */; };
+		1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
 		1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
@@ -87,6 +88,7 @@
 		1F7FF62A1CCF484A00EE14C3 /* MVModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVModel.m; sourceTree = "<group>"; };
 		1F7FF6461CCFBBBA00EE14C3 /* UIImage+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Helpers.h"; sourceTree = "<group>"; };
 		1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Helpers.m"; sourceTree = "<group>"; };
+		1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillView.swift; sourceTree = "<group>"; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
 		1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionViewCell.h; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 		1FBDFAB41CC97F3900F73CDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */,
 				1F7FF6151CCE0F6200EE14C3 /* Cards */,
 				1F7FF5F91CCCFD7A00EE14C3 /* Topics */,
 				1F7FF6041CCD221B00EE14C3 /* Viewers */,
@@ -491,6 +494,7 @@
 			files = (
 				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
 				1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */,
+				1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */,
 				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
 				1FBDFA8C1CC97F3200F73CDA /* AppDelegate.m in Sources */,

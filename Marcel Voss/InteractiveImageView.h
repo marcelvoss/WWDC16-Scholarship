@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, ViewerType) {
 @property (nonatomic) ViewerType viewerType;
 @property (nonatomic) CGFloat slideTime; // Time in seconds for each image in imageArray
 @property (nonatomic) CGFloat fadeTime; // Time in seconds for each image in imageArray
+@property (nonatomic) NSTimer *timer;
 
 - (instancetype)initWithImages:(NSArray *)imageArray type:(ViewerType)viewerType;
 - (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType;

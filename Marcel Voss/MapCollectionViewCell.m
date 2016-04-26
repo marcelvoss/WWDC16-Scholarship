@@ -26,8 +26,6 @@
     
 }
 
-@property (nonatomic) UIImage *mapShot;
-
 @end
 
 @implementation MapCollectionViewCell
@@ -62,6 +60,7 @@
         gradientLayer.endPoint = CGPointMake(0.1f, 0.9f);
         headerImageView.layer.mask = gradientLayer;
         
+
         
         headlineLabel = [[UILabel alloc] init];
         headlineLabel.textAlignment = NSTextAlignmentCenter;
@@ -99,39 +98,13 @@
 
 - (void)setupLayoutForOption:(Options)option
 {
-    [self setupHeaderViewForOption:option];
+    // TODO: Doesn't work / Doesn't show map
     headerImageView.viewerType = ViewerTypeMap;
     
     headlineLabel.text = _topic.topicTitle;
     textLabel.text = _topic.topicText;
     
-    
-}
-
-- (void)setupHeaderViewForOption:(Options)optionsType
-{
-    headerImageView = [[InteractiveImageView alloc] init];
-    headerImageView.viewerType = ViewerTypeImage;
-    headerImageView.frame = CGRectMake(0, 0, self.frame.size.width, 150);
-    headerImageView.layer.masksToBounds = YES;
-    headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.contentView addSubview:headerImageView];
-    
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.contentView.bounds byRoundingCorners:( UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(12.0, 12.0)];
-    
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = self.bounds;
-    maskLayer.path  = maskPath.CGPath;
-    self.contentView.layer.mask = maskLayer;
-    
-    
-    // Gradient for fading out the image view into the white background
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = headerImageView.bounds;
-    gradientLayer.colors = [NSArray arrayWithObjects:(id)[UIColor whiteColor].CGColor, (id)[UIColor clearColor].CGColor, nil];
-    gradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
-    gradientLayer.endPoint = CGPointMake(0.1f, 0.9f);
-    headerImageView.layer.mask = gradientLayer;
+    [headerImageView  setImages:_topic.images type:ViewerTypeImage];
 }
 
 - (void)prepareForReuse
@@ -142,13 +115,11 @@
     headlineLabel.text = nil;
     subtitleLabel.text = nil;
     headerImageView.image = nil;
-    headerImageView.imageArray = nil;
     headerImageView = nil;
     textLabel.text = nil;
     _topic = nil;
     
     [self setNeedsLayout];
-    
 }
 
 @end

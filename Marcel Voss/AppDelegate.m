@@ -37,6 +37,8 @@
         //UIViewController *vc = window.rootViewController;
         
         
+        
+        
     } else if ([url.absoluteString isEqualToString:@"marcelvoss://education"]) {
         
     } else if ([url.absoluteString isEqualToString:@"marcelvoss://projects"]) {

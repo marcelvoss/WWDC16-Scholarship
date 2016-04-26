@@ -11,6 +11,6 @@
 @interface UIImage (Helpers)
 
 + (UIImage *)imageResize:(UIImage *)img andResizeTo:(CGSize)newSize;
-+ (NSArray *)resizeImages:(NSArray *)images resizeTo:(CGSize)newSize;
++ (UIImage *)resizeImage:(UIImage*)image withWidth:(CGFloat)width withHeight:(CGFloat)height;
 
 @end

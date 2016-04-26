@@ -12,9 +12,14 @@
 @interface TopicImage : NSObject
 
 @property (nonatomic) UIImage *topicImage;
+@property (nonatomic) UIImage *topicHQImage;
 @property (nonatomic) NSString *topicAnnotation;
 
 - (instancetype)initWithImage:(UIImage *)image
                    annotation:(NSString *)annotation;
+
+- (instancetype)initWithSDImage:(UIImage *)imageSD
+                        HDImage:(UIImage *)imageHD
+                     annotation:(NSString *)annotation;
 
 @end

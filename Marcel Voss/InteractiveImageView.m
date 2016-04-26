@@ -18,7 +18,7 @@
 @implementation InteractiveImageView
 {
     NSInteger currentImageIndex;
-    NSTimer *timer;
+    NSMutableArray *newArray;
 }
 
 #pragma mark - Initializers
@@ -62,7 +62,26 @@
         _imageArray = imageArray;
         
         self.userInteractionEnabled = YES;
-        //self.contentMode = UIViewContentModeScaleToFill;
+        
+        newArray = [NSMutableArray array];
+        
+        
+        TopicImage *firstImage = imageArray[0];
+        
+        TopicImage *aImage = [[TopicImage alloc] initWithSDImage:firstImage.topicImage
+                                                         HDImage:firstImage.topicHQImage
+                                                      annotation:firstImage.topicAnnotation];
+        [newArray addObject:aImage];
+        
+        
+        self.image = aImage.topicImage;
+        
+        _imageArray = imageArray;
+        _viewerType = viewerType;
+        
+        if (imageArray.count > 1) {
+            [self setupTimer];
+        }
         
         [self gestureForViewerType:ViewerTypeImage];
     }
@@ -95,24 +114,32 @@
 
 - (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType
 {
-    /*
-    NSMutableArray *newArray = [NSMutableArray arrayWithCapacity:imageArray.count];
-    for (TopicImage *img in imageArray) {
+    if (viewerType == ViewerTypeImage) {
+        newArray = [NSMutableArray array];
         
-        TopicImage *image = [[TopicImage alloc] initWithImage:[UIImage imageResize:img.topicImage andResizeTo:CGSizeMake(self.frame.size.width, self.frame.size.height)] annotation:img.topicAnnotation];
+        TopicImage *firstImage = imageArray[0];
+        UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage
+                                      withWidth:self.frame.size.width
+                                     withHeight:self.frame.size.height];
         
-        [newArray addObject:image];
-    }*/
-    
-    TopicImage *firstImage = imageArray[0];
-    self.image = firstImage.topicImage;
-
-    
-    _imageArray = imageArray;
-    _viewerType = viewerType;
-    
-    if (imageArray.count > 1) {
-        [self setupTimer];
+        TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
+                                                         HDImage:firstImage.topicImage
+                                                      annotation:firstImage.topicAnnotation];
+        [newArray addObject:aImage];
+        
+        self.image = aImage.topicImage;
+        
+        _imageArray = imageArray;
+        _viewerType = viewerType;
+        
+        if (imageArray.count > 1) {
+            [self setupTimer];
+        }
+    } else if (viewerType == ViewerTypeMap) {
+        TopicImage *firstImage = imageArray[0];
+        TopicImage *aImage = [[TopicImage alloc] initWithImage:firstImage.topicImage annotation:firstImage.topicAnnotation];
+        
+        self.image = aImage.topicImage;
     }
 }
 
@@ -132,16 +159,25 @@
         currentImageIndex = 0;
     }
     
+    TopicImage *firstImage = _imageArray[currentImageIndex];
+    
+    UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage withWidth:self.frame.size.width
+                                 withHeight:self.frame.size.height];
+    
+    TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
+                                                     HDImage:firstImage.topicImage
+                                                  annotation:firstImage.topicAnnotation];
+    [newArray addObject:aImage];
+    
     [UIView transitionWithView:self duration:_fadeTime options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        TopicImage *singleTopic = _imageArray[currentImageIndex];
-        self.image = singleTopic.topicImage;
+        self.image = aImage.topicImage;
     } completion:NULL];
 }
 
 - (void)setupTimer
 {
-    if (timer == nil) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:_slideTime target:self selector:@selector(fadeToNextImage) userInfo:nil repeats:YES];
+    if (_timer == nil) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:_slideTime target:self selector:@selector(fadeToNextImage) userInfo:nil repeats:YES];
     }
 }
 
@@ -151,14 +187,14 @@
 {
     ImageViewer *viewer = [[ImageViewer alloc] init];
     
-    // TODO: Add annotations
-    TopicImage *image = _imageArray[currentImageIndex];
-    if (image.topicAnnotation != nil) {
-        viewer.annotationLabel.text = image.topicAnnotation;
+    TopicImage *newImage = newArray[currentImageIndex];
+    
+    if (newImage.topicAnnotation != nil) {
+        viewer.annotationLabel.text = newImage.topicAnnotation;
     }
     
     if (self.image != nil) {
-        [viewer show:self.image];
+        [viewer show:newImage.topicHQImage];
     }
 }
 
@@ -189,6 +225,5 @@
     viewer.mapView = mapView;
     [viewer show];
 }
-
 
 @end
