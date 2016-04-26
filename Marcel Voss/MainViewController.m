@@ -147,7 +147,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:canvasView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:300]];
     
-    
+    /*
     nameLabel = [[UILabel alloc] init];
     nameLabel.text = @"Hi, I'm Marcel.";
     nameLabel.textColor = [UIColor whiteColor];
@@ -212,7 +212,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     
     [self setupMenuView];
-    [self showStartAnimation];
+    [self showStartAnimation];*/
     //[self startArrowAnimation];
     
 }
