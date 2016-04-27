@@ -22,6 +22,7 @@
     
     UIButton *appIconButton;
     UIView *backgroundView;
+    UIView *dockView;
     
     TopicApp *topicApp;
     BOOL drawerOpen;
@@ -99,6 +100,20 @@
         [self addConstraint:[NSLayoutConstraint constraintWithItem:appLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
         
+        dockView = [[UIView alloc] init];
+        dockView.translatesAutoresizingMaskIntoConstraints = NO;
+        dockView.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00];
+        [self.contentView addSubview:dockView];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:dockView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:dockView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:dockView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:dockView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:50]];
+        
+        
         textLabel = [[UILabel alloc] init];
         textLabel.textAlignment = NSTextAlignmentCenter;
         textLabel.font = [UIFont systemFontOfSize:15];
@@ -108,7 +123,7 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-40]];
         
