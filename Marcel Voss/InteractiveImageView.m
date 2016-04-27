@@ -18,7 +18,6 @@
 @implementation InteractiveImageView
 {
     NSInteger currentImageIndex;
-    NSMutableArray *newArray;
 }
 
 #pragma mark - Initializers
@@ -63,15 +62,13 @@
         
         self.userInteractionEnabled = YES;
         
-        newArray = [NSMutableArray array];
+        _temporaryArray = [NSMutableArray array];
         
-        
-        TopicImage *firstImage = imageArray[0];
         
         TopicImage *aImage = [[TopicImage alloc] initWithSDImage:firstImage.topicImage
                                                          HDImage:firstImage.topicHQImage
                                                       annotation:firstImage.topicAnnotation];
-        [newArray addObject:aImage];
+        [_temporaryArray addObject:aImage];
         
         
         self.image = aImage.topicImage;
@@ -115,7 +112,7 @@
 - (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType
 {
     if (viewerType == ViewerTypeImage) {
-        newArray = [NSMutableArray array];
+        _temporaryArray = [NSMutableArray array];
         
         TopicImage *firstImage = imageArray[0];
         UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage
@@ -125,7 +122,7 @@
         TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
                                                          HDImage:firstImage.topicImage
                                                       annotation:firstImage.topicAnnotation];
-        [newArray addObject:aImage];
+        [_temporaryArray addObject:aImage];
         
         self.image = aImage.topicImage;
         
@@ -167,7 +164,7 @@
     TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
                                                      HDImage:firstImage.topicImage
                                                   annotation:firstImage.topicAnnotation];
-    [newArray addObject:aImage];
+    [_temporaryArray addObject:aImage];
     
     [UIView transitionWithView:self duration:_fadeTime options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         self.image = aImage.topicImage;
@@ -187,7 +184,7 @@
 {
     ImageViewer *viewer = [[ImageViewer alloc] init];
     
-    TopicImage *newImage = newArray[currentImageIndex];
+    TopicImage *newImage = _temporaryArray[currentImageIndex];
     
     if (newImage.topicAnnotation != nil) {
         viewer.annotationLabel.text = newImage.topicAnnotation;

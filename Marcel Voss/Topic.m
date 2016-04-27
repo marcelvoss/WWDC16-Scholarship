@@ -27,4 +27,14 @@
     return self;
 }
 
+- (instancetype)initWithApp:(TopicApp *)appItem
+{
+    self = [super init];
+    if (self) {
+        _topicOption = OptionsApp;
+        _topicApp = appItem;
+    }
+    return self;
+}
+
 @end

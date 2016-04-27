@@ -12,7 +12,6 @@
 		1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F676F601CCCA349003763F5 /* AppCustomButton.m */; };
 		1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF5F71CCCFA5D00EE14C3 /* OWMManager.m */; };
 		1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF5FC1CCD11E700EE14C3 /* OWMObject.m */; };
-		1F7FF6051CCD32A900EE14C3 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
 		1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF60B1CCD3A4300EE14C3 /* MapViewer.swift */; };
 		1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6111CCD5F2A00EE14C3 /* WeatherCard.m */; };
 		1F7FF6141CCD63E900EE14C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7FF6131CCD63E900EE14C3 /* MapKit.framework */; };
@@ -25,7 +24,6 @@
 		1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */; };
 		1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
-		1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
 		1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA94B7B1CCAE1CB0014B659 /* ImageViewer.swift */; };
 		1FBDFA891CC97F3200F73CDA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFA881CC97F3200F73CDA /* main.m */; };
@@ -91,8 +89,6 @@
 		1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillView.swift; sourceTree = "<group>"; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
-		1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionViewCell.h; sourceTree = "<group>"; };
-		1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicCollectionViewCell.m; sourceTree = "<group>"; };
 		1F93C57D1CCAC3F1001EA941 /* CustomMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuButton.h; sourceTree = "<group>"; };
 		1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMenuButton.m; sourceTree = "<group>"; };
 		1FA94B7B1CCAE1CB0014B659 /* ImageViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
@@ -165,6 +161,7 @@
 		1F7FF5F41CCCF66500EE14C3 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				1F7FF64E1CD11E7400EE14C3 /* MVDribbbleKit */,
 				1F7FF5F51CCCFA3A00EE14C3 /* OpenWeatherMap */,
 			);
 			name = API;
@@ -225,8 +222,6 @@
 		1F7FF61C1CCE543800EE14C3 /* Collection View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				1F93C5731CCA8CEC001EA941 /* TopicCollectionViewCell.h */,
-				1F93C5741CCA8CEC001EA941 /* TopicCollectionViewCell.m */,
 				1F7FF61D1CCE544700EE14C3 /* GenericCollectionViewCell.h */,
 				1F7FF61E1CCE544700EE14C3 /* GenericCollectionViewCell.m */,
 				1F7FF6201CCE544E00EE14C3 /* MapCollectionViewCell.h */,
@@ -235,6 +230,13 @@
 				1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */,
 			);
 			name = "Collection View Cells";
+			sourceTree = "<group>";
+		};
+		1F7FF64E1CD11E7400EE14C3 /* MVDribbbleKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MVDribbbleKit;
 			sourceTree = "<group>";
 		};
 		1FBDFA7B1CC97F3200F73CDA = {
@@ -501,7 +503,6 @@
 				1F7FF6221CCE544E00EE14C3 /* MapCollectionViewCell.m in Sources */,
 				1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */,
 				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
-				1F93C5751CCA8CEC001EA941 /* TopicCollectionViewCell.m in Sources */,
 				1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */,
 				1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */,
 				1FBDFAB81CC97F4F00F73CDA /* MainViewController.m in Sources */,
@@ -525,7 +526,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F7FF6051CCD32A900EE14C3 /* TopicCollectionViewCell.m in Sources */,
 				1FBDFA9C1CC97F3200F73CDA /* Marcel_VossTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

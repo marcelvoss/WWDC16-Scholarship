@@ -115,6 +115,7 @@
     [_headerImageView.timer invalidate];
     _headerImageView.timer = nil;
     _headerImageView.imageArray = nil;
+    _headerImageView.temporaryArray = nil;
     textLabel.text = nil;
     _topic = nil;
     
