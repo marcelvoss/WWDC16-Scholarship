@@ -161,7 +161,6 @@
 		1F7FF5F41CCCF66500EE14C3 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				1F7FF64E1CD11E7400EE14C3 /* MVDribbbleKit */,
 				1F7FF5F51CCCFA3A00EE14C3 /* OpenWeatherMap */,
 			);
 			name = API;
@@ -230,13 +229,6 @@
 				1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */,
 			);
 			name = "Collection View Cells";
-			sourceTree = "<group>";
-		};
-		1F7FF64E1CD11E7400EE14C3 /* MVDribbbleKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = MVDribbbleKit;
 			sourceTree = "<group>";
 		};
 		1FBDFA7B1CC97F3200F73CDA = {

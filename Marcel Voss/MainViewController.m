@@ -674,16 +674,13 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             TopicApp *a = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"PhoneBatteryIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"PhoneBattery" subtitle:@"Your phone's battery, on your wrist." description:@"PhoneBattery is a tiny utility app that displays your iPhone's battery level right on your Apple Watch.\n\nIt is pretty useful if you're working out and your palms are sweaty or if your phone is in your backpack.\n\nI had the idea for PhoneBattery on the plane back to Germany after last year's WWDC and had almost finished it after landing back in Hamburg." screenshots:@[]];
             Topic *p1 = [[Topic alloc] initWithApp:a];
             
-            TopicApp *b = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"BluePixelIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"BluePixel" subtitle:@"" description:@"" screenshots:@[]];
+            TopicApp *b = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"GrainIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"Grain" subtitle:@"" description:@"" screenshots:@[]];
             Topic *p2 = [[Topic alloc] initWithApp:b];
             
-            TopicApp *c = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"GrainIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"Grain" subtitle:@"" description:@"" screenshots:@[]];
+            TopicApp *c = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"MVDribbbleKitIcon"] url:[NSURL URLWithString:dribbbleURLString] name:@"MVDribbbleKit" subtitle:@"" description:@"MVDribbbleKit is an easy-to-use, full-featured Objective-C wrapper for the official Dribbble API.\n\nIt is the most successful Dribbble wrapper for iOS and is being actively used in several Dribbble apps on the App Store.\n\nApart from that, it is also my most popular open source project which makes it even cooler." screenshots:@[]];
             Topic *p3 = [[Topic alloc] initWithApp:c];
             
-            TopicApp *d = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"MVDribbbleKitIcon"] url:[NSURL URLWithString:dribbbleURLString] name:@"MVDribbbleKit" subtitle:@"" description:@"MVDribbbleKit is an easy-to-use, full-featured Objective-C wrapper for the official Dribbble API.\n\nIt is the most successful Dribbble wrapper for iOS and is being actively used in several Dribbble apps on the App Store.\n\nApart from that it is" screenshots:@[]];
-            Topic *p4 = [[Topic alloc] initWithApp:d];
-            
-            [_topicsArray addObjectsFromArray:@[p1, p2, p3, p4]];
+            [_topicsArray addObjectsFromArray:@[p1, p2, p3]];
         }
             break;
     }

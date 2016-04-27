@@ -193,7 +193,7 @@
     textLabel.text = nil;
     _topic = nil;
     topicApp = nil;
-    
+
     [self setNeedsLayout];
 }
 
