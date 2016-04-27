@@ -93,18 +93,19 @@
 - (void)setTopic:(Topic *)topic
 {
     _topic = topic;
-    [self setupLayoutForOption:topic.topicOption];
-}
-
-- (void)setupLayoutForOption:(Options)option
-{
-    // TODO: Doesn't work / Doesn't show map
-    headerImageView.viewerType = ViewerTypeMap;
     
     headlineLabel.text = _topic.topicTitle;
-    textLabel.text = _topic.topicText;
     
+    headerImageView.viewerType = ViewerTypeMap;
     [headerImageView  setImages:_topic.images type:ViewerTypeImage];
+    
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+    paraStyle.lineSpacing = 6;
+    [paraStyle setAlignment:NSTextAlignmentCenter];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:topic.topicText];
+    [string addAttribute:NSParagraphStyleAttributeName value:paraStyle range:NSMakeRange(0, string.length)];
+    textLabel.attributedText = string;
 }
 
 - (void)prepareForReuse

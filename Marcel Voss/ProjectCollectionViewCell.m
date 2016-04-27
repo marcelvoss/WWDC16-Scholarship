@@ -174,9 +174,8 @@
         appLabel.textColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.00];
     }
     
-    // TODO: Add to other card cells
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    paraStyle.lineSpacing = 10;
+    paraStyle.lineSpacing = 6;
     [paraStyle setAlignment:NSTextAlignmentCenter];
     
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:topicApp.descriptionText];

@@ -73,7 +73,7 @@
         
         textLabel = [[UILabel alloc] init];
         textLabel.textAlignment = NSTextAlignmentCenter;
-        textLabel.font = [UIFont systemFontOfSize:16];
+        textLabel.font = [UIFont systemFontOfSize:15];
         textLabel.numberOfLines = 0;
         textLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:textLabel];
@@ -100,7 +100,14 @@
     _topic = topic;
     
     headlineLabel.text = topic.topicTitle;
-    textLabel.text = topic.topicText;
+    
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+    paraStyle.lineSpacing = 6;
+    [paraStyle setAlignment:NSTextAlignmentCenter];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:topic.topicText];
+    [string addAttribute:NSParagraphStyleAttributeName value:paraStyle range:NSMakeRange(0, string.length)];
+    textLabel.attributedText = string;
     
     [_headerImageView  setImages:_topic.images type:ViewerTypeImage];
 }

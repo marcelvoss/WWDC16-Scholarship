@@ -107,6 +107,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     width = [[UIScreen mainScreen] bounds].size.width;
     height = [[UIScreen mainScreen] bounds].size.height;
     
+    [self setupMapShot];
     
     scrollView = [[UIScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     scrollView.contentSize = CGSizeMake(width, height * 2);
@@ -573,69 +574,75 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     switch (menuTopic) {
         case MenuTopicAbout:
         {
-            [self setupMapShot];
-            // TODO: Finish this and check for spelling and grammar
             TopicImage *aImage = [[TopicImage alloc] initWithImage:mapShot annotation:nil];
             Topic *a = [[Topic alloc] initWithTitle:@"Beginning of a Journey"
                                            subtitle:@""
-                                               text:@"I grew up in the small town of Heide in northern Germany.\n\nFrom early on I was fascinated by technology and wanted to understand how, both, software and hardware work. This fascination was intensified when I bought my first iPod touch back in 2009. I couldn't believe how unique the entire ecosystem was (even though I called it differently back then), how simple it was and how beautiful the software was.\n\nTwo years later, I got my first Intel-based Mac. This was basically the beginning of the story. I downloaded Xcode, talked to experienced developers on the Internet, read books and slowly got into the matter.\n\nCrazy it's almost been 4 years since then."
+                                               text:@"I grew up in the small town of Heide in northern Germany.\n\nFrom early on I was fascinated by technology and wanted to understand how, both, software and hardware work. This fascination was intensified when I bought my first iPod touch back in 2009. I couldn't believe how unique the entire ecosystem was (even though I called it differently back then), how simple it was and how beautiful the software was.\n\nTwo years later, I got my first Mac and this was basically the beginning of the story."
                                              images:@[aImage]
                                              option:OptionsMap];
+
             
-            // TODO: Finish the annotations and check for spelling and grammar
-            TopicImage *bImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHackt"]
-                                                         annotation:@""];
-            TopicImage *bImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHacktGroup"]
-                                                         annotation:@"\"Jugend hackt\" (German for \"Youth's hacking\") was one of the first hackathons in Germany, which is why there weren't that many people. It was fun, though."];
-            TopicImage *bImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHacktStage"]
-                                                         annotation:@"Presenting your idea to other teenagers was something I really appreciated about Jugend hackt."];
-            Topic *b = [[Topic alloc] initWithTitle:@"Jugend hackt"
-                                           subtitle:@""
-                                               text:@"In 2013, just one year after I started learning Objective-C, I participated in my first hackathon which was \"Jugend hackt\" in Berlin.\n\nWe built a small app with a corresponding web service, called \"Kleiderfrosch\", that recommended you what kind of clothes to wear for the whole day – based on the weather forecast.\n\nThe jury really liked our idea and awarded us in the category \"I Wish I'd Thought of That\"\n\nIt was a great experience that showed me I'm not the only teenager who is interested in software development.\n\nUnfortunately, hackathons still aren't as popular in Germany as they are in the USA."
-                                             images:@[bImage1, bImage2, bImage3]
+            TopicImage *bImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"BooksPhoto"]
+                                                         annotation:@"Learning how to write code using books seems absurd but it worked."];
+            Topic *b = [[Topic alloc] initWithTitle:@"Getting My Feet Wet"
+                                           subtitle:nil
+                                               text:@"After getting said Mac, I was finally able to start developing my own apps – kinda. I had to realize that writing apps is quite a bit different to writing spoken language.\n\nSo, I bought a book on Amazon about Objective-C 2 – and in the retrospective it was the best money I ever spent.\n\nAfter reading it a couple of times, I slowly began to understand Objective-C. I can still recall that I was mind blown when my ran application worked without crashing."
+                                             images:@[bImage1]
                                              option:OptionsGeneric];
             
+            TopicImage *cImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHackt"]
+                                                         annotation:@""];
+            TopicImage *cImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHacktGroup"]
+                                                         annotation:@"\"Jugend hackt\" (German for \"Youth's hacking\") was one of the first hackathons in Germany, which is why there weren't that many people. It was fun, though."];
+            TopicImage *cImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"JugendHacktStage"]
+                                                         annotation:@"Presenting your idea to other teenagers was something I really appreciated about Jugend hackt."];
+            Topic *c = [[Topic alloc] initWithTitle:@"Jugend hackt"
+                                           subtitle:@""
+                                               text:@"In 2013, just a year after I started learning Objective-C, I participated in my first hackathon – that was \"Jugend hackt\" in Berlin.\n\nWe built a small app called \"Kleiderfrosch\", that recommended you what kind of clothes to wear for the whole day – based on the weather forecast.\n\nThe jury really liked our idea and awarded us in the category \"I Wish I'd Thought of That\"\n\nIt was a great experience that showed me I'm not the only teenager who is interested in software development."
+                                             images:@[cImage1, cImage2, cImage3]
+                                             option:OptionsGeneric];
             
-            // TODO: Continue content
-            TopicImage *cImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"EscalatorWWDC"]
+            TopicImage *dImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"EscalatorWWDC"]
                                                          annotation:@"The moment everyone waited for: the opening keynote. What a feeling to be there!"];
-            TopicImage *cImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"VenueWWDC"]
+            TopicImage *dImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"VenueWWDC"]
                                                          annotation:@"When I saw those banners on the other building I started realizing I'm in San Francisco for WWDC. I couldn't believe it until then."];
-            TopicImage *cImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FriendsWWDC"]
+            TopicImage *dImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FriendsWWDC"]
                                                          annotation:@"On Sunday, at registration, I met a couple of other scholars and eventual friends."];
-            TopicImage *cImage4 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"DoorsWWDC"]
+            TopicImage *dImage4 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"DoorsWWDC"]
                                                          annotation:@"Being in front of the Moscone center for the first time was quite amazing."];
-            TopicImage *cImage5 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FirstEveningWWDC"]
+            TopicImage *dImage5 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FirstEveningWWDC"]
                                                          annotation:@"On the first day in San Francisco, a couple of friends and I enjoyed ourselves. We had a great time!"];
-             Topic *c = [[Topic alloc] initWithTitle:@"WWDC 2015"
+             Topic *d = [[Topic alloc] initWithTitle:@"WWDC 2015"
                                             subtitle:@""
-                                                text:@"Last year, I took part in Apple's WWDC scholarship challenge for the first. Luckily, I won a ticket and was able to attended the conference.\n\nSeriously, this was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a load of new stuff.\n\nFinally visiting the actual conference after streaming it for years still gives me goosebumps until today.\n\nHowever, the most amazing thing about WWDC was that it felt like coming home. You are surrounded by people who are like you, who accept you without a blink. I have never experienced something comparable."
-                                              images:@[cImage1, cImage2, cImage3, cImage4, cImage5]
+                                                text:@"Last year, I took part in Apple's WWDC scholarship challenge for the first. Luckily, I won a ticket and was able to attended the conference.\n\nSeriously, this was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a load of new stuff.\n\nHowever, the most amazing thing about WWDC was that it felt like coming home. You are surrounded by people who are like you, who accept you without a blink. I have never experienced something comparable."
+                                              images:@[dImage1, dImage2, dImage3, dImage4, dImage5]
                                               option:OptionsGeneric];
             
 
-            TopicImage *dImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"SFDiversity"]
+            TopicImage *eImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"SFDiversity"]
                                                          annotation:@"Acceptance and diversity are values I cherish and San Francisco is the heart of diversity."];
-            TopicImage *dImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"StreetSF"]
+            TopicImage *eImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"StreetSF"]
                                                          annotation:@"Yes, this was my first time in San Francisco but I already felt better than I did home."];
-            Topic *d = [[Topic alloc] initWithTitle:@"Consequences"
+            Topic *e = [[Topic alloc] initWithTitle:@"Consequences"
                                            subtitle:nil
                                                text:@"Software development already had a quite impressive impact on me and my life. There was a time in my life where I was an absolute outsider, I was afraid to talk to other people and basically didn't have any self-confidence – this drastically changed after becoming a \"nerd\".\n\nI'm no longer an outsider since I know there are many other teenagers like me and that I don't have to fit in if I don't want to. Nobody judged me becaue of my age, my looks or my nationality – only by my experience.\n\nThe techology sector (and particulary Apple) is one of the leading forces in equality and impartiality.\n\nBy embracing that and by being open-minded it is possible to achieve truly great things."
-                                             images:@[dImage1, dImage2]
-                                             option:OptionsGeneric];
-            
-            
-            TopicImage *eImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FacebookCampus"]
-                                                         annotation:@"Visiting the Facebook campus was another motivating experience: I'm going to work as hard as I have to in order to work at such an awesome place."];
-            TopicImage *eImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FoggyBash"]
-                                                         annotation:@"Views like this one motivate me to work even harder to achieve what I want."];
-            Topic *e = [[Topic alloc] initWithTitle:@"Plans for the Future"
-                                           subtitle:nil
-                                               text:@"As far as I can remember, I already wanted to live and work in a different country (or at least in a big city) since I was a little kid.\n\nGrowing up in a small city like Heide is not easy for people like me. For people who are not like the others. For people who, well, think different.\n\nI'm living in rural area and open-minded people are rare around here and it's usual to get insulted for being the way you are.\n\nSo, yes. I want to live in a city like San Francisco where nobody cares about your quirks and I want to work for a company that embraces a similar mindset like me."
                                              images:@[eImage1, eImage2]
                                              option:OptionsGeneric];
             
-            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
+            
+            TopicImage *fImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FacebookCampus"]
+                                                         annotation:@"Visiting the Facebook campus was another motivating experience: I'm going to work as hard as I have to in order to work at such an awesome place."];
+            TopicImage *fImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FoggyBash"]
+                                                         annotation:@"Views like this one motivate me to work even harder to achieve what I want."];
+            Topic *f = [[Topic alloc] initWithTitle:@"Plans for the Future"
+                                           subtitle:nil
+                                               text:@"As far as I can remember, I already wanted to live and work in a different country (or at least in a big city) since I was a little kid.\n\nGrowing up in a small city like Heide is not easy for people like me. For people who are not like the others. For people who, well, think different.\n\nI'm living in rural area and open-minded people are rare around here. It's usual to get insulted for being the way you are.\n\nSo, yes. I want to live in a city like San Francisco where nobody cares about your quirks and I want to work for a company that embraces a similar mindset like me."
+                                             images:@[fImage1, fImage2]
+                                             option:OptionsGeneric];
+            
+            
+            
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e, f]];
         }
             break;
         case MenuTopicEducation:
@@ -644,7 +651,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                                          annotation:@"That is my high school. It's not the prettiest one but I had a couple of good years here."];
             Topic *a = [[Topic alloc] initWithTitle:@"High School"
                                            subtitle:nil
-                                               text:@"At the moment, I am a grade 11 student at the \"Gymnasium Heide-Ost\". It's a high school with about 1500 students. Next summer, I will, hopefully, finish high school and pass the secondary school exams.\n\nIn school I'm very interested in English, Biology and History.\n\nUnfortunately, there aren't any \"real\" CS classes. I put that in quotes, because the classes basically consist of copying Java code from the Internet into Eclipse or they are about the correct usage of word processors."
+                                               text:@"At the moment, I am a grade 11 student at the \"Gymnasium Heide-Ost\". It's a high school with about 1500 students. Next summer, I will, hopefully, finish high school and pass the secondary school exams.\n\nIn school I'm very interested in English, Biology and History.\n\nUnfortunately, there aren't any \"real\" CS classes at my school. I put that in quotes, because the classes basically consist of copying Java code from the Internet into Eclipse or they are about the correct usage of word processors."
                                              images:@[aImage1]
                                              option:OptionsGeneric];
             
@@ -653,7 +660,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                                          annotation:@"Studying in Silicon Valley would be obviously awesome."];
             Topic *b = [[Topic alloc] initWithTitle:@"Studying or Working?"
                                            subtitle:nil
-                                               text:@"Well, there are two things that I would like to do after finishing high school: either studying computer science at a college (preferable an American one) or immediately working as an iOS developer.\n\nStudying is interesting because education and knowledge are two of the most important resources we, as human race, have. More education is great but studying is very theoretically.\n\nI also want to make or create something. That's why I also want to work."
+                                               text:@"Well, there are two things I would like to do after finishing high school: either studying computer science at a college (preferably an American one) or immediately working as an iOS developer.\n\nStudying is interesting because education and knowledge are two of the most important resources we, as human race, have. More education is great and intensifying it is even better but studying is very theoretically.\n\nI also want to make or create something. That's why I want to work."
                                              images:@[bImage1]
                                              option:OptionsGeneric];
             
@@ -674,10 +681,10 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             TopicApp *a = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"PhoneBatteryIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"PhoneBattery" subtitle:@"Your phone's battery, on your wrist." description:@"PhoneBattery is a tiny utility app that displays your iPhone's battery level right on your Apple Watch.\n\nIt is pretty useful if you're working out and your palms are sweaty or if your phone is in your backpack.\n\nI had the idea for PhoneBattery on the plane back to Germany after last year's WWDC and had almost finished it after landing back in Hamburg." screenshots:@[]];
             Topic *p1 = [[Topic alloc] initWithApp:a];
             
-            TopicApp *b = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"GrainIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"Grain" subtitle:@"" description:@"" screenshots:@[]];
+            TopicApp *b = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"GrainIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"Grain" subtitle:@"" description:@"Grain is a quite complex app for fans of analog photography that helps you to keep track of your different films and their specific development times.\n\nYou can create your own recipes, share them with fellow photographers, add them to your favorites, add your cameras and many other things.\n\nWe don't expect to make much money with it but there's definitely a niche for it." screenshots:@[]];
             Topic *p2 = [[Topic alloc] initWithApp:b];
             
-            TopicApp *c = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"MVDribbbleKitIcon"] url:[NSURL URLWithString:dribbbleURLString] name:@"MVDribbbleKit" subtitle:@"" description:@"MVDribbbleKit is an easy-to-use, full-featured Objective-C wrapper for the official Dribbble API.\n\nIt is the most successful Dribbble wrapper for iOS and is being actively used in several Dribbble apps on the App Store.\n\nApart from that, it is also my most popular open source project which makes it even cooler." screenshots:@[]];
+            TopicApp *c = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"MVDribbbleKitIcon"] url:[NSURL URLWithString:dribbbleURLString] name:@"MVDribbbleKit" subtitle:@"" description:@"MVDribbbleKit is an easy-to-use, full-featured Objective-C wrapper for the official Dribbble API.\n\nIt is the most successful Dribbble wrapper for iOS and is being actively used in several Dribbble apps on the App Store.\n\nApart from that, it is also my most popular open source project on GitHub which makes it even cooler." screenshots:@[]];
             Topic *p3 = [[Topic alloc] initWithApp:c];
             
             [_topicsArray addObjectsFromArray:@[p1, p2, p3]];
