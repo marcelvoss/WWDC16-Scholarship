@@ -23,6 +23,7 @@
 		1F7FF62B1CCF484A00EE14C3 /* MVModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF62A1CCF484A00EE14C3 /* MVModel.m */; };
 		1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */; };
 		1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */; };
+		1F7FF6611CD11F5800EE14C3 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6601CD11F5800EE14C3 /* MainViewController.m */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
 		1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA94B7B1CCAE1CB0014B659 /* ImageViewer.swift */; };
@@ -31,7 +32,6 @@
 		1FBDFA8E1CC97F3200F73CDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBDFA8D1CC97F3200F73CDA /* Assets.xcassets */; };
 		1FBDFA9C1CC97F3200F73CDA /* Marcel_VossTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFA9B1CC97F3200F73CDA /* Marcel_VossTests.m */; };
 		1FBDFAA71CC97F3200F73CDA /* Marcel_VossUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAA61CC97F3200F73CDA /* Marcel_VossUITests.m */; };
-		1FBDFAB81CC97F4F00F73CDA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAB71CC97F4F00F73CDA /* MainViewController.m */; };
 		1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFABE1CC9859A00F73CDA /* UIColor+Colors.m */; };
 		1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAE21CCA2A0900F73CDA /* Topic.m */; };
 		1FBDFAF51CCA46D200F73CDA /* InteractiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAF41CCA46D200F73CDA /* InteractiveImageView.m */; };
@@ -87,6 +87,7 @@
 		1F7FF6461CCFBBBA00EE14C3 /* UIImage+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Helpers.h"; sourceTree = "<group>"; };
 		1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Helpers.m"; sourceTree = "<group>"; };
 		1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillView.swift; sourceTree = "<group>"; };
+		1F7FF6601CD11F5800EE14C3 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
 		1F93C57D1CCAC3F1001EA941 /* CustomMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuButton.h; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		1FBDFAA61CC97F3200F73CDA /* Marcel_VossUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Marcel_VossUITests.m; sourceTree = "<group>"; };
 		1FBDFAA81CC97F3200F73CDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FBDFAB61CC97F4F00F73CDA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		1FBDFAB71CC97F4F00F73CDA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		1FBDFABD1CC9859A00F73CDA /* UIColor+Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Colors.h"; sourceTree = "<group>"; };
 		1FBDFABE1CC9859A00F73CDA /* UIColor+Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Colors.m"; sourceTree = "<group>"; };
 		1FBDFAD21CCA096A00F73CDA /* Marcel Voss-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Marcel Voss-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -327,7 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				1FBDFAB61CC97F4F00F73CDA /* MainViewController.h */,
-				1FBDFAB71CC97F4F00F73CDA /* MainViewController.m */,
+				1F7FF6601CD11F5800EE14C3 /* MainViewController.m */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -497,6 +497,7 @@
 				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
 				1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */,
 				1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */,
+				1F7FF6611CD11F5800EE14C3 /* MainViewController.m in Sources */,
 				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
 				1FBDFA8C1CC97F3200F73CDA /* AppDelegate.m in Sources */,
@@ -505,7 +506,6 @@
 				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
 				1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */,
 				1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */,
-				1FBDFAB81CC97F4F00F73CDA /* MainViewController.m in Sources */,
 				1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */,
 				1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */,
 				1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */,
