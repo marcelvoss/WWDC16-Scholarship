@@ -115,8 +115,6 @@
     // Clean up collection view cell
     headlineLabel.text = nil;
     subtitleLabel.text = nil;
-    headerImageView.image = nil;
-    headerImageView = nil;
     textLabel.text = nil;
     _topic = nil;
     

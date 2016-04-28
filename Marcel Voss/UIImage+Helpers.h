@@ -12,5 +12,6 @@
 
 + (UIImage *)imageResize:(UIImage *)img andResizeTo:(CGSize)newSize;
 + (UIImage *)resizeImage:(UIImage*)image withWidth:(CGFloat)width withHeight:(CGFloat)height;
++ (UIImage *)imageFromColor:(UIColor *)color;
 
 @end

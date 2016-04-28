@@ -42,7 +42,12 @@
     self = [super initWithImage:image];
     if (self) {
         self.userInteractionEnabled = YES;
-       // self.contentMode = UIViewContentModeScaleToFill;
+        self.contentMode = UIViewContentModeScaleToFill;
+        
+        self.image = image;
+        
+        self.viewerType = ViewerTypeImage;
+        [self gestureForViewerType:ViewerTypeImage];
     }
     return self;
 }
@@ -184,15 +189,22 @@
 {
     ImageViewer *viewer = [[ImageViewer alloc] init];
     
-    TopicImage *newImage = _temporaryArray[currentImageIndex];
-    
-    if (newImage.topicAnnotation != nil) {
-        viewer.annotationLabel.text = newImage.topicAnnotation;
+    if (_imageArray) {
+        TopicImage *newImage = _temporaryArray[currentImageIndex];
+        
+        if (newImage.topicAnnotation != nil) {
+            viewer.annotationLabel.text = newImage.topicAnnotation;
+        }
+        
+        if (self.image != nil) {
+            [viewer show:newImage.topicHQImage];
+        }
+    } else {
+        if (self.image != nil) {
+            [viewer show:self.image];
+        }
     }
     
-    if (self.image != nil) {
-        [viewer show:newImage.topicHQImage];
-    }
 }
 
 - (void)showMapViewer
