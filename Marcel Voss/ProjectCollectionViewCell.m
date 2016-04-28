@@ -99,7 +99,7 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:appLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        
+        // TODO: Add use for this
         dockView = [[UIView alloc] init];
         dockView.translatesAutoresizingMaskIntoConstraints = NO;
         dockView.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00];
@@ -173,6 +173,20 @@
     [appIconButton setImage:topicApp.icon forState:UIControlStateNormal];
     appLabel.text = topicApp.name;
     subtitleLabel.text = topicApp.subtitle;
+    
+    UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [moreButton setTitle:@"More" forState:UIControlStateNormal];
+    moreButton.translatesAutoresizingMaskIntoConstraints = NO;
+    moreButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [dockView addSubview:moreButton];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
     // Terrible way to do it; was to lazy to make it better
     if ([topicApp.name isEqualToString:@"PhoneBattery"]) {

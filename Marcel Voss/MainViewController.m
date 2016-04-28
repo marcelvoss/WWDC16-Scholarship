@@ -522,6 +522,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         aboutButton.alpha = 0;
         
         
+        
     } completion:nil];
     
     
@@ -678,7 +679,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         case MenuTopicProjects:
         {
             // TODO: UI is very ugly
-            TopicApp *a = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"PhoneBatteryIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"PhoneBattery" subtitle:@"Your phone's battery, on your wrist." description:@"PhoneBattery is a tiny utility app that displays your iPhone's battery level right on your Apple Watch.\n\nIt is pretty useful if you're working out and your palms are sweaty or if your phone is in your backpack.\n\nI had the idea for PhoneBattery on the plane back to Germany after last year's WWDC and had almost finished it after landing back in Hamburg." screenshots:@[]];
+            TopicApp *a = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"PhoneBatteryIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"PhoneBattery" subtitle:@"Your phone's battery, on your wrist." description:@"PhoneBattery is a tiny utility app that displays your iPhone's battery level right on your Apple Watch.\n\nIt is pretty useful if you're working out and your palms are sweaty or if your phone is in your backpack and you don't want to get it out.\n\nBy the way, here's a fun fact: I had the idea for PhoneBattery on the plane back to Germany after last year's WWDC and had almost finished it after landing back in Hamburg." screenshots:@[]];
             Topic *p1 = [[Topic alloc] initWithApp:a];
             
             TopicApp *b = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"GrainIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"Grain" subtitle:@"" description:@"Grain is a quite complex app for fans of analog photography that helps you to keep track of your different films and their specific development times.\n\nYou can create your own recipes, share them with fellow photographers, add them to your favorites, add your cameras and many other things.\n\nWe don't expect to make much money with it but there's definitely a niche for it." screenshots:@[]];
