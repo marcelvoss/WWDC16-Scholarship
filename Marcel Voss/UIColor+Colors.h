@@ -16,5 +16,14 @@
 + (UIColor *)redDubColor;
 + (UIColor *)blueDubColor;
 
++ (UIColor *)swiftColor;
++ (UIColor *)objectColor;
++ (UIColor *)cssColor;
++ (UIColor *)cColor;
++ (UIColor *)pythonColor;
++ (UIColor *)htmlColor;
++ (UIColor *)rubyColor;
+
+
 
 @end

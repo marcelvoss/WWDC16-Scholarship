@@ -12,13 +12,13 @@
 
 #import "TopicImage.h"
 
-@class TopicApp;
+@class TopicApp, TopicSkill;
 
 typedef NS_ENUM(NSInteger, Options) {
     OptionsMap,
     OptionsGeneric,
     OptionsApp,
-    OptionsIntro,
+    OptionsSkill,
     OptionsNone
 };
 
@@ -33,9 +33,8 @@ typedef NS_ENUM(NSInteger, Options) {
 
 
 @property (nonatomic) TopicApp *topicApp;
+@property (nonatomic) TopicSkill *topicSkill;
 @property (nonatomic) MKCoordinateRegion *locationRegion;
-
-//options.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(HEIDE_LATITUDE, HEIDE_LONGTITUDE),
 
 - (instancetype)initWithTitle:(NSString *)topicTitle
                      subtitle:(NSString *)topicSubtitle
@@ -44,5 +43,6 @@ typedef NS_ENUM(NSInteger, Options) {
                        option:(Options)topicOption;
 
 - (instancetype)initWithApp:(TopicApp *)appItem;
+- (instancetype)initWithSkill:(TopicSkill *)skillItem;
 
 @end

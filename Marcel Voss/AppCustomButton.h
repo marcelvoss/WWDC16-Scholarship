@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <StoreKit/StoreKit.h>
+
+@class TopicApp;
 
 @interface AppCustomButton : UIButton
 

@@ -29,6 +29,10 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     let locationLabel = UILabel()
     let distanceLabel = UILabel()
     
+    
+    let introHeadLabel = UILabel()
+    let introSubLabel = UILabel()
+    
     // Time Zone
     //let distanceLabel = UILabel()
     
@@ -253,7 +257,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView0, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
         
         
-        let introHeadLabel = UILabel()
         introHeadLabel.text = "Facts & Stats"
         introHeadLabel.translatesAutoresizingMaskIntoConstraints = false
         introHeadLabel.font = UIFont.boldSystemFontOfSize(20)
@@ -264,7 +267,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: introHeadLabel, attribute: .Bottom, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
         
         
-        let introSubLabel = UILabel()
         introSubLabel.text = "Want to learn a bit more?"
         introSubLabel.translatesAutoresizingMaskIntoConstraints = false
         introSubLabel.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
@@ -395,6 +397,10 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         // TODO: Add error handling
+        /*
+        introHeadLabel.text = "Oh, no."
+        introSubLabel.text = "Something went wrong. 😟"
+         */
     }
     
 }

@@ -15,13 +15,16 @@
 
 #import "GenericCollectionViewCell.h"
 #import "MapCollectionViewCell.h"
+#import "SkillCollectionViewCell.h"
 #import "ProjectCollectionViewCell.h"
 
 #import "CustomMenuButton.h"
 #import "WeatherCard.h"
+#import "UIColor+Colors.h"
 
 #import "Topic.h"
 #import "TopicApp.h"
+#import "TopicSkill.h"
 #import "ArrayUtilities.h"
 #import "UIImage+Helpers.h"
 
@@ -34,7 +37,8 @@ static CGFloat const kPanTriggerExpandDistance = 50.0;
 typedef NS_ENUM(NSInteger, MenuTopic) {
     MenuTopicAbout,
     MenuTopicEducation,
-    MenuTopicProjects
+    MenuTopicProjects,
+    MenuTopicSkills
 };
 
 @interface MainViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UIGestureRecognizerDelegate>
@@ -518,53 +522,8 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 
 - (void)skillsPressed:(id)sender
 {
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        aboutButton.alpha = 0;
-        
-        
-        
-    } completion:nil];
-    
-    
-    [UIView animateWithDuration:0.2 delay:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        educationButton.alpha = 0;
-    } completion:nil];
-    
-    [UIView animateWithDuration:0.2 delay:0.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        projectsButton.alpha = 0;
-    } completion:nil];
-    
-    [UIView animateWithDuration:0.2 delay:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        skillsButton.alpha = 0;
-    } completion:^(BOOL finished) {
-        stackView.hidden = YES;
-        
-        // Show the skillview after completing last animation
-
-         SkillView *s2 = [[SkillView alloc] initWithName:@"Objective-C" percentage:4 color:[UIColor redColor] since:@"Since 2012" frame:CGRectMake(20, 200 + 150, width, 65)];
-         [s2 runAnimationWithDuration:2 delay:0.5];
-        
-        
-        //Stack View
-        UIStackView *skillStack = [[UIStackView alloc] init];
-        skillStack.alpha = 1;
-        skillStack.axis = UILayoutConstraintAxisVertical;
-        skillStack.distribution = UIStackViewDistributionEqualSpacing;
-        skillStack.alignment = UIStackViewAlignmentCenter;
-        skillStack.spacing = 10;
-        skillStack.translatesAutoresizingMaskIntoConstraints = NO;
-        [skillStack addArrangedSubview:s2];
-        [backgroundImageView addSubview:skillStack];
-        
-        [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:skillStack attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-        
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:skillStack attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:height / 2]];
-        
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:skillStack attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:backgroundImageView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-        
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:skillStack attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:height - 300]];
-    }];
-    
+    [self setupTopicsForMenuTopic:MenuTopicSkills];
+    [self setupCollectionViewForMenuTopic:MenuTopicSkills];
 }
 
 - (void)setupTopicsForMenuTopic:(MenuTopic)menuTopic
@@ -678,7 +637,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             break;
         case MenuTopicProjects:
         {
-            // TODO: UI is very ugly
             TopicApp *a = [[TopicApp alloc] initWithIcon:[UIImage imageNamed:@"PhoneBatteryIcon"] url:[NSURL URLWithString:phoneBatteryURLString] name:@"PhoneBattery" subtitle:@"Your phone's battery, on your wrist." description:@"PhoneBattery is a tiny utility app that displays your iPhone's battery level right on your Apple Watch.\n\nIt is pretty useful if you're working out and your palms are sweaty or if your phone is in your backpack and you don't want to get it out.\n\nBy the way, here's a fun fact: I had the idea for PhoneBattery on the plane back to Germany after last year's WWDC and had almost finished it after landing back in Hamburg." screenshots:@[]];
             Topic *p1 = [[Topic alloc] initWithApp:a];
             
@@ -689,6 +647,28 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             Topic *p3 = [[Topic alloc] initWithApp:c];
             
             [_topicsArray addObjectsFromArray:@[p1, p2, p3]];
+        }
+            break;
+        case MenuTopicSkills:
+        {
+            TopicSkill *a1 = [[TopicSkill alloc] initWithSkill:@"Objective-C" color:[UIColor objectColor] progress:90 since:2012];
+            Topic *a = [[Topic alloc] initWithSkill:a1];
+            
+            TopicSkill *b1 = [[TopicSkill alloc] initWithSkill:@"C" color:[UIColor cColor] progress:75 since:2012];
+            Topic *b = [[Topic alloc] initWithSkill:b1];
+            
+            TopicSkill *c1 = [[TopicSkill alloc] initWithSkill:@"Swift" color:[UIColor swiftColor] progress:65 since:2014];
+            Topic *c = [[Topic alloc] initWithSkill:c1];
+            
+            
+            TopicSkill *d1 = [[TopicSkill alloc] initWithSkill:@"Python" color:[UIColor pythonColor] progress:75 since:2013];
+            Topic *d = [[Topic alloc] initWithSkill:d1];
+
+            
+            TopicSkill *e1 = [[TopicSkill alloc] initWithSkill:@"Ruby" color:[UIColor rubyColor] progress:30 since:2012];
+            Topic *e = [[Topic alloc] initWithSkill:e1];
+            
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
         }
             break;
     }
@@ -719,6 +699,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [menuCollectionView registerClass:[GenericCollectionViewCell class] forCellWithReuseIdentifier:@"CellGeneric"];
     [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
     [menuCollectionView registerClass:[ProjectCollectionViewCell class] forCellWithReuseIdentifier:@"CellProjects"];
+    [menuCollectionView registerClass:[SkillCollectionViewCell class] forCellWithReuseIdentifier:@"CellSkills"];
     
     
     if (menuTopic == MenuTopicAbout) {
@@ -754,28 +735,37 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
 {
     GenericCollectionViewCell *cellGeneric = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellGeneric"
                                                                                        forIndexPath:indexPath];
+    
     MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap"
                                                                                forIndexPath:indexPath];
+    
     ProjectCollectionViewCell *cellProjects = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProjects"
-                                                                               forIndexPath:indexPath];
+                                                                                        forIndexPath:indexPath];
+    
+    ProjectCollectionViewCell *cellSkills = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellSkills"
+                                                                                      forIndexPath:indexPath];
     
     Topic *topic = _topicsArray[indexPath.row];
     if (topic.topicOption == OptionsMap) {
         
         cellMap.topic = topic;
-        
         return cellMap;
+        
     } else if (topic.topicOption == OptionsGeneric) {
         
         cellGeneric.topic = topic;
-        
         return cellGeneric;
         
     } else if (topic.topicOption == OptionsApp) {
         
         cellProjects.topic = topic;
-        
         return cellProjects;
+        
+    } else if (topic.topicOption == OptionsSkill) {
+        
+        cellSkills.topic = topic;
+        return cellSkills;
+        
     }
     
     return cellGeneric;
@@ -788,7 +778,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     arrowYConstraint.constant = 5;
     [UIView animateWithDuration:2.0 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction animations:^{
-        
         
         [backgroundImageView layoutIfNeeded];
         

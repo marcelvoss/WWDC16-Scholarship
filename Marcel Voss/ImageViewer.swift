@@ -74,15 +74,16 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
     }
     
     func hide() {
-        UIView.animateWithDuration(0.5, delay: 0.15, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0.15, options: .TransitionNone, animations: {
             let screenHeight = UIScreen.mainScreen().bounds.size.height
             self.constraintY!.constant = screenHeight
             self.layoutIfNeeded()
-            }) { (finished) -> Void in
+            }) { (done) in
                 
         }
+
         
-        UIView.animateWithDuration(0.4, delay: 0.25, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
+        UIView.animateWithDuration(0.5, delay: 0.25, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
             self.alpha = 0;
         }) { (finished) -> Void in
             self.theImage = nil

@@ -37,4 +37,14 @@
     return self;
 }
 
+- (instancetype)initWithSkill:(TopicSkill *)skillItem
+{
+    self = [super init];
+    if (self) {
+        _topicOption = OptionsSkill;
+        _topicSkill = skillItem;
+    }
+    return self;
+}
+
 @end

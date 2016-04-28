@@ -43,15 +43,29 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:cityLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:cityLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:cityLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
         weatherLabel = [[UILabel alloc] init];
         weatherLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        weatherLabel.font = [UIFont boldSystemFontOfSize:15];
         [self addSubview:weatherLabel];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        
+        
+        minLabel = [[UILabel alloc] init];
+        minLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        minLabel.text = @"sdfsdfg";
+        [self addSubview:minLabel];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:minLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:minLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        
         
         [self layoutIfNeeded];
         

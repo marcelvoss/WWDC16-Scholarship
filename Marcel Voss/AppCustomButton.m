@@ -8,9 +8,13 @@
 
 #import "AppCustomButton.h"
 
-@interface AppCustomButton (Private)
+#import "Constants.h"
 
-
+@interface AppCustomButton () <SKStoreProductViewControllerDelegate>
+{
+    UIViewController *controller;
+    SKStoreProductViewController *storeVC;
+}
 
 @end
 
@@ -72,6 +76,27 @@
         
     }];
     
+}
+
+- (void)storePresed:(id)sender
+{
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    controller = window.rootViewController;
+    
+    storeVC = [[SKStoreProductViewController alloc] init];
+    storeVC.delegate = self;
+    
+    NSDictionary *parameters = @{SKStoreProductParameterITunesItemIdentifier: pbAppID};
+    [storeVC loadProductWithParameters:parameters completionBlock:^(BOOL result, NSError * _Nullable error) {
+        if (result) {
+            [controller presentViewController:storeVC animated:YES completion:nil];
+        }
+    }];
+}
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+    [viewController presentViewController:storeVC animated:YES completion:nil];
 }
 
 @end

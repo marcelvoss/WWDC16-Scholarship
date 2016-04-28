@@ -22,8 +22,9 @@
 		1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */; };
 		1F7FF62B1CCF484A00EE14C3 /* MVModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF62A1CCF484A00EE14C3 /* MVModel.m */; };
 		1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */; };
-		1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */; };
 		1F7FF6611CD11F5800EE14C3 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6601CD11F5800EE14C3 /* MainViewController.m */; };
+		1F7FF6991CD25B3B00EE14C3 /* SkillCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF6981CD25B3B00EE14C3 /* SkillCollectionViewCell.m */; };
+		1F7FF69C1CD25C1000EE14C3 /* TopicSkill.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF69B1CD25C1000EE14C3 /* TopicSkill.m */; };
 		1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C5711CCA8B8F001EA941 /* TopicLayout.m */; };
 		1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F93C57E1CCAC3F1001EA941 /* CustomMenuButton.m */; };
 		1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA94B7B1CCAE1CB0014B659 /* ImageViewer.swift */; };
@@ -86,8 +87,11 @@
 		1F7FF62A1CCF484A00EE14C3 /* MVModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVModel.m; sourceTree = "<group>"; };
 		1F7FF6461CCFBBBA00EE14C3 /* UIImage+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Helpers.h"; sourceTree = "<group>"; };
 		1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Helpers.m"; sourceTree = "<group>"; };
-		1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillView.swift; sourceTree = "<group>"; };
 		1F7FF6601CD11F5800EE14C3 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		1F7FF6971CD25B3B00EE14C3 /* SkillCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillCollectionViewCell.h; sourceTree = "<group>"; };
+		1F7FF6981CD25B3B00EE14C3 /* SkillCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillCollectionViewCell.m; sourceTree = "<group>"; };
+		1F7FF69A1CD25C1000EE14C3 /* TopicSkill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicSkill.h; sourceTree = "<group>"; };
+		1F7FF69B1CD25C1000EE14C3 /* TopicSkill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicSkill.m; sourceTree = "<group>"; };
 		1F93C5701CCA8B8F001EA941 /* TopicLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicLayout.h; sourceTree = "<group>"; };
 		1F93C5711CCA8B8F001EA941 /* TopicLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicLayout.m; sourceTree = "<group>"; };
 		1F93C57D1CCAC3F1001EA941 /* CustomMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuButton.h; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 				1F7FF61A1CCE325600EE14C3 /* TopicImage.m */,
 				1F7FF6261CCEB07C00EE14C3 /* TopicApp.h */,
 				1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */,
+				1F7FF69A1CD25C1000EE14C3 /* TopicSkill.h */,
+				1F7FF69B1CD25C1000EE14C3 /* TopicSkill.m */,
 			);
 			name = Topics;
 			sourceTree = "<group>";
@@ -227,6 +233,8 @@
 				1F7FF6211CCE544E00EE14C3 /* MapCollectionViewCell.m */,
 				1F7FF6231CCE5F5E00EE14C3 /* ProjectCollectionViewCell.h */,
 				1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */,
+				1F7FF6971CD25B3B00EE14C3 /* SkillCollectionViewCell.h */,
+				1F7FF6981CD25B3B00EE14C3 /* SkillCollectionViewCell.m */,
 			);
 			name = "Collection View Cells";
 			sourceTree = "<group>";
@@ -301,7 +309,6 @@
 		1FBDFAB41CC97F3900F73CDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1F7FF64C1CCFF27800EE14C3 /* SkillView.swift */,
 				1F7FF6151CCE0F6200EE14C3 /* Cards */,
 				1F7FF5F91CCCFD7A00EE14C3 /* Topics */,
 				1F7FF6041CCD221B00EE14C3 /* Viewers */,
@@ -488,7 +495,7 @@
 			files = (
 				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
 				1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */,
-				1F7FF64D1CCFF27800EE14C3 /* SkillView.swift in Sources */,
+				1F7FF69C1CD25C1000EE14C3 /* TopicSkill.m in Sources */,
 				1F7FF6611CD11F5800EE14C3 /* MainViewController.m in Sources */,
 				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
@@ -498,6 +505,7 @@
 				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
 				1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */,
 				1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */,
+				1F7FF6991CD25B3B00EE14C3 /* SkillCollectionViewCell.m in Sources */,
 				1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */,
 				1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */,
 				1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */,

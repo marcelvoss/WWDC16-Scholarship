@@ -10,6 +10,7 @@
 
 // URLs
 static NSString *phoneBatteryURLString = @"https://itunes.apple.com/us/app/phonebattery-your-phones-battery/id1009278300?l=de&ls=1&mt=8";
+static NSString *pbAppID = @"1009278300";
 static NSString *dribbbleURLString = @"https://github.com/marcelvoss/MVDribbbleKit";
 
 static NSString *twitterURLString = @"";

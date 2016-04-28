@@ -13,6 +13,7 @@
 #import "Topic.h"
 #import "TopicApp.h"
 #import "InteractiveImageView.h"
+#import "AppCustomButton.h"
 #import "UIImage+Helpers.h"
 
 @interface ProjectCollectionViewCell ()
@@ -32,10 +33,7 @@
     NSLayoutConstraint *heightConstraint;
     NSLayoutConstraint *dockHeightConstraint;
     
-    UIBezierPath *maskPathTop;
     UIBezierPath *maskPathBottom;
-    
-    CAShapeLayer *maskLayerTop;
     CAShapeLayer *maskLayerBottom;
     UIButton *moreButton;
     
@@ -257,11 +255,18 @@
     if ([topicApp.name isEqualToString:@"PhoneBattery"]) {
         [self showOverlayView];
         
+        if ([screen1 isDescendantOfView:backgroundView] || [screen2 isDescendantOfView:backgroundView] || [screen3 isDescendantOfView:backgroundView]) {
+            [screen1 removeFromSuperview];
+            [screen2 removeFromSuperview];
+            [screen3 removeFromSuperview];
+        }
+        
         screen1 = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"PhoneBattery1"]];
         screen1.translatesAutoresizingMaskIntoConstraints = NO;
         screen1.contentMode = UIViewContentModeScaleAspectFill;
         screen1.clipsToBounds = YES;
         screen1.alpha = 0;
+        screen1.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
         screen1.layer.masksToBounds = YES;
         screen1.layer.cornerRadius = 6;
         [backgroundView addSubview:screen1];
@@ -280,6 +285,7 @@
         screen2.contentMode = UIViewContentModeScaleAspectFill;
         screen2.clipsToBounds = YES;
         screen2.alpha = 0;
+        screen2.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
         screen2.layer.masksToBounds = YES;
         screen2.layer.cornerRadius = 6;
         [backgroundView addSubview:screen2];
@@ -298,6 +304,7 @@
         screen3.contentMode = UIViewContentModeScaleAspectFill;
         screen3.clipsToBounds = YES;
         screen3.alpha = 0;
+        screen3.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
         screen3.layer.masksToBounds = YES;
         screen3.layer.cornerRadius = 6;
         [backgroundView addSubview:screen3];
@@ -323,11 +330,19 @@
     } else if ([topicApp.name isEqualToString:@"Grain"]) {
         [self showOverlayView];
         
+        if ([screen1 isDescendantOfView:backgroundView] || [screen2 isDescendantOfView:backgroundView] || [screen3 isDescendantOfView:backgroundView]) {
+            [screen1 removeFromSuperview];
+            [screen2 removeFromSuperview];
+            [screen3 removeFromSuperview];
+        }
+        
+        
         screen1 = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"Grain1"]];
         screen1.translatesAutoresizingMaskIntoConstraints = NO;
         screen1.contentMode = UIViewContentModeScaleAspectFill;
         screen1.clipsToBounds = YES;
         screen1.alpha = 0;
+        screen1.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
         screen1.layer.masksToBounds = YES;
         screen1.layer.cornerRadius = 6;
         [backgroundView addSubview:screen1];
@@ -346,6 +361,7 @@
         screen2.contentMode = UIViewContentModeScaleAspectFill;
         screen2.clipsToBounds = YES;
         screen2.alpha = 0;
+        screen2.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
         screen2.layer.masksToBounds = YES;
         screen2.layer.cornerRadius = 6;
         [backgroundView addSubview:screen2];
@@ -364,6 +380,7 @@
         screen3.contentMode = UIViewContentModeScaleAspectFill;
         screen3.clipsToBounds = YES;
         screen3.alpha = 0;
+        screen3.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
         screen3.layer.masksToBounds = YES;
         screen3.layer.cornerRadius = 6;
         [backgroundView addSubview:screen3];
