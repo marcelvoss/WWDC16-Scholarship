@@ -1,4 +1,4 @@
-// MVModel.h
+// MVBucket.h
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -21,10 +21,21 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
 
-@interface MVModel : NSObject
+#import "MVUser.h"
+#import "MVModel.h"
 
-- (id)objectForKeyOrNil:(id)key;
+@interface MVBucket : MVModel
+
+@property (nonatomic) NSNumber *bucketID;
+@property (nonatomic) NSString *bucketName;
+@property (nonatomic) NSString *bucketDescription;
+@property (nonatomic) NSNumber *shotsCount;
+@property (nonatomic) NSDate *createdDate;
+@property (nonatomic) NSDate *updatedDate;
+
+@property (nonatomic) MVUser *user;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

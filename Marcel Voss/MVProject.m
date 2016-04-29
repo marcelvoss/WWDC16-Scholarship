@@ -1,4 +1,4 @@
-// MVModel.h
+// MVProject.m
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -20,11 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
+#import "MVProject.h"
 
-@interface MVModel : NSObject
+@implementation MVProject
 
-- (id)objectForKeyOrNil:(id)key;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        _projectID = [self objectForKeyOrNil:dictionary[@"id"]];
+        _projectName = [self objectForKeyOrNil:dictionary[@"id"]];
+        _projectDescription = [self objectForKeyOrNil:dictionary[@"description"]];
+        _shotsCount = [self objectForKeyOrNil:dictionary[@"shots_count"]];
+        _user = [[MVUser alloc] initWithDictionary:dictionary[@"user"]];
+        
+        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+        _createdDate = [formatter dateFromString:dictionary[@"created_at"]];
+        _updatedDate = [formatter dateFromString:dictionary[@"updated_at"]];
+    }
+    return self;
+}
 
 @end

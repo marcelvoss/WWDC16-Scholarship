@@ -38,6 +38,19 @@
 		1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFB0B1CCA734E00F73CDA /* FBShimmeringLayer.m */; };
 		1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */; };
 		1FF871BD1CD3AF3B00A17F12 /* InteractiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871BC1CD3AF3B00A17F12 /* InteractiveImageView.m */; };
+		1FF871C61CD3C55D00A17F12 /* MVConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871C51CD3C55D00A17F12 /* MVConstants.m */; };
+		1FF871C91CD3C56700A17F12 /* MVDribbbleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871C81CD3C56700A17F12 /* MVDribbbleKit.m */; };
+		1FF871CC1CD3C56D00A17F12 /* MVAuthBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871CB1CD3C56D00A17F12 /* MVAuthBrowser.m */; };
+		1FF871D11CD3C58100A17F12 /* MVAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871CE1CD3C58100A17F12 /* MVAttachment.m */; };
+		1FF871D21CD3C58100A17F12 /* MVBucket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871D01CD3C58100A17F12 /* MVBucket.m */; };
+		1FF871D71CD3C58700A17F12 /* MVComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871D41CD3C58600A17F12 /* MVComment.m */; };
+		1FF871D81CD3C58700A17F12 /* MVLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871D61CD3C58700A17F12 /* MVLike.m */; };
+		1FF871DB1CD3C59000A17F12 /* MVLikedShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871DA1CD3C59000A17F12 /* MVLikedShot.m */; };
+		1FF871E21CD3C59700A17F12 /* MVProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871DD1CD3C59700A17F12 /* MVProject.m */; };
+		1FF871E31CD3C59700A17F12 /* MVShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871DF1CD3C59700A17F12 /* MVShot.m */; };
+		1FF871E41CD3C59700A17F12 /* MVUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871E11CD3C59700A17F12 /* MVUser.m */; };
+		1FF871E71CD3C5B300A17F12 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871E61CD3C5B300A17F12 /* ISO8601DateFormatter.m */; };
+		1FF871EB1CD3E9F400A17F12 /* TopicDribbble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871EA1CD3E9F400A17F12 /* TopicDribbble.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +135,32 @@
 		1FBDFB0C1CCA734E00F73CDA /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
 		1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		1FF871BC1CD3AF3B00A17F12 /* InteractiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveImageView.m; sourceTree = "<group>"; };
+		1FF871C41CD3C55D00A17F12 /* MVConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVConstants.h; sourceTree = "<group>"; };
+		1FF871C51CD3C55D00A17F12 /* MVConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVConstants.m; sourceTree = "<group>"; };
+		1FF871C71CD3C56700A17F12 /* MVDribbbleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVDribbbleKit.h; sourceTree = "<group>"; };
+		1FF871C81CD3C56700A17F12 /* MVDribbbleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVDribbbleKit.m; sourceTree = "<group>"; };
+		1FF871CA1CD3C56D00A17F12 /* MVAuthBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVAuthBrowser.h; sourceTree = "<group>"; };
+		1FF871CB1CD3C56D00A17F12 /* MVAuthBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVAuthBrowser.m; sourceTree = "<group>"; };
+		1FF871CD1CD3C58100A17F12 /* MVAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVAttachment.h; sourceTree = "<group>"; };
+		1FF871CE1CD3C58100A17F12 /* MVAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVAttachment.m; sourceTree = "<group>"; };
+		1FF871CF1CD3C58100A17F12 /* MVBucket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVBucket.h; sourceTree = "<group>"; };
+		1FF871D01CD3C58100A17F12 /* MVBucket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVBucket.m; sourceTree = "<group>"; };
+		1FF871D31CD3C58600A17F12 /* MVComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVComment.h; sourceTree = "<group>"; };
+		1FF871D41CD3C58600A17F12 /* MVComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVComment.m; sourceTree = "<group>"; };
+		1FF871D51CD3C58700A17F12 /* MVLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVLike.h; sourceTree = "<group>"; };
+		1FF871D61CD3C58700A17F12 /* MVLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVLike.m; sourceTree = "<group>"; };
+		1FF871D91CD3C59000A17F12 /* MVLikedShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVLikedShot.h; sourceTree = "<group>"; };
+		1FF871DA1CD3C59000A17F12 /* MVLikedShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVLikedShot.m; sourceTree = "<group>"; };
+		1FF871DC1CD3C59700A17F12 /* MVProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVProject.h; sourceTree = "<group>"; };
+		1FF871DD1CD3C59700A17F12 /* MVProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVProject.m; sourceTree = "<group>"; };
+		1FF871DE1CD3C59700A17F12 /* MVShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVShot.h; sourceTree = "<group>"; };
+		1FF871DF1CD3C59700A17F12 /* MVShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVShot.m; sourceTree = "<group>"; };
+		1FF871E01CD3C59700A17F12 /* MVUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVUser.h; sourceTree = "<group>"; };
+		1FF871E11CD3C59700A17F12 /* MVUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVUser.m; sourceTree = "<group>"; };
+		1FF871E51CD3C5B300A17F12 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
+		1FF871E61CD3C5B300A17F12 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
+		1FF871E91CD3E9F400A17F12 /* TopicDribbble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicDribbble.h; sourceTree = "<group>"; };
+		1FF871EA1CD3E9F400A17F12 /* TopicDribbble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicDribbble.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +203,9 @@
 		1F7FF5F41CCCF66500EE14C3 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				1F7FF6291CCF484A00EE14C3 /* MVModel.h */,
+				1F7FF62A1CCF484A00EE14C3 /* MVModel.m */,
+				1FF871BE1CD3C39A00A17F12 /* MVDribbbleKit */,
 				1F7FF5F51CCCFA3A00EE14C3 /* OpenWeatherMap */,
 			);
 			name = API;
@@ -172,8 +214,6 @@
 		1F7FF5F51CCCFA3A00EE14C3 /* OpenWeatherMap */ = {
 			isa = PBXGroup;
 			children = (
-				1F7FF6291CCF484A00EE14C3 /* MVModel.h */,
-				1F7FF62A1CCF484A00EE14C3 /* MVModel.m */,
 				1F7FF5FB1CCD11E700EE14C3 /* OWMObject.h */,
 				1F7FF5FC1CCD11E700EE14C3 /* OWMObject.m */,
 				1F7FF5F61CCCFA5D00EE14C3 /* OWMManager.h */,
@@ -193,6 +233,8 @@
 				1F7FF6271CCEB07C00EE14C3 /* TopicApp.m */,
 				1F7FF69A1CD25C1000EE14C3 /* TopicSkill.h */,
 				1F7FF69B1CD25C1000EE14C3 /* TopicSkill.m */,
+				1FF871E91CD3E9F400A17F12 /* TopicDribbble.h */,
+				1FF871EA1CD3E9F400A17F12 /* TopicDribbble.m */,
 			);
 			name = Topics;
 			sourceTree = "<group>";
@@ -200,6 +242,7 @@
 		1F7FF5FA1CCD11B700EE14C3 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				1FF871E81CD3C5B600A17F12 /* ISO8601DateFormatter */,
 				1FBDFB101CCA735000F73CDA /* FBShimmering */,
 			);
 			name = "Third Party";
@@ -356,6 +399,60 @@
 			name = FBShimmering;
 			sourceTree = "<group>";
 		};
+		1FF871BE1CD3C39A00A17F12 /* MVDribbbleKit */ = {
+			isa = PBXGroup;
+			children = (
+				1FF871C71CD3C56700A17F12 /* MVDribbbleKit.h */,
+				1FF871C81CD3C56700A17F12 /* MVDribbbleKit.m */,
+				1FF871CA1CD3C56D00A17F12 /* MVAuthBrowser.h */,
+				1FF871CB1CD3C56D00A17F12 /* MVAuthBrowser.m */,
+				1FF871C31CD3C54C00A17F12 /* Helpers */,
+				1FF871C21CD3C54400A17F12 /* Models */,
+			);
+			name = MVDribbbleKit;
+			sourceTree = "<group>";
+		};
+		1FF871C21CD3C54400A17F12 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1FF871CD1CD3C58100A17F12 /* MVAttachment.h */,
+				1FF871CE1CD3C58100A17F12 /* MVAttachment.m */,
+				1FF871CF1CD3C58100A17F12 /* MVBucket.h */,
+				1FF871D01CD3C58100A17F12 /* MVBucket.m */,
+				1FF871D31CD3C58600A17F12 /* MVComment.h */,
+				1FF871D41CD3C58600A17F12 /* MVComment.m */,
+				1FF871D51CD3C58700A17F12 /* MVLike.h */,
+				1FF871D61CD3C58700A17F12 /* MVLike.m */,
+				1FF871D91CD3C59000A17F12 /* MVLikedShot.h */,
+				1FF871DA1CD3C59000A17F12 /* MVLikedShot.m */,
+				1FF871DC1CD3C59700A17F12 /* MVProject.h */,
+				1FF871DD1CD3C59700A17F12 /* MVProject.m */,
+				1FF871DE1CD3C59700A17F12 /* MVShot.h */,
+				1FF871DF1CD3C59700A17F12 /* MVShot.m */,
+				1FF871E01CD3C59700A17F12 /* MVUser.h */,
+				1FF871E11CD3C59700A17F12 /* MVUser.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		1FF871C31CD3C54C00A17F12 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1FF871C41CD3C55D00A17F12 /* MVConstants.h */,
+				1FF871C51CD3C55D00A17F12 /* MVConstants.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		1FF871E81CD3C5B600A17F12 /* ISO8601DateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				1FF871E51CD3C5B300A17F12 /* ISO8601DateFormatter.h */,
+				1FF871E61CD3C5B300A17F12 /* ISO8601DateFormatter.m */,
+			);
+			name = ISO8601DateFormatter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -491,15 +588,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF871E31CD3C59700A17F12 /* MVShot.m in Sources */,
 				1FF871BD1CD3AF3B00A17F12 /* InteractiveImageView.m in Sources */,
 				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
 				1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */,
+				1FF871C91CD3C56700A17F12 /* MVDribbbleKit.m in Sources */,
+				1FF871DB1CD3C59000A17F12 /* MVLikedShot.m in Sources */,
 				1F7FF69C1CD25C1000EE14C3 /* TopicSkill.m in Sources */,
+				1FF871E21CD3C59700A17F12 /* MVProject.m in Sources */,
+				1FF871C61CD3C55D00A17F12 /* MVConstants.m in Sources */,
 				1F7FF6611CD11F5800EE14C3 /* MainViewController.m in Sources */,
 				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
+				1FF871E71CD3C5B300A17F12 /* ISO8601DateFormatter.m in Sources */,
+				1FF871D81CD3C58700A17F12 /* MVLike.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
 				1FBDFA8C1CC97F3200F73CDA /* AppDelegate.m in Sources */,
 				1F7FF6221CCE544E00EE14C3 /* MapCollectionViewCell.m in Sources */,
+				1FF871D11CD3C58100A17F12 /* MVAttachment.m in Sources */,
 				1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */,
 				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
 				1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */,
@@ -508,12 +613,17 @@
 				1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */,
 				1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */,
 				1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */,
+				1FF871D21CD3C58100A17F12 /* MVBucket.m in Sources */,
 				1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */,
+				1FF871CC1CD3C56D00A17F12 /* MVAuthBrowser.m in Sources */,
 				1FA94B7C1CCAE1CB0014B659 /* ImageViewer.swift in Sources */,
 				1FBDFA891CC97F3200F73CDA /* main.m in Sources */,
 				1F7FF62B1CCF484A00EE14C3 /* MVModel.m in Sources */,
+				1FF871EB1CD3E9F400A17F12 /* TopicDribbble.m in Sources */,
 				1F7FF6251CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m in Sources */,
+				1FF871E41CD3C59700A17F12 /* MVUser.m in Sources */,
 				1F7FF61F1CCE544700EE14C3 /* GenericCollectionViewCell.m in Sources */,
+				1FF871D71CD3C58700A17F12 /* MVComment.m in Sources */,
 				1F4C7DA71CCAECCB00F11033 /* ArrayUtilities.m in Sources */,
 				1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */,
 				1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */,
@@ -640,7 +750,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Marcel Voss/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -657,7 +767,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Marcel Voss/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

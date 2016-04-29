@@ -15,8 +15,11 @@
 #import "InteractiveImageView.h"
 #import "AppCustomButton.h"
 #import "UIImage+Helpers.h"
+#import "TopicDribbble.h"
 
-@interface ProjectCollectionViewCell ()
+#import "MVDribbbleKit.h"
+
+@interface ProjectCollectionViewCell () <SKStoreProductViewControllerDelegate, SFSafariViewControllerDelegate>
 {
     UILabel *appLabel;
     UILabel *subtitleLabel;
@@ -26,6 +29,8 @@
     UIButton *appIconButton;
     UIView *backgroundView;
     UIView *dockView;
+    
+    UILabel *projectHeadline;
     
     TopicApp *topicApp;
     BOOL drawerOpen;
@@ -37,6 +42,7 @@
     UIBezierPath *maskPathBottom;
     CAShapeLayer *maskLayerBottom;
     UIButton *moreButton;
+    UIButton *webButton;
     
     InteractiveImageView *screen1;
     InteractiveImageView *screen2;
@@ -158,6 +164,8 @@
 
 - (void)appButtonPressed:(id)sender
 {
+    
+    
     if (drawerOpen) {
         
         heightConstraint.constant = self.frame.size.height;
@@ -234,10 +242,8 @@
         timeframeLabel.text = @"2013 - Now";
         timeframeLabel.textColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.00];
         
-        dockHeightConstraint.constant = 80;
-        [self layoutIfNeeded];
-        
-        //UILabel
+        [self addButtonToDock];
+
     }
     
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
@@ -254,6 +260,35 @@
     dockHeightConstraint.constant = 50;
     [self layoutIfNeeded];
     
+    
+    UIView *separatorView = [[UIView alloc] init];
+    separatorView.backgroundColor = [UIColor clearColor];
+    separatorView.translatesAutoresizingMaskIntoConstraints = NO;
+    [dockView addSubview:separatorView];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.6]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    UIView *moreView = [[UIView alloc] init];
+    moreView.translatesAutoresizingMaskIntoConstraints = NO;
+    moreView.backgroundColor = [UIColor clearColor];
+    [dockView addSubview:moreView];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.frame.size.width / 2]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
+    
+    
+    
     moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [moreButton setTitle:@"Show More" forState:UIControlStateNormal];
     [moreButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
@@ -263,21 +298,91 @@
     [moreButton addTarget:self action:@selector(moreButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     moreButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
-    [dockView addSubview:moreButton];
+    [moreView addSubview:moreButton];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    
+
+    UIView *webView = [[UIView alloc] init];
+    webView.translatesAutoresizingMaskIntoConstraints = NO;
+    webView.backgroundColor = [UIColor clearColor];
+    [dockView addSubview:webView];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.frame.size.width / 2]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
+    
+    
+    webButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [webButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
+    webButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    webButton.contentHorizontalAlignment = NSTextAlignmentLeft;
+    webButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [webButton addTarget:self action:@selector(webButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [webButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    webButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
+    [webView addSubview:webButton];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    
+    if ([_topic.topicApp.name isEqualToString:@"PhoneBattery"]) {
+        [webButton setTitle:@"App Store" forState:UIControlStateNormal];
+    } else if ([_topic.topicApp.name isEqualToString:@"MVDribbbleKit"]) {
+        [webButton setTitle:@"Web" forState:UIControlStateNormal];
+    }
+
+    
     
     
     _visualEffectView = [[UIVisualEffectView alloc] initWithFrame:backgroundView.frame];
     
     
     
+    
+    
+    
+}
+
+- (void)webButtonPressed:(id)sender
+{
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIViewController *controller = window.rootViewController;
+    
+    if ([topicApp.name isEqualToString:@"MVDribbbleKit"]) {
+        
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:dribbbleURLString]];
+        [controller presentViewController:safariVC animated:YES completion:nil];
+    } else if ([topicApp.name isEqualToString:@"PhoneBattery"]) {
+
+        
+        SKStoreProductViewController *storeVC = [[SKStoreProductViewController alloc] init];
+        storeVC.delegate = self;
+        
+        NSDictionary *parameters = @{SKStoreProductParameterITunesItemIdentifier: pbAppID};
+        [storeVC loadProductWithParameters:parameters completionBlock:^(BOOL result, NSError * _Nullable error) {
+            if (result) {
+                [controller presentViewController:storeVC animated:YES completion:nil];
+            }
+        }];
+    }
 }
 
 - (void)moreButtonPressed:(id)sender
@@ -366,7 +471,6 @@
             [screen3 removeFromSuperview];
         }
         
-        
         screen1 = [[InteractiveImageView alloc] initWithImage:[UIImage imageNamed:@"Grain1"]];
         screen1.translatesAutoresizingMaskIntoConstraints = NO;
         screen1.contentMode = UIViewContentModeScaleAspectFill;
@@ -431,6 +535,96 @@
         } completion:^(BOOL finished) {
             
         }];
+    } else if ([topicApp.name isEqualToString:@"MVDribbbleKit"]) {
+        [self showOverlayView];
+        
+        if ([screen1 isDescendantOfView:backgroundView] || [screen2 isDescendantOfView:backgroundView] || [screen3 isDescendantOfView:backgroundView]) {
+            [screen1 removeFromSuperview];
+            [screen2 removeFromSuperview];
+            [screen3 removeFromSuperview];
+        }
+        
+        TopicDribbble *d1 = _popularItems[0];
+        screen1 = [[InteractiveImageView alloc] initWithImage:d1.image annotation:[self stringForTopicDribbble:d1] type:ViewerTypeImage];
+        screen1.translatesAutoresizingMaskIntoConstraints = NO;
+        screen1.contentMode = UIViewContentModeScaleAspectFill;
+        screen1.clipsToBounds = YES;
+        screen1.alpha = 0;
+        screen1.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
+        screen1.layer.masksToBounds = YES;
+        screen1.layer.cornerRadius = 6;
+        [backgroundView addSubview:screen1];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen1 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen1 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:75]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen1 attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:75]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen1 attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        
+        TopicDribbble *d2 = _popularItems[1];
+        screen2 = [[InteractiveImageView alloc] initWithImage:d2.image annotation:[self stringForTopicDribbble:d2] type:ViewerTypeImage];
+        screen2.translatesAutoresizingMaskIntoConstraints = NO;
+        screen2.contentMode = UIViewContentModeScaleAspectFill;
+        screen2.clipsToBounds = YES;
+        screen2.alpha = 0;
+        screen2.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
+        screen2.layer.masksToBounds = YES;
+        screen2.layer.cornerRadius = 6;
+        [backgroundView addSubview:screen2];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen2 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen2 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:75]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen2 attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:75]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen2 attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:screen1 attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-40]];
+        
+        
+        TopicDribbble *d3 = _popularItems[2];
+        screen3 = [[InteractiveImageView alloc] initWithImage:d3.image annotation:[self stringForTopicDribbble:d3] type:ViewerTypeImage];
+        screen3.translatesAutoresizingMaskIntoConstraints = NO;
+        screen3.contentMode = UIViewContentModeScaleAspectFill;
+        screen3.clipsToBounds = YES;
+        screen3.alpha = 0;
+        screen3.layer.borderColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00].CGColor;
+        screen3.layer.masksToBounds = YES;
+        screen3.layer.cornerRadius = 6;
+        [backgroundView addSubview:screen3];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen3 attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen3 attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:75]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen3 attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:75]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:screen3 attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:screen1 attribute:NSLayoutAttributeRight multiplier:1.0 constant:40]];
+        
+        
+        projectHeadline = [[UILabel alloc] init];
+        projectHeadline.text = @"Popular on Dribbble";
+        projectHeadline.font = [UIFont systemFontOfSize:14];
+        projectHeadline.alpha = 0;
+        projectHeadline.textColor = [UIColor whiteColor];
+        projectHeadline.translatesAutoresizingMaskIntoConstraints = NO;
+        [backgroundView addSubview:projectHeadline];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:projectHeadline attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:projectHeadline attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-10]];
+
+        
+        [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            screen1.alpha = 1;
+            screen2.alpha = 1;
+            screen3.alpha = 1;
+            projectHeadline.alpha = 1;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
 }
 
@@ -442,27 +636,30 @@
             screen1.alpha = 0;
             screen2.alpha = 0;
             screen3.alpha = 0;
+            projectHeadline.alpha = 0;
         } completion:^(BOOL finished) {
             [screen1 removeFromSuperview];
             [screen2 removeFromSuperview];
             [screen3 removeFromSuperview];
+            [projectHeadline removeFromSuperview];
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                [moreButton setTitle:@"Show More" forState:UIControlStateNormal];
+                _visualEffectView.effect = nil;
+                NSLog(@"Hide");
+                
+            } completion:^(BOOL finished) {
+                [_visualEffectView removeFromSuperview];
+                enabledOverlayBlur = NO;
+                
+            }];
         }];
         
-        [UIView animateWithDuration:0.4 animations:^{
-            
-            [moreButton setTitle:@"Show More" forState:UIControlStateNormal];
-            _visualEffectView.effect = nil;
-            NSLog(@"Hide");
-            
-        } completion:^(BOOL finished) {
-            [_visualEffectView removeFromSuperview];
-            enabledOverlayBlur = NO;
-            
-        }];
+        
         
     } else {
         [backgroundView addSubview:_visualEffectView];
-        
         
         [UIView animateWithDuration:0.4 animations:^{
             
@@ -476,16 +673,25 @@
     }
 }
 
+- (NSString *)stringForTopicDribbble:(TopicDribbble *)dribbble
+{
+    NSString *string = [NSString stringWithFormat:@"%@ by %@.", dribbble.itemTitle, dribbble.authorName];
+    return string;
+}
+
 - (void)prepareForReuse
 {
     [super prepareForReuse];
     
     [moreButton removeFromSuperview];
+    [webButton removeFromSuperview];
     [screen1 removeFromSuperview];
     [screen2 removeFromSuperview];
     [screen3 removeFromSuperview];
     enabledOverlayBlur = NO;
+    [projectHeadline removeFromSuperview];
     _visualEffectView.effect = nil;
+    _popularItems = nil;
     [_visualEffectView removeFromSuperview];
     appLabel.text = nil;
     subtitleLabel.text = nil;
@@ -496,5 +702,20 @@
 
     [self setNeedsLayout];
 }
+
+#pragma mark - SFSafariViewController
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
+{
+    
+}
+
+#pragma mark - SKStoreProductViewController
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

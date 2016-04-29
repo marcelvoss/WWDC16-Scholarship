@@ -1,4 +1,4 @@
-// MVModel.h
+// MVConstants.m
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -20,11 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
+#import "MVConstants.h"
 
-@interface MVModel : NSObject
-
-- (id)objectForKeyOrNil:(id)key;
+@implementation MVConstants
 
 @end

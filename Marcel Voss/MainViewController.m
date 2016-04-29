@@ -27,6 +27,8 @@
 #import "TopicSkill.h"
 #import "ArrayUtilities.h"
 #import "UIImage+Helpers.h"
+#import "MVDribbbleKit.h"
+#import "TopicDribbble.h"
 
 #import "Marcel_Voss-Swift.h"
 
@@ -54,6 +56,9 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     UILabel *nameLabel;
     UILabel *welcomeLabel;
+    
+    NSArray *dribbleItemsArray;
+    NSMutableArray *dribbbleImages;
     
     UIImageView *arrowImageView;
     NSLayoutConstraint *arrowYConstraint;
@@ -215,6 +220,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:arrowImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:18]];
     
     
+    [self setupDribbbleItems];
     [self setupMenuView];
     [self showStartAnimation];
     //[self startArrowAnimation];
@@ -294,6 +300,40 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:stackView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:height - 300]];
     
+}
+
+- (void)setupDribbbleItems
+{
+    [[MVDribbbleKit sharedManager] getShotsOnList:MVDribbbleListAll date:nil sort:MVDribbbleSortPopularity timeframe:MVDribbbleTimeframeWeek page:1 success:^(NSArray *resultsArray, NSHTTPURLResponse *response) {
+        
+        dribbleItemsArray = [resultsArray subarrayWithRange:NSMakeRange(0, 3)];
+        NSLog(@"%@", dribbleItemsArray);
+        [self downloadImages];
+        
+    } failure:^(NSError *error, NSHTTPURLResponse *response) {
+        
+    }];
+}
+
+- (void)downloadImages
+{
+    dribbbleImages = [NSMutableArray arrayWithCapacity:dribbleItemsArray.count];
+    // execute a task on that queue asynchronously
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        for (MVShot *aShot in dribbleItemsArray) {
+           
+            NSURL *url = aShot.highDPIImageURL;
+            NSLog(@"%@", aShot.highDPIImageURL.absoluteString);
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            UIImage *image = [UIImage imageWithData:data];
+            
+            TopicDribbble *tDribbble = [[TopicDribbble alloc] initWithImage:image title:aShot.title author:aShot.user.username];
+            [dribbbleImages addObject:tDribbble];
+            
+        }
+        
+    });
 }
 
 #pragma mark - Custom Collection View
@@ -762,6 +802,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         
     } else if (topic.topicOption == OptionsApp) {
         
+        cellProjects.popularItems = [dribbbleImages copy];
         cellProjects.topic = topic;
         return cellProjects;
         

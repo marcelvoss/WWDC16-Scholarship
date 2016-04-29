@@ -1,4 +1,4 @@
-// MVModel.h
+// MVBucket.m
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -20,11 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
+#import "MVBucket.h"
 
-@interface MVModel : NSObject
+@implementation MVBucket
 
-- (id)objectForKeyOrNil:(id)key;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        _bucketID = [self objectForKeyOrNil:dictionary[@"id"]];
+        _bucketName = [self objectForKeyOrNil:dictionary[@"name"]];
+        _bucketDescription = [self objectForKeyOrNil:dictionary[@"description"]];
+        _shotsCount = [self objectForKeyOrNil:dictionary[@"shots_count"]];
+        _user = [[MVUser alloc] initWithDictionary:dictionary[@"user"]];
+    
+        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+        _createdDate = [formatter dateFromString:[dictionary objectForKey:@"created_at"]];
+        _updatedDate = [formatter dateFromString:[dictionary objectForKey:@"updated_at"]];
+    }
+    return self;
+}
 
 @end

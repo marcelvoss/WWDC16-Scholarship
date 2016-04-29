@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SafariServices/SafariServices.h>
 
 @class Topic;
 
 @interface ProjectCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic) NSArray *popularItems;
 @property (nonatomic) Topic *topic;
 
 @end

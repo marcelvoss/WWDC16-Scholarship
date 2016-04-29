@@ -25,5 +25,6 @@ typedef NS_ENUM(NSInteger, ViewerType) {
 
 - (instancetype)initWithImages:(NSArray *)imageArray type:(ViewerType)viewerType;
 - (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType;
+- (instancetype)initWithImage:(UIImage *)image annotation:(NSString *)annotation type:(ViewerType)viewerType;
 
 @end

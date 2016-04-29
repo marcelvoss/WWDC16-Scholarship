@@ -1,4 +1,4 @@
-// MVModel.h
+// MVLike.h
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -21,10 +21,16 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
 
-@interface MVModel : NSObject
+#import "MVUser.h"
+#import "MVModel.h"
 
-- (id)objectForKeyOrNil:(id)key;
+@interface MVLike : MVModel
+
+@property (nonatomic) NSDate *createdDate;
+@property (nonatomic) NSNumber *likeID;
+@property (nonatomic) MVUser *user;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

@@ -1,4 +1,4 @@
-// MVModel.h
+// MVAttachment.m
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -20,11 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
+#import "MVAttachment.h"
 
-@interface MVModel : NSObject
+@implementation MVAttachment
 
-- (id)objectForKeyOrNil:(id)key;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        
+        _attachmentID = [self objectForKeyOrNil:dictionary[@"id"]];
+        _attachmentURL = [self objectForKeyOrNil:[NSURL URLWithString:dictionary[@"url"]]];
+        _viewsCount = [self objectForKeyOrNil:dictionary[@"views_count"]];
+        _size = [self objectForKeyOrNil:dictionary[@"size"]];
+        _contentType = [self objectForKeyOrNil:dictionary[@"content_type"]];
+        
+        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+        _createdDate = [formatter dateFromString:dictionary[@"created_at"]];
+        
+    }
+    return self;
+}
 
 @end

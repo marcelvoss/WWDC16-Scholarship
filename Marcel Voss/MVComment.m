@@ -1,4 +1,4 @@
-// MVModel.h
+// MVComment.m
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -20,11 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
+#import "MVComment.h"
 
-@interface MVModel : NSObject
+@implementation MVComment
 
-- (id)objectForKeyOrNil:(id)key;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        
+        _commentID = [self objectForKeyOrNil:dictionary[@"id"]];
+        _body = [self objectForKeyOrNil:dictionary[@"body"]];
+        _likesCount = [self objectForKeyOrNil:dictionary[@"likes_count"]];
+        _likesURL = [self objectForKeyOrNil:[NSURL URLWithString:dictionary[@"likes_url"]]];
+        
+        // Parse the date
+        // Example: 2014-07-02T15:46:06Z
+        ISO8601DateFormatter *formatter = [[ISO8601DateFormatter alloc] init];
+        _createdDate = [formatter dateFromString:dictionary[@"created_at"]];
+        
+        NSDictionary *userDictionary = dictionary[@"user"];
+        _user = [[MVUser alloc] initWithDictionary:userDictionary];
+        
+    }
+    return self;
+}
 
 @end

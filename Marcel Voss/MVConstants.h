@@ -1,4 +1,4 @@
-// MVModel.h
+// MVConstants.h
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -21,10 +21,12 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
 
-@interface MVModel : NSObject
+static const NSString *kBaseURL = @"https://dribbble.com";
+static const NSString *kAPIBaseURL = @"https://api.dribbble.com/v1";
+static NSString *kDribbbbleKeychainService = @"DribbbbleKeychainService";
+static NSString *kDribbbleAccountName = @"DribbbleAccountName";
 
-- (id)objectForKeyOrNil:(id)key;
+@interface MVConstants : NSObject
 
 @end

@@ -1,4 +1,4 @@
-// MVModel.h
+// MVAuthBrowser.h
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -20,11 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
+#import <UIKit/UIKit.h>
 
-@interface MVModel : NSObject
+@interface MVAuthBrowser : UIViewController
 
-- (id)objectForKeyOrNil:(id)key;
+@property (nonatomic) NSURL *callbackURL;
+@property (nonatomic, strong) void (^completionHandler)(NSURL *url, NSError *error);
+
+- (instancetype)initWithURL:(NSURL *)url;
 
 @end

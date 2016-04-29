@@ -1,4 +1,4 @@
-// MVModel.h
+// MVShot.h
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -21,10 +21,41 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
 
-@interface MVModel : NSObject
+#import "MVUser.h"
+#import "MVModel.h"
 
-- (id)objectForKeyOrNil:(id)key;
+@interface MVShot : MVModel
+
+@property (nonatomic) NSNumber *attachmentsCount;
+@property (nonatomic) NSURL *attachmentsURL;
+@property (nonatomic) NSNumber *bucketsCount;
+@property (nonatomic) NSNumber *commentsCount;
+
+@property (nonatomic) NSURL *commentsURL;
+@property (nonatomic) NSDate *createdDate;
+@property (nonatomic, copy) NSString *shotDescription;
+@property (nonatomic) NSURL *htmlURL;
+@property (nonatomic) NSNumber *shotID;
+
+@property (nonatomic) NSNumber *likesCount;
+@property (nonatomic) NSURL *likesURL;
+@property (nonatomic) NSNumber *reboundsCount;
+@property (nonatomic) NSURL *reboundsURL;
+@property (nonatomic) NSArray *tags;
+@property (nonatomic) NSURL *projectsURL;
+
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic) NSDate *updatedDate;
+@property (nonatomic) NSNumber *viewsCount;
+
+@property (nonatomic) NSURL *highDPIImageURL;
+@property (nonatomic) NSURL *normalImageURL;
+@property (nonatomic) NSURL *teaserImageURL;
+
+@property (nonatomic) MVUser *team;
+@property (nonatomic) MVUser *user;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

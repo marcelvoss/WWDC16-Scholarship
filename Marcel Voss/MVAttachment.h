@@ -1,4 +1,4 @@
-// MVModel.h
+// MVAttachment.h
 //
 // Copyright (c) 2014-2015 Marcel Voss
 //
@@ -21,10 +21,18 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "ISO8601DateFormatter.h"
 
-@interface MVModel : NSObject
+#import "MVModel.h"
 
-- (id)objectForKeyOrNil:(id)key;
+@interface MVAttachment : MVModel
+
+@property (nonatomic) NSDate *createdDate;
+@property (nonatomic) NSNumber *attachmentID;
+@property (nonatomic) NSURL *attachmentURL;
+@property (nonatomic) NSNumber *viewsCount;
+@property (nonatomic) NSNumber *size;
+@property (nonatomic) NSString *contentType;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
+#import "MVDribbbleKit.h"
+
 @interface AppDelegate ()
 
 @end

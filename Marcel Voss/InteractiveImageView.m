@@ -18,6 +18,7 @@
 @implementation InteractiveImageView
 {
     NSInteger currentImageIndex;
+    NSString *theAnnotation;
 }
 
 #pragma mark - Initializers
@@ -46,6 +47,22 @@
         self.contentMode = UIViewContentModeScaleToFill;
         
         self.image = image;
+        
+        self.viewerType = ViewerTypeImage;
+        [self gestureForViewerType:ViewerTypeImage];
+    }
+    return self;
+}
+
+- (instancetype)initWithImage:(UIImage *)image annotation:(NSString *)annotation type:(ViewerType)viewerType
+{
+    self = [super initWithImage:image];
+    if (self) {
+        self.userInteractionEnabled = YES;
+        self.contentMode = UIViewContentModeScaleToFill;
+        
+        self.image = image;
+        theAnnotation = annotation;
         
         self.viewerType = ViewerTypeImage;
         [self gestureForViewerType:ViewerTypeImage];
@@ -205,6 +222,10 @@
             [viewer show:newImage.topicHQImage];
         }
     } else {
+        if (theAnnotation != nil) {
+            viewer.annotationLabel.text = theAnnotation;
+        }
+        
         if (self.image != nil) {
             [viewer show:self.image];
         }
