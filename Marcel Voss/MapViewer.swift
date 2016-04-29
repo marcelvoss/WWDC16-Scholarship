@@ -73,35 +73,38 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
     }
     
     func hide() {
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .TransitionNone, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: .TransitionNone, animations: { () -> Void in
             self.constraintY!.constant = -self.frame.size.height
             self.cardConstraintY?.constant = self.frame.size.height
             self.layoutIfNeeded()
         }) { (finished) -> Void in
             self.mapView?.removeFromSuperview()
+            
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.effectView.effect = nil
+                self.closeButton.alpha = 0
+            }) { (finished) -> Void in
+                self.scrollView = nil
+                
+                
+                
+                
+                self.locationManager?.delegate = nil
+                self.locationManager = nil
+                
+                self.mapView!.mapType = .Standard
+                self.mapView!.showsUserLocation = false
+                self.mapView!.delegate = nil
+                self.mapView!.removeFromSuperview()
+                self.mapView = nil
+                
+                self.effectView.removeFromSuperview()
+                self.removeFromSuperview()
+            }
         }
         
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            self.effectView.effect = nil
-            self.closeButton.alpha = 0
-        }) { (finished) -> Void in
-            self.scrollView = nil
-            
-            
-            
-            
-            self.locationManager?.delegate = nil
-            self.locationManager = nil
-            
-            self.mapView!.mapType = .Standard
-            self.mapView!.showsUserLocation = false
-            self.mapView!.delegate = nil
-            self.mapView!.removeFromSuperview()
-            self.mapView = nil
-            
-            self.effectView.removeFromSuperview()
-            self.removeFromSuperview()
-        }
+        
+        
         
         
     }
