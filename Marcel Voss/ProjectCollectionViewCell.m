@@ -261,104 +261,131 @@
     [self layoutIfNeeded];
     
     
-    UIView *separatorView = [[UIView alloc] init];
-    separatorView.backgroundColor = [UIColor clearColor];
-    separatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    [dockView addSubview:separatorView];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.6]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
-    UIView *moreView = [[UIView alloc] init];
-    moreView.translatesAutoresizingMaskIntoConstraints = NO;
-    moreView.backgroundColor = [UIColor clearColor];
-    [dockView addSubview:moreView];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.frame.size.width / 2]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
-    
-    
-    
-    moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [moreButton setTitle:@"Show More" forState:UIControlStateNormal];
-    [moreButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
-    moreButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    moreButton.contentHorizontalAlignment = NSTextAlignmentLeft;
-    moreButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [moreButton addTarget:self action:@selector(moreButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    moreButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
-    [moreView addSubview:moreButton];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
-    
-
-    UIView *webView = [[UIView alloc] init];
-    webView.translatesAutoresizingMaskIntoConstraints = NO;
-    webView.backgroundColor = [UIColor clearColor];
-    [dockView addSubview:webView];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.frame.size.width / 2]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
-    
-    
-    webButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [webButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
-    webButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    webButton.contentHorizontalAlignment = NSTextAlignmentLeft;
-    webButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [webButton addTarget:self action:@selector(webButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [webButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    webButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
-    [webView addSubview:webButton];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
-    
-    if ([_topic.topicApp.name isEqualToString:@"PhoneBattery"]) {
-        [webButton setTitle:@"App Store" forState:UIControlStateNormal];
-    } else if ([_topic.topicApp.name isEqualToString:@"MVDribbbleKit"]) {
-        [webButton setTitle:@"Web" forState:UIControlStateNormal];
+    if ([_topic.topicApp.name isEqualToString:@"PhoneBattery"] || [_topic.topicApp.name isEqualToString:@"MVDribbbleKit"]) {
+        UIView *separatorView = [[UIView alloc] init];
+        separatorView.backgroundColor = [UIColor clearColor];
+        separatorView.translatesAutoresizingMaskIntoConstraints = NO;
+        [dockView addSubview:separatorView];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.6]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:separatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        UIView *moreView = [[UIView alloc] init];
+        moreView.translatesAutoresizingMaskIntoConstraints = NO;
+        moreView.backgroundColor = [UIColor clearColor];
+        [dockView addSubview:moreView];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.frame.size.width / 2]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0]];
+        
+        
+        
+        moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [moreButton setTitle:@"Show More" forState:UIControlStateNormal];
+        [moreButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
+        moreButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        moreButton.contentHorizontalAlignment = NSTextAlignmentLeft;
+        moreButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [moreButton addTarget:self action:@selector(moreButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        moreButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
+        [moreView addSubview:moreButton];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        
+        
+        UIView *webView = [[UIView alloc] init];
+        webView.translatesAutoresizingMaskIntoConstraints = NO;
+        webView.backgroundColor = [UIColor clearColor];
+        [dockView addSubview:webView];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.frame.size.width / 2]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
+        
+        
+        webButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [webButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
+        webButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        webButton.contentHorizontalAlignment = NSTextAlignmentLeft;
+        webButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [webButton addTarget:self action:@selector(webButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [webButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        webButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
+        [webView addSubview:webButton];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:webButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:webView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        
+        if ([_topic.topicApp.name isEqualToString:@"PhoneBattery"]) {
+            [webButton setTitle:@"App Store" forState:UIControlStateNormal];
+        } else if ([_topic.topicApp.name isEqualToString:@"MVDribbbleKit"]) {
+            [webButton setTitle:@"Web" forState:UIControlStateNormal];
+        }
+    } else {
+        UIView *moreView = [[UIView alloc] init];
+        moreView.translatesAutoresizingMaskIntoConstraints = NO;
+        moreView.backgroundColor = [UIColor clearColor];
+        [dockView addSubview:moreView];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        
+        
+        moreButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [moreButton setTitle:@"Show More" forState:UIControlStateNormal];
+        [moreButton setImage:[UIImage imageFromColor:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]] forState:UIControlStateNormal];
+        moreButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        moreButton.contentHorizontalAlignment = NSTextAlignmentLeft;
+        moreButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [moreButton addTarget:self action:@selector(moreButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        moreButton.titleLabel.textAlignment = UIControlContentHorizontalAlignmentLeft;
+        [moreView addSubview:moreButton];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:moreButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:moreView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     }
-
-    
-    
     
     _visualEffectView = [[UIVisualEffectView alloc] initWithFrame:backgroundView.frame];
-    
-    
-    
-    
-    
-    
 }
 
 - (void)webButtonPressed:(id)sender
@@ -371,7 +398,6 @@
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:dribbbleURLString]];
         [controller presentViewController:safariVC animated:YES completion:nil];
     } else if ([topicApp.name isEqualToString:@"PhoneBattery"]) {
-
         
         SKStoreProductViewController *storeVC = [[SKStoreProductViewController alloc] init];
         storeVC.delegate = self;
@@ -460,7 +486,6 @@
         } completion:^(BOOL finished) {
             
         }];
-        
         
     } else if ([topicApp.name isEqualToString:@"Grain"]) {
         [self showOverlayView];

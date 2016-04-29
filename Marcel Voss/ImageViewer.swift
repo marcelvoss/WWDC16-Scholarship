@@ -99,7 +99,6 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         aWindow?.addSubview(self)
         
         
-        // TODO: Fix broken animation (NSLOG)
         let blur = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         effectView = UIVisualEffectView(effect: blur)
         effectView.frame = self.frame
@@ -116,23 +115,25 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         constraintY = (NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: screenHeight))
         self.addConstraint(constraintY!)
         
-        // A required layout change if the image isn't a iPhone 5 screenshot
-        if (theImage?.size.height != 667) {
+
+        
+        // For iPhone 6 Screenshots
+        if (roundf(Float(theImage!.size.height)) == 445 && theImage?.size.width == 250) {
+            
+            foregroundImageView!.contentMode = UIViewContentMode.ScaleAspectFit
+            
+            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: theImage!.size.width + 100))
+            
+            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: theImage!.size.height + 100))
+            
+            
+        } else {
+            
             foregroundImageView!.contentMode = UIViewContentMode.ScaleAspectFit
             
             self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
             
             self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 0))
-            
-        } else {
-            
-            foregroundImageView!.contentMode = UIViewContentMode.Center
-            
-            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 375))
-            
-            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 667))
-            
-            self.layoutIfNeeded()
             
         }
         
