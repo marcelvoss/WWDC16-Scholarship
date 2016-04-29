@@ -310,6 +310,20 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView2, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
         
         
+        // Distance Headline
+        let distanceHeadlineLabel = UILabel()
+        distanceHeadlineLabel.text = "Distance".uppercaseString
+        distanceHeadlineLabel.textAlignment = .Center
+        distanceHeadlineLabel.translatesAutoresizingMaskIntoConstraints = false
+        distanceHeadlineLabel.font = UIFont.boldSystemFontOfSize(15)
+        cardView2.addSubview(distanceHeadlineLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: distanceHeadlineLabel, attribute: .CenterX, relatedBy: .Equal, toItem: cardView2, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: distanceHeadlineLabel, attribute: .Top, relatedBy: .Equal, toItem: cardView2, attribute: .Top, multiplier: 1.0, constant: 5))
+        
+        
+        
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.text = "Location Label"
         cardView2.addSubview(locationLabel)
@@ -344,7 +358,32 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
         
         
-
+        let timeHeadlineLabel = UILabel()
+        timeHeadlineLabel.text = "Time Difference".uppercaseString
+        timeHeadlineLabel.textAlignment = .Center
+        timeHeadlineLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeHeadlineLabel.font = UIFont.boldSystemFontOfSize(15)
+        cardView3.addSubview(timeHeadlineLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: timeHeadlineLabel, attribute: .CenterX, relatedBy: .Equal, toItem: cardView3, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: timeHeadlineLabel, attribute: .Top, relatedBy: .Equal, toItem: cardView3, attribute: .Top, multiplier: 1.0, constant: 5))
+        
+        
+        let timeHeideLabel = UILabel()
+        timeHeideLabel.text = "Heide"
+        timeHeideLabel.textAlignment = .Center
+        timeHeideLabel.translatesAutoresizingMaskIntoConstraints = false
+        cardView3.addSubview(timeHeideLabel)
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: timeHeideLabel, attribute: .CenterX, relatedBy: .Equal, toItem: cardView3, attribute: .CenterX, multiplier: 1.0, constant: 0))
+        
+        scrollView!.addConstraint(NSLayoutConstraint(item: timeHeideLabel, attribute: .CenterY, relatedBy: .Equal, toItem: cardView3, attribute: .CenterY, multiplier: 1.0, constant: 5))
+        
+        let sourceDate = NSDate(timeIntervalSinceNow: 3600 * 24 * 60)
+        let destinationTimeZone = NSTimeZone.localTimeZone()
+        let timezoneOffset = destinationTimeZone.secondsFromGMTForDate(sourceDate) / 3600
+        print(timezoneOffset)
         
         
         

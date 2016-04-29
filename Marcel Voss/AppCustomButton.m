@@ -46,7 +46,6 @@
 {
     [super touchesBegan:touches withEvent:event];
     
-    
     self.transform = CGAffineTransformMakeScale(1.0, 1.0);
     [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:0.7 options:UIViewAnimationOptionTransitionNone animations:^{
         

@@ -495,6 +495,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     } completion:^(BOOL finished) {
         scrollView.scrollEnabled = YES;
         _topicsArray = nil;
+        [menuCollectionView removeFromSuperview];
         [visualEffectViewBlurred2 removeFromSuperview];
         _topicsArray = nil;
     }];
@@ -625,7 +626,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                              option:OptionsGeneric];
             
             TopicImage *cImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"NewspaperPhoto"]
-                                                         annotation:@"Yep, the local newspaper took a couple of photo, too."];
+                                                         annotation:@"Yep, the local newspaper took a couple of photos, too."];
             Topic *c = [[Topic alloc] initWithTitle:@"Volunteer Engagement"
                                            subtitle:nil
                                                text:@"Helping young people and minority groups is an important task, in my opinion.\n\nFor example I am volunteering in a program that teaches Syrian refugees fundamental German skills.\n\nLast year, the principal and I also organized a course for boys and girls to teach them the basics of writing code and making them interested in continuing on their own. It was quite successful which shows that there aren't enough, free, coding courses for kids."
@@ -694,13 +695,17 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     menuCollectionView.dataSource = self;
     menuCollectionView.backgroundColor = [UIColor clearColor];
     menuCollectionView.showsHorizontalScrollIndicator = NO;
-    [backgroundImageView addSubview:menuCollectionView];
     
-    [menuCollectionView registerClass:[GenericCollectionViewCell class] forCellWithReuseIdentifier:@"CellGeneric"];
-    [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
-    [menuCollectionView registerClass:[ProjectCollectionViewCell class] forCellWithReuseIdentifier:@"CellProjects"];
-    [menuCollectionView registerClass:[SkillCollectionViewCell class] forCellWithReuseIdentifier:@"CellSkills"];
-    
+    if (![menuCollectionView isDescendantOfView:backgroundImageView]) {
+        
+        [backgroundImageView addSubview:menuCollectionView];
+        
+        [menuCollectionView registerClass:[GenericCollectionViewCell class] forCellWithReuseIdentifier:@"CellGeneric"];
+        [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
+        [menuCollectionView registerClass:[ProjectCollectionViewCell class] forCellWithReuseIdentifier:@"CellProjects"];
+        [menuCollectionView registerClass:[SkillCollectionViewCell class] forCellWithReuseIdentifier:@"CellSkills"];
+        
+    }
     
     if (menuTopic == MenuTopicAbout) {
         [self setupMapShot];

@@ -121,8 +121,8 @@
         
         TopicImage *firstImage = imageArray[0];
         UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage
-                                      withWidth:self.frame.size.width
-                                     withHeight:self.frame.size.height];
+                                      withWidth:self.frame.size.width + 200
+                                     withHeight:self.frame.size.height + 200];
         
         TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
                                                          HDImage:firstImage.topicImage
@@ -163,8 +163,8 @@
     
     TopicImage *firstImage = _imageArray[currentImageIndex];
     
-    UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage withWidth:self.frame.size.width
-                                 withHeight:self.frame.size.height];
+    UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage withWidth:self.frame.size.width + 200
+                                 withHeight:self.frame.size.height + 200];
     
     TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
                                                      HDImage:firstImage.topicImage
@@ -204,7 +204,6 @@
             [viewer show:self.image];
         }
     }
-    
 }
 
 - (void)showMapViewer

@@ -13,5 +13,7 @@
 @interface SkillCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) Topic *topic;
+@property (nonatomic) BOOL wasShown;
+
 
 @end

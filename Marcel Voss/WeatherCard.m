@@ -24,7 +24,7 @@
     UILabel *weatherLabel;
     UILabel *cityLabel;
     
-    UILabel *minLabel;
+    UILabel *tempLabel;
     UILabel *maxLabel;
 }
 
@@ -38,12 +38,13 @@
         
         cityLabel = [[UILabel alloc] init];
         cityLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        cityLabel.text = @"Weather for Heide";
+        cityLabel.font = [UIFont boldSystemFontOfSize:15];
+        cityLabel.text = @"Weather for Heide".uppercaseString;
         [self addSubview:cityLabel];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:cityLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:cityLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:cityLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:5]];
         
         weatherLabel = [[UILabel alloc] init];
         weatherLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -54,16 +55,20 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
+        // TODO: Not the best way
+        UIView *separatorView = [[UIView alloc] init];
+        separatorView.translatesAutoresizingMaskIntoConstraints = NO;
         
         
-        minLabel = [[UILabel alloc] init];
-        minLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        minLabel.text = @"sdfsdfg";
-        [self addSubview:minLabel];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:minLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:minLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        tempLabel = [[UILabel alloc] init];
+        tempLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:tempLabel];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:tempLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:tempLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
         
         
@@ -76,7 +81,7 @@
         [manager retrieveForecastForCoordinates:tempCoordinate success:^(OWMObject *weatherObject, NSHTTPURLResponse *response) {
             
             self.weatherObject = weatherObject;
-            weatherLabel.text = [weatherObject.mainTemperature stringValue];
+            tempLabel.text = [self isMetric:[weatherObject.mainTemperature stringValue]];
             
             
         } failure:^(NSError *error, NSHTTPURLResponse *response) {
@@ -85,6 +90,18 @@
         
     }
     return self;
+}
+
+- (NSString *)isMetric:(NSString *)string
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    BOOL isMetric = [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
+    
+    if (isMetric) {
+        return [NSString stringWithFormat:@"%@ °C", string];
+    } else {
+        return [NSString stringWithFormat:@"%@ °F", string];
+    }
 }
 
 

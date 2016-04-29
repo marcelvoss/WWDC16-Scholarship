@@ -63,6 +63,7 @@
         maskLayerBottom.frame = self.bounds;
         maskLayerBottom.path  = maskPathBottom.CGPath;
         self.contentView.layer.mask = maskLayerBottom;
+    
         
         
         progressLabel = [[UILabel alloc] init];
@@ -105,14 +106,7 @@
     CGFloat skill = [_topic.topicSkill.skillProgress floatValue] / 100;
     CGFloat combinedSkill = self.frame.size.height * skill;
     CGRect newRect = CGRectMake(0, self.frame.size.height - combinedSkill, self.frame.size.width, combinedSkill);
-    
-    [UIView animateWithDuration:0.6 delay:0.6 usingSpringWithDamping:0.6 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        
-        innerView.frame = newRect;
-        
-    } completion:^(BOOL finished) {
-        
-    }];
+    innerView.frame = newRect;
 }
 
 - (void)prepareForReuse

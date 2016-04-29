@@ -21,6 +21,7 @@
     UILabel *appLabel;
     UILabel *subtitleLabel;
     UILabel *textLabel;
+    UILabel *timeframeLabel;
     
     UIButton *appIconButton;
     UIView *backgroundView;
@@ -108,6 +109,20 @@
         [self addConstraint:[NSLayoutConstraint constraintWithItem:appLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:backgroundView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
         
+        timeframeLabel = [[UILabel alloc] init];
+        timeframeLabel.textAlignment = NSTextAlignmentCenter;
+        timeframeLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightLight];
+        timeframeLabel.numberOfLines = 1;
+        timeframeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [backgroundView addSubview:timeframeLabel];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:timeframeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:timeframeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:appLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:2]];
+        
+        
+        
+        
         dockView = [[UIView alloc] init];
         dockView.translatesAutoresizingMaskIntoConstraints = NO;
         dockView.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00];
@@ -136,6 +151,7 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-40]];
         
+        
     }
     return self;
 }
@@ -147,7 +163,9 @@
         heightConstraint.constant = self.frame.size.height;
         [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
+            timeframeLabel.alpha = 1;
             [self layoutIfNeeded];
+            
         } completion:^(BOOL finished) {
             
         }];
@@ -158,7 +176,10 @@
         
         heightConstraint.constant = 150;
         [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            
+            timeframeLabel.alpha = 0;
             [self layoutIfNeeded];
+            
         } completion:^(BOOL finished) {
             
         }];
@@ -194,15 +215,24 @@
         appLabel.textColor = [UIColor whiteColor];
         backgroundView.backgroundColor = [UIColor colorWithRed:0.29 green:0.82 blue:0.55 alpha:1.00];
         
+        timeframeLabel.text = @"2015 - Now";
+        timeframeLabel.textColor = [UIColor whiteColor];
+        
         [self addButtonToDock];
     } else if ([topicApp.name isEqualToString:@"Grain"]) {
         backgroundView.backgroundColor = [UIColor colorWithRed:0.09 green:0.60 blue:0.89 alpha:1.00];
         appLabel.textColor = [UIColor whiteColor];
         
+        timeframeLabel.text = @"Coming Soon";
+        timeframeLabel.textColor = [UIColor whiteColor];
+        
         [self addButtonToDock];
     } else if ([topicApp.name isEqualToString:@"MVDribbbleKit"]) {
         backgroundView.backgroundColor = [UIColor colorWithRed:0.89 green:0.19 blue:0.46 alpha:1.00];
         appLabel.textColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.00];
+        
+        timeframeLabel.text = @"2013 - Now";
+        timeframeLabel.textColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.00];
         
         dockHeightConstraint.constant = 80;
         [self layoutIfNeeded];
@@ -459,6 +489,7 @@
     [_visualEffectView removeFromSuperview];
     appLabel.text = nil;
     subtitleLabel.text = nil;
+    timeframeLabel.text = nil;
     textLabel.text = nil;
     _topic = nil;
     topicApp = nil;

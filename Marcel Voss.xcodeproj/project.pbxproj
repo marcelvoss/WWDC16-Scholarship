@@ -58,7 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F4C7DA21CCAE62E00F11033 /* ndr_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ndr_video.mp4; sourceTree = "<group>"; };
 		1F4C7DA31CCAECA300F11033 /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		1F4C7DA51CCAECCB00F11033 /* ArrayUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayUtilities.h; sourceTree = "<group>"; };
 		1F4C7DA61CCAECCB00F11033 /* ArrayUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayUtilities.m; sourceTree = "<group>"; };
@@ -278,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				1F4C7DA31CCAECA300F11033 /* Data.json */,
-				1F4C7DA21CCAE62E00F11033 /* ndr_video.mp4 */,
 				1FBDFA921CC97F3200F73CDA /* Info.plist */,
 				1FBDFA881CC97F3200F73CDA /* main.m */,
 				1FBDFAD21CCA096A00F73CDA /* Marcel Voss-Bridging-Header.h */,
