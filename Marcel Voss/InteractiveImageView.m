@@ -31,6 +31,7 @@
         
         _slideTime = 5;
         _fadeTime = 1;
+        currentImageIndex = 0;
         
         [self gestureForViewerType:_viewerType];
     }
@@ -54,6 +55,7 @@
 
 - (instancetype)initWithImages:(NSArray *)imageArray type:(ViewerType)viewerType
 {
+    currentImageIndex = 0;
     TopicImage *firstImage = imageArray[0];
     self = [super initWithImage:firstImage.topicImage];
     if (self) {
@@ -67,8 +69,8 @@
         
         self.userInteractionEnabled = YES;
         
-        _temporaryArray = [NSMutableArray array];
         
+        _temporaryArray = [NSMutableArray array];
         
         TopicImage *aImage = [[TopicImage alloc] initWithSDImage:firstImage.topicImage
                                                          HDImage:firstImage.topicHQImage
@@ -85,7 +87,9 @@
             [self setupTimer];
         }
         
-        [self gestureForViewerType:ViewerTypeImage];
+        if (imageArray.count > 0) {
+            [self gestureForViewerType:ViewerTypeImage];
+        }
     }
     return self;
 }
@@ -117,6 +121,7 @@
 - (void)setImages:(NSArray *)imageArray type:(ViewerType)viewerType
 {
     if (viewerType == ViewerTypeImage) {
+        currentImageIndex = 0;
         _temporaryArray = [NSMutableArray array];
         
         TopicImage *firstImage = imageArray[0];

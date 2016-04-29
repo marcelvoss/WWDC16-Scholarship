@@ -36,7 +36,9 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         theImage = foregroundImage;
         
         self.foregroundImageView = UIImageView()
-        self.foregroundImageView?.image = foregroundImage
+        self.foregroundImageView?.image = theImage
+        foregroundImageView!.translatesAutoresizingMaskIntoConstraints = false
+        foregroundImageView!.userInteractionEnabled = true
         self.setupViews()
         
         // TODO: Add pan gesture to dismiss
@@ -105,25 +107,35 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         self.addSubview(effectView)
         
         self.userInteractionEnabled = true
-        
-        foregroundImageView!.translatesAutoresizingMaskIntoConstraints = false
-        foregroundImageView!.userInteractionEnabled = true
-        foregroundImageView!.contentMode = UIViewContentMode.ScaleAspectFit
         self.addSubview(foregroundImageView!)
         
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         
         self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0))
         
-        // A required layout change if the image isn't a iPhone 5 screenshot
-        if (theImage?.size.height != 568) {
-            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
-        }
-        
-        self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 0))
-        
         constraintY = (NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: screenHeight))
         self.addConstraint(constraintY!)
+        
+        // A required layout change if the image isn't a iPhone 5 screenshot
+        if (theImage?.size.height != 667) {
+            foregroundImageView!.contentMode = UIViewContentMode.ScaleAspectFit
+            
+            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
+            
+            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 0))
+            
+        } else {
+            
+            foregroundImageView!.contentMode = UIViewContentMode.Center
+            
+            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 375))
+            
+            self.addConstraint(NSLayoutConstraint(item: foregroundImageView!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 667))
+            
+            self.layoutIfNeeded()
+            
+        }
+        
         
         
         // Adds a tap gesture to dismiss the image view
@@ -134,12 +146,12 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
         
         // Parallax Effect
         let verticalMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffectType.TiltAlongVerticalAxis)
-        verticalMotionEffect.minimumRelativeValue = -10
-        verticalMotionEffect.maximumRelativeValue = 10
+        verticalMotionEffect.minimumRelativeValue = -20
+        verticalMotionEffect.maximumRelativeValue = 20
         
         let horizontalMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.TiltAlongVerticalAxis)
-        horizontalMotionEffect.minimumRelativeValue = -10
-        horizontalMotionEffect.maximumRelativeValue = 10
+        horizontalMotionEffect.minimumRelativeValue = -20
+        horizontalMotionEffect.maximumRelativeValue = 20
         
         let group = UIMotionEffectGroup()
         group.motionEffects = [verticalMotionEffect, horizontalMotionEffect]

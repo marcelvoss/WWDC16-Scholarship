@@ -65,7 +65,6 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
-        
         // TODO: Remove headlineYConstraint
         headlineYConstraint = [NSLayoutConstraint constraintWithItem:headlineLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_headerImageView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-5];
         [self addConstraint:headlineYConstraint];
@@ -83,8 +82,6 @@
         [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:headlineLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-40]];
-        
-        
     }
     return self;
 }
@@ -109,6 +106,8 @@
     [string addAttribute:NSParagraphStyleAttributeName value:paraStyle range:NSMakeRange(0, string.length)];
     textLabel.attributedText = string;
     
+    _headerImageView.imageArray = nil;
+    _headerImageView.image = nil;
     [_headerImageView  setImages:_topic.images type:ViewerTypeImage];
 }
 
@@ -116,7 +115,7 @@
 {
     [super prepareForReuse];
     
-    headlineLabel.text = nil;
+    headlineLabel.attributedText = nil;
     subtitleLabel.text = nil;
     _headerImageView.image = nil;
     [_headerImageView.timer invalidate];

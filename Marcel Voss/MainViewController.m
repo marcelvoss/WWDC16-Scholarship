@@ -594,13 +594,12 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             TopicImage *fImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FacebookCampus"]
                                                          annotation:@"Visiting the Facebook campus was another motivating experience: I'm going to work as hard as I have to in order to work at such an awesome place."];
             TopicImage *fImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FoggyBash"]
-                                                         annotation:@"Views like this one motivate me to work even harder to achieve what I want."];
+                                                         annotation:@"Views like this one motivate me to work even harder to achieve what I want. By the way, this was on the scholarship balcony at last year's Bash."];
             Topic *f = [[Topic alloc] initWithTitle:@"Plans for the Future"
                                            subtitle:nil
                                                text:@"As far as I can remember, I already wanted to live and work in a different country (or at least in a big city) since I was a little kid.\n\nGrowing up in a small city like Heide is not easy for people like me. For people who are not like the others. For people who, well, think different.\n\nI'm living in rural area and open-minded people are rare around here. It's usual to get insulted for being the way you are.\n\nSo, yes. I want to live in a city like San Francisco where nobody cares about your quirks and I want to work for a company that embraces a similar mindset like me."
                                              images:@[fImage1, fImage2]
                                              option:OptionsGeneric];
-            
             
             
             [_topicsArray addObjectsFromArray:@[a, b, c, d, e, f]];
