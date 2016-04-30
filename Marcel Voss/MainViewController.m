@@ -603,20 +603,18 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                              images:@[cImage1, cImage2, cImage3]
                                              option:OptionsGeneric];
             
-            TopicImage *dImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"EscalatorWWDC"]
-                                                         annotation:@"The moment everyone waited for: the opening keynote. What a feeling to be there!"];
-            TopicImage *dImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"VenueWWDC"]
+            TopicImage *dImage1 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"VenueWWDC"]
                                                          annotation:@"When I saw those banners on the other building I started realizing I'm in San Francisco for WWDC. I couldn't believe it until then."];
-            TopicImage *dImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FriendsWWDC"]
+            TopicImage *dImage2 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FriendsWWDC"]
                                                          annotation:@"On Sunday, at registration, I met a couple of other scholars and eventual friends."];
-            TopicImage *dImage4 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"DoorsWWDC"]
+            TopicImage *dImage3 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"DoorsWWDC"]
                                                          annotation:@"Being in front of the Moscone center for the first time was quite amazing."];
-            TopicImage *dImage5 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FirstEveningWWDC"]
+            TopicImage *dImage4 = [[TopicImage alloc] initWithImage:[UIImage imageNamed:@"FirstEveningWWDC"]
                                                          annotation:@"On the first day in San Francisco, a couple of friends and I enjoyed ourselves. We had a great time!"];
              Topic *d = [[Topic alloc] initWithTitle:@"WWDC 2015"
                                             subtitle:@""
                                                 text:@"Last year, I took part in Apple's WWDC scholarship challenge for the first. Luckily, I won a ticket and was able to attended the conference.\n\nSeriously, this was the best week of my entire life. I met so many smart people, made new friends, saw amazing places and learned a load of new stuff.\n\nHowever, the most amazing thing about WWDC was that it felt like coming home. You are surrounded by people who are like you, who accept you without a blink. I have never experienced something comparable."
-                                              images:@[dImage1, dImage2, dImage3, dImage4, dImage5]
+                                              images:@[dImage1, dImage2, dImage3, dImage4]
                                               option:OptionsGeneric];
             
 

@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, GRPopupType) {
     GRPopupTypeGeneric
 };
 
-@interface GRPopupView : UIView
+@interface PopupView : UIView
 
 @property (nonatomic) NSString *titleString;
 @property (nonatomic) NSString *descriptionString;

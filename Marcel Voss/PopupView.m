@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Marcel Voss. All rights reserved.
 //
 
-#import "GRPopupView.h"
+#import "PopupView.h"
 #import "UIColor+Colors.h"
 
-@interface GRPopupView () <UIGestureRecognizerDelegate>
+@interface PopupView () <UIGestureRecognizerDelegate>
 {
     UIWindow *window;
     GRPopupType selectedType;
@@ -23,7 +23,7 @@
 @end
 
 
-@implementation GRPopupView
+@implementation PopupView
 
 - (instancetype)initWithType:(GRPopupType)popupType title:(NSString *)titleString description:(NSString *)descriptionString
 {
