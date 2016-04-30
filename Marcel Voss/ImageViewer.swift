@@ -62,6 +62,17 @@ class ImageViewer: UIView, UIGestureRecognizerDelegate {
             
         }
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey(shownImageViewerBefore) == false {
+            
+            let popup = GRPopupView(type: .Generic, title: "Need help?", description: "Since you opened the image viewer for the first time, I thought you might need some help.\n\nIn order to dismiss the image viewer, simply tap anywhere. It'll be dismissed then.")
+            popup.show()
+            
+            defaults.setBool(true, forKey: shownImageViewerBefore)
+            defaults.synchronize()
+        }
+        
+        
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.constraintY!.constant = 0
             self.effectView.alpha = 1

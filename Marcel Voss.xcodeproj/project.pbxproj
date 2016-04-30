@@ -37,6 +37,7 @@
 		1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAE21CCA2A0900F73CDA /* Topic.m */; };
 		1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFB0B1CCA734E00F73CDA /* FBShimmeringLayer.m */; };
 		1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */; };
+		1FC8EBC21CD4A35300D3E68C /* GRPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8EBC11CD4A35300D3E68C /* GRPopupView.m */; };
 		1FF871BD1CD3AF3B00A17F12 /* InteractiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871BC1CD3AF3B00A17F12 /* InteractiveImageView.m */; };
 		1FF871C61CD3C55D00A17F12 /* MVConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871C51CD3C55D00A17F12 /* MVConstants.m */; };
 		1FF871C91CD3C56700A17F12 /* MVDribbbleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871C81CD3C56700A17F12 /* MVDribbbleKit.m */; };
@@ -134,6 +135,8 @@
 		1FBDFB0B1CCA734E00F73CDA /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
 		1FBDFB0C1CCA734E00F73CDA /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
 		1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
+		1FC8EBC01CD4A35300D3E68C /* GRPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRPopupView.h; sourceTree = "<group>"; };
+		1FC8EBC11CD4A35300D3E68C /* GRPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRPopupView.m; sourceTree = "<group>"; };
 		1FF871BC1CD3AF3B00A17F12 /* InteractiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveImageView.m; sourceTree = "<group>"; };
 		1FF871C41CD3C55D00A17F12 /* MVConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVConstants.h; sourceTree = "<group>"; };
 		1FF871C51CD3C55D00A17F12 /* MVConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVConstants.m; sourceTree = "<group>"; };
@@ -350,6 +353,8 @@
 		1FBDFAB41CC97F3900F73CDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1FC8EBC01CD4A35300D3E68C /* GRPopupView.h */,
+				1FC8EBC11CD4A35300D3E68C /* GRPopupView.m */,
 				1F7FF6151CCE0F6200EE14C3 /* Cards */,
 				1F7FF5F91CCCFD7A00EE14C3 /* Topics */,
 				1F7FF6041CCD221B00EE14C3 /* Viewers */,
@@ -620,6 +625,7 @@
 				1FBDFA891CC97F3200F73CDA /* main.m in Sources */,
 				1F7FF62B1CCF484A00EE14C3 /* MVModel.m in Sources */,
 				1FF871EB1CD3E9F400A17F12 /* TopicDribbble.m in Sources */,
+				1FC8EBC21CD4A35300D3E68C /* GRPopupView.m in Sources */,
 				1F7FF6251CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m in Sources */,
 				1FF871E41CD3C59700A17F12 /* MVUser.m in Sources */,
 				1F7FF61F1CCE544700EE14C3 /* GenericCollectionViewCell.m in Sources */,

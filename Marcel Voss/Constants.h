@@ -24,7 +24,8 @@ static NSString *instagramURLString = @"";
 
 
 // NSUserDefaults
-
+static NSString *shownImageViewerBefore = @"ShownImageViewerBefore";
+static NSString *hasRunBefore = @"MV2016HasRunBefore";
 
 // API Keys
 static NSString *weatherMapAPI = @"1a3a3a5eeec10ec21b9ff152af0793a6";

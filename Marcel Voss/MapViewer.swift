@@ -102,11 +102,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
                 self.removeFromSuperview()
             }
         }
-        
-        
-        
-        
-        
     }
     
     func setupViews () {
@@ -158,13 +153,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         self.addConstraint(NSLayoutConstraint(item: mapView!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: mapBackgroundCanvas, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0))
         
-        
-        
-        // FIXME: Missing option to dismiss view
-        /*
-        var tap = UITapGestureRecognizer(target: self, action: "hide")
-        effectView.addGestureRecognizer(tap)
- */
         
         // Widget Scroll View
         scrollView = UIScrollView()
@@ -343,22 +331,6 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .CenterX, relatedBy: .Equal, toItem: cardView2, attribute: .CenterX, multiplier: 1.0, constant: 0))
         
         scrollView!.addConstraint(NSLayoutConstraint(item: distanceLabel, attribute: .Top, relatedBy: .Equal, toItem: cardView2, attribute: .CenterY, multiplier: 1.0, constant: 0))
-        
-        
-        
-        let cardView3 = UIView()
-        cardView3.translatesAutoresizingMaskIntoConstraints = false
-        cardView3.backgroundColor = UIColor.whiteColor()
-        cardView3.layer.cornerRadius = 6
-        scrollView!.addSubview(cardView3)
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .CenterX, relatedBy: .Equal, toItem: scrollView, attribute: .CenterX, multiplier: 1.0, constant: width * 3))
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .CenterY, relatedBy: .Equal, toItem: scrollView, attribute: .CenterY, multiplier: 1.0, constant: 0))
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .Width, relatedBy: .Equal, toItem: scrollView, attribute: .Width, multiplier: 1.0, constant: -20))
-        
-        scrollView!.addConstraint(NSLayoutConstraint(item: cardView3, attribute: .Height, relatedBy: .Equal, toItem: scrollView, attribute: .Height, multiplier: 1.0, constant: 0))
         
         
         self.layoutIfNeeded()

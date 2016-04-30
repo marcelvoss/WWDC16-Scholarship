@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
-#import "MVDribbbleKit.h"
+#import "Constants.h"
 
 @interface AppDelegate ()
 
@@ -22,6 +22,15 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:hasRunBefore]) {
+        
+        [defaults setBool:NO forKey:shownImageViewerBefore];
+        
+        [defaults setBool:YES forKey:hasRunBefore];
+        [defaults synchronize];
+    }
     
     MainViewController *mainVC = [[MainViewController alloc] init];
     self.window.rootViewController = mainVC;
