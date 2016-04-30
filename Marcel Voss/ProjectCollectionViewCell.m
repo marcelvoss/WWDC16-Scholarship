@@ -631,7 +631,7 @@
         
         projectHeadline = [[UILabel alloc] init];
         projectHeadline.text = @"Popular on Dribbble";
-        projectHeadline.font = [UIFont systemFontOfSize:14];
+        projectHeadline.font = [UIFont boldSystemFontOfSize:14];
         projectHeadline.alpha = 0;
         projectHeadline.textColor = [UIColor whiteColor];
         projectHeadline.translatesAutoresizingMaskIntoConstraints = NO;

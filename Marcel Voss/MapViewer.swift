@@ -383,11 +383,66 @@ class MapViewer: UIView, UIScrollViewDelegate, CLLocationManagerDelegate {
         
         scrollView!.addConstraint(NSLayoutConstraint(item: timeHeideLabel, attribute: .CenterY, relatedBy: .Equal, toItem: cardView3, attribute: .CenterY, multiplier: 1.0, constant: 5))
         
-        let sourceDate = NSDate(timeIntervalSinceNow: 3600 * 24 * 60)
-        let destinationTimeZone = NSTimeZone.localTimeZone()
-        let timezoneOffset = destinationTimeZone.secondsFromGMTForDate(sourceDate) / 3600
-        print(timezoneOffset)
+        let now = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeStyle = .FullStyle
+        dateFormatter.timeZone = NSTimeZone.systemTimeZone()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        let s1 = dateFormatter.stringFromDate(now)
+        let dd = dateFormatter.dateFromString(s1)
         
+        let dt = NSDate()
+        let df1 = NSDateFormatter()
+        df1.timeStyle = .FullStyle
+        df1.timeZone = NSTimeZone(name: "Europe/Paris")
+        df1.dateFormat = "dd-MM-yyyy HH:mm"
+        let s2 = dateFormatter.stringFromDate(now)
+        let ddd = dateFormatter.dateFromString(s2)
+        
+        let s3 = df1.stringFromDate(dt)
+        print(s3)
+        
+        
+        
+        
+        /*
+ 
+         NSDate *now = [NSDate date];
+         NSDateFormatter *df = [[NSDateFormatter alloc] init] ;
+         [df setTimeStyle:NSDateFormatterFullStyle];
+         [df setTimeZone:[NSTimeZone timeZoneWithName:Str]];//str = timezone1(for you its kolkata)
+         [df setDateFormat:@"dd-MM-yyyy HH:mm"];
+         NSString *S1 = [df stringFromDate:now];
+         [df setDateFormat:@"dd-MM-yyyy HH:mm"];
+         NSDate *dd = [df dateFromString:S1];
+         //dd = date1 as per timezone
+         NSLog(@"dd > %@",dd);
+         
+         [df release];
+         
+         
+         NSDate *dt = [NSDate date];
+         NSLog(@"dt = %@",dt);
+         NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
+         [df1 setTimeStyle:NSDateFormatterFullStyle];
+         [df1 setTimeZone:[NSTimeZone timeZoneWithName:Str2]];//str2=timezone2(for you its dubai)
+         [df1 setDateFormat:@"dd-MM-yyyy HH:mm"];
+         
+         NSString *S2 = [df1 stringFromDate:dt];
+         
+         [df setDateFormat:@"dd-MM-yyyy HH:mm"];
+         NSDate *dd1 = [df dateFromString:S2];
+         //dd1 = date2 as per timezone
+         NSLog(@"dd1 > %@",dd1);
+         
+         
+         NSCalendar *sysCalendar = [NSCalendar currentCalendar];
+         unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit;
+         
+         NSDateComponents *conversionInfo = [sysCalendar components:unitFlags fromDate:dd  toDate:dd1  options:0];
+         
+         NSLog(@"Conversion: %dmin %dhours %ddays %dmoths",[conversionInfo minute], [conversionInfo hour], [conversionInfo day], [conversionInfo month]);
+ */
         
         
         self.layoutIfNeeded()

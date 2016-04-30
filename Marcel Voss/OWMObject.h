@@ -17,7 +17,9 @@ typedef NS_ENUM(NSInteger, WeatherCondition) {
     WeatherConditionClouds,
     WeatherConditionWind,
     WeatherConditionFog,
-    WeatherConditionThunderstorm
+    WeatherConditionRain,
+    WeatherConditionThunderstorm,
+    WeatherConditionDrizzle
 };
 
 @interface OWMObject : MVModel

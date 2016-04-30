@@ -25,7 +25,7 @@
     UILabel *cityLabel;
     
     UILabel *tempLabel;
-    UILabel *maxLabel;
+    UILabel *conditionLabel;
 }
 
 - (instancetype)initWithLocation:(CLLocation *)location
@@ -55,18 +55,22 @@
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:weatherLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
-        // TODO: Not the best way
-        UIView *separatorView = [[UIView alloc] init];
-        separatorView.translatesAutoresizingMaskIntoConstraints = NO;
+
         
+        conditionLabel = [[UILabel alloc] init];
+        conditionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:conditionLabel];
         
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:conditionLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:conditionLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
         
         tempLabel = [[UILabel alloc] init];
         tempLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:tempLabel];
         
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:tempLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:tempLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:tempLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
         
@@ -82,6 +86,7 @@
             
             self.weatherObject = weatherObject;
             tempLabel.text = [self isMetric:[weatherObject.mainTemperature stringValue]];
+            conditionLabel.text = weatherObject.weatherDescription;
             
             
         } failure:^(NSError *error, NSHTTPURLResponse *response) {
@@ -98,9 +103,9 @@
     BOOL isMetric = [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
     
     if (isMetric) {
-        return [NSString stringWithFormat:@"%@ °C", string];
+        return [NSString stringWithFormat:@"It's %@ °C right now", string];
     } else {
-        return [NSString stringWithFormat:@"%@ °F", string];
+        return [NSString stringWithFormat:@"It's %@ °F right now", string];
     }
 }
 
