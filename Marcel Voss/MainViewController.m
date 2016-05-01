@@ -10,7 +10,6 @@
 
 #import "InteractiveImageView.h"
 
-#import "FBShimmeringView.h"
 #import "Constants.h"
 
 #import "GenericCollectionViewCell.h"
@@ -25,10 +24,12 @@
 #import "Topic.h"
 #import "TopicApp.h"
 #import "TopicSkill.h"
-#import "ArrayUtilities.h"
 #import "UIImage+Helpers.h"
 #import "MVDribbbleKit.h"
+#import "QuoteCollectionViewCell.h"
 #import "TopicDribbble.h"
+#import "TopicQuote.h"
+#import "BOSImageResizeOperation.h"
 
 #import "Marcel_Voss-Swift.h"
 
@@ -183,7 +184,6 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:welcomeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:canvasView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
     
-    //[UIImage imageNamed:@"AvatarPhoto"]
     UIImage *tempAvatarImage = [UIImage resizeImage:[UIImage imageNamed:@"AvatarPhoto"] withWidth:100 withHeight:100];
     TopicImage *avatarImage = [[TopicImage alloc] initWithSDImage:tempAvatarImage HDImage:[UIImage imageNamed:@"AvatarPhoto"] annotation:@"I met Craig Federighi at WWDC 2015. We talked about my scholarship app and about working at Apple."];
     avatarImageView = [[InteractiveImageView alloc] initWithImages:@[avatarImage] type:ViewerTypeImage];
@@ -202,6 +202,9 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:100]];
     
     [backgroundImageView addConstraint:[NSLayoutConstraint constraintWithItem:avatarImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:100]];
+    
+    
+    
     
     
     
@@ -649,7 +652,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
                                                          annotation:@"That is my high school. It's not the prettiest one but I had a couple of good years here."];
             Topic *a = [[Topic alloc] initWithTitle:@"High School"
                                            subtitle:nil
-                                               text:@"At the moment, I am a grade 11 student at the \"Gymnasium Heide-Ost\". It's a high school with about 1500 students. Next summer, I will, hopefully, finish high school and pass the secondary school exams.\n\nIn school I'm very interested in English, Biology and History.\n\nUnfortunately, there aren't any \"real\" CS classes at my school. I put that in quotes, because the classes basically consist of copying Java code from the Internet into Eclipse or they are about the correct usage of word processors."
+                                               text:@"At the moment, I am a grade 11 student at the \"Gymnasium Heide-Ost\". It's a high school with about 1500 students. Next summer, I will, hopefully, finish high school and pass the secondary school exams.\n\nIn school I'm very interested in English, Biology and History. Oh, and I speak English, German and Russian\n\nUnfortunately, there aren't any \"real\" CS classes at my school. I put that in quotes, because the classes basically consist of copying Java code from the Internet into Eclipse or they are about the correct usage of word processors."
                                              images:@[aImage1]
                                              option:OptionsGeneric];
             
@@ -689,27 +692,40 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
             break;
         case MenuTopicSkills:
         {
-            TopicSkill *a1 = [[TopicSkill alloc] initWithSkill:@"Objective-C" color:[UIColor objectColor] progress:90 since:2012];
-            Topic *a = [[Topic alloc] initWithSkill:a1];
+            TopicQuote *a1 = [[TopicQuote alloc] initWithTitle:@"Skills" description:@"Learning new things has always been an important part of my life. I never wanted to accept simple answers for my questions when I was a kid – this hasn't changed until today." quote:[self randomQuoteFromJSON]];
+            Topic *a = [[Topic alloc] initWithQuote:a1];
             
-            TopicSkill *b1 = [[TopicSkill alloc] initWithSkill:@"C" color:[UIColor cColor] progress:75 since:2012];
+            TopicSkill *b1 = [[TopicSkill alloc] initWithSkill:@"Objective-C" color:[UIColor objectColor] progress:90 since:2012];
             Topic *b = [[Topic alloc] initWithSkill:b1];
             
-            TopicSkill *c1 = [[TopicSkill alloc] initWithSkill:@"Swift" color:[UIColor swiftColor] progress:65 since:2014];
+            TopicSkill *c1 = [[TopicSkill alloc] initWithSkill:@"C" color:[UIColor cColor] progress:75 since:2012];
             Topic *c = [[Topic alloc] initWithSkill:c1];
             
-            
-            TopicSkill *d1 = [[TopicSkill alloc] initWithSkill:@"Python" color:[UIColor pythonColor] progress:75 since:2013];
+            TopicSkill *d1 = [[TopicSkill alloc] initWithSkill:@"Swift" color:[UIColor swiftColor] progress:65 since:2014];
             Topic *d = [[Topic alloc] initWithSkill:d1];
+            
+            
+            TopicSkill *e1 = [[TopicSkill alloc] initWithSkill:@"Python" color:[UIColor pythonColor] progress:75 since:2013];
+            Topic *e = [[Topic alloc] initWithSkill:e1];
 
             
-            TopicSkill *e1 = [[TopicSkill alloc] initWithSkill:@"Ruby" color:[UIColor rubyColor] progress:30 since:2012];
-            Topic *e = [[Topic alloc] initWithSkill:e1];
+            TopicSkill *f1 = [[TopicSkill alloc] initWithSkill:@"Ruby" color:[UIColor rubyColor] progress:30 since:2012];
+            Topic *f = [[Topic alloc] initWithSkill:f1];
             
-            [_topicsArray addObjectsFromArray:@[a, b, c, d, e]];
+            TopicSkill *g1 = [[TopicSkill alloc] initWithSkill:@"HTML" color:[UIColor htmlColor] progress:50 since:2012];
+            Topic *g = [[Topic alloc] initWithSkill:g1];
+            
+            [_topicsArray addObjectsFromArray:@[a, b, c, d, e, f, g]];
         }
             break;
     }
+}
+
+- (NSDictionary *)randomQuoteFromJSON
+{
+    NSArray *quotesArray = [NSArrayUtilities arrayForJSON:@"Data"];
+    NSDictionary *object = [NSArrayUtilities randomObject:quotesArray];
+    return object;
 }
 
 - (void)setupCollectionViewForMenuTopic:(MenuTopic)menuTopic
@@ -741,6 +757,7 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         [menuCollectionView registerClass:[MapCollectionViewCell class] forCellWithReuseIdentifier:@"CellMap"];
         [menuCollectionView registerClass:[ProjectCollectionViewCell class] forCellWithReuseIdentifier:@"CellProjects"];
         [menuCollectionView registerClass:[SkillCollectionViewCell class] forCellWithReuseIdentifier:@"CellSkills"];
+        [menuCollectionView registerClass:[QuoteCollectionViewCell class] forCellWithReuseIdentifier:@"CellQuotes"];
         
     }
     
@@ -781,11 +798,15 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
     MapCollectionViewCell *cellMap = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellMap"
                                                                                forIndexPath:indexPath];
     
-    ProjectCollectionViewCell *cellProjects = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProjects"
-                                                                                        forIndexPath:indexPath];
+    ProjectCollectionViewCell *cellProjects = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellProjects" forIndexPath:indexPath];
     
-    ProjectCollectionViewCell *cellSkills = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellSkills"
+    SkillCollectionViewCell *cellSkills = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellSkills"
                                                                                       forIndexPath:indexPath];
+    
+    QuoteCollectionViewCell *cellQuotes = [collectionView dequeueReusableCellWithReuseIdentifier:@"CellQuotes"
+                                                                                      forIndexPath:indexPath];
+    
+    
     
     Topic *topic = _topicsArray[indexPath.row];
     if (topic.topicOption == OptionsMap) {
@@ -808,6 +829,11 @@ typedef NS_ENUM(NSInteger, MenuTopic) {
         
         cellSkills.topic = topic;
         return cellSkills;
+        
+    } else if (topic.topicOption == OptionsQuote) {
+        
+        cellQuotes.topic = topic;
+        return cellQuotes;
         
     }
     

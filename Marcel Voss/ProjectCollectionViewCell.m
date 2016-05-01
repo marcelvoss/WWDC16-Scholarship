@@ -347,7 +347,7 @@
         if ([_topic.topicApp.name isEqualToString:@"PhoneBattery"]) {
             [webButton setTitle:@"App Store" forState:UIControlStateNormal];
         } else if ([_topic.topicApp.name isEqualToString:@"MVDribbbleKit"]) {
-            [webButton setTitle:@"Web" forState:UIControlStateNormal];
+            [webButton setTitle:@"GitHub" forState:UIControlStateNormal];
         }
     } else {
         UIView *moreView = [[UIView alloc] init];

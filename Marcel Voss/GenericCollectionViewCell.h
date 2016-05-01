@@ -11,7 +11,6 @@
 
 @class Topic;
 
-
 @interface GenericCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) Topic *topic;

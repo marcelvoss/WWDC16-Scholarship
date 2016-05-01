@@ -10,6 +10,7 @@
 
 #import "Constants.h"
 #import "UIImage+Helpers.h"
+#import "BOSImageResizeOperation.h"
 
 #import <MapKit/MapKit.h>
 
@@ -142,16 +143,30 @@
         _temporaryArray = [NSMutableArray array];
         
         TopicImage *firstImage = imageArray[0];
-        UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage
-                                      withWidth:self.frame.size.width + 200
-                                     withHeight:self.frame.size.height + 200];
         
-        TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
-                                                         HDImage:firstImage.topicImage
-                                                      annotation:firstImage.topicAnnotation];
-        [_temporaryArray addObject:aImage];
+        BOSImageResizeOperation *op = [[BOSImageResizeOperation alloc] initWithImage:firstImage.topicImage];
+        [op resizeToFitWithinSize:CGSizeMake(self.frame.size.width + 200, self.frame.size.height + 200)];
         
-        self.image = aImage.topicImage;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [op start];
+            UIImage *smallerImage = op.result;
+            TopicImage *aImage = [[TopicImage alloc] initWithSDImage:smallerImage
+                                                             HDImage:firstImage.topicImage
+                                                          annotation:firstImage.topicAnnotation];
+            
+            
+            [_temporaryArray addObject:aImage];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [UIView transitionWithView:self duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                    self.image = aImage.topicImage;
+                } completion:NULL];
+            });
+            
+        });
+        
+        
+        
         
         _imageArray = imageArray;
         _viewerType = viewerType;
@@ -185,17 +200,30 @@
     
     TopicImage *firstImage = _imageArray[currentImageIndex];
     
-    UIImage *sdImage = [UIImage resizeImage:firstImage.topicImage withWidth:self.frame.size.width + 200
-                                 withHeight:self.frame.size.height + 200];
+    BOSImageResizeOperation *op = [[BOSImageResizeOperation alloc] initWithImage:firstImage.topicImage];
+    [op resizeToFitWithinSize:CGSizeMake(self.frame.size.width + 200, self.frame.size.height + 200)];
     
-    TopicImage *aImage = [[TopicImage alloc] initWithSDImage:sdImage
-                                                     HDImage:firstImage.topicImage
-                                                  annotation:firstImage.topicAnnotation];
-    [_temporaryArray addObject:aImage];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [op start];
+        UIImage* smallerImage = op.result;
+        TopicImage *aImage = [[TopicImage alloc] initWithSDImage:smallerImage
+                                                         HDImage:firstImage.topicImage
+                                                      annotation:firstImage.topicAnnotation];
+        
+        
+        [_temporaryArray addObject:aImage];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [UIView transitionWithView:self duration:_fadeTime options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                self.image = aImage.topicImage;
+            } completion:NULL];
+        });
+        
+    });
     
-    [UIView transitionWithView:self duration:_fadeTime options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        self.image = aImage.topicImage;
-    } completion:NULL];
+    
+   
+    
 }
 
 - (void)setupTimer

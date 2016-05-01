@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1F4C7DA41CCAECA300F11033 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C7DA31CCAECA300F11033 /* Data.json */; };
-		1F4C7DA71CCAECCB00F11033 /* ArrayUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C7DA61CCAECCB00F11033 /* ArrayUtilities.m */; };
 		1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F676F601CCCA349003763F5 /* AppCustomButton.m */; };
 		1F7FF5F81CCCFA5D00EE14C3 /* OWMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF5F71CCCFA5D00EE14C3 /* OWMManager.m */; };
 		1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7FF5FC1CCD11E700EE14C3 /* OWMObject.m */; };
@@ -35,9 +34,11 @@
 		1FBDFAA71CC97F3200F73CDA /* Marcel_VossUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAA61CC97F3200F73CDA /* Marcel_VossUITests.m */; };
 		1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFABE1CC9859A00F73CDA /* UIColor+Colors.m */; };
 		1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFAE21CCA2A0900F73CDA /* Topic.m */; };
-		1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFB0B1CCA734E00F73CDA /* FBShimmeringLayer.m */; };
-		1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */; };
 		1FC8EBC21CD4A35300D3E68C /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8EBC11CD4A35300D3E68C /* PopupView.m */; };
+		1FC8EBCE1CD56BCF00D3E68C /* QuoteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8EBCD1CD56BCF00D3E68C /* QuoteCollectionViewCell.m */; };
+		1FC8EBD11CD56D2200D3E68C /* TopicQuote.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8EBD01CD56D2200D3E68C /* TopicQuote.m */; };
+		1FC8EBD31CD5720400D3E68C /* NSArrayUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8EBD21CD5720400D3E68C /* NSArrayUtilities.swift */; };
+		1FC8EBD61CD61C2500D3E68C /* BOSImageResizeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC8EBD51CD61C2500D3E68C /* BOSImageResizeOperation.m */; };
 		1FF871BD1CD3AF3B00A17F12 /* InteractiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871BC1CD3AF3B00A17F12 /* InteractiveImageView.m */; };
 		1FF871C61CD3C55D00A17F12 /* MVConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871C51CD3C55D00A17F12 /* MVConstants.m */; };
 		1FF871C91CD3C56700A17F12 /* MVDribbbleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF871C81CD3C56700A17F12 /* MVDribbbleKit.m */; };
@@ -73,8 +74,6 @@
 
 /* Begin PBXFileReference section */
 		1F4C7DA31CCAECA300F11033 /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
-		1F4C7DA51CCAECCB00F11033 /* ArrayUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayUtilities.h; sourceTree = "<group>"; };
-		1F4C7DA61CCAECCB00F11033 /* ArrayUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayUtilities.m; sourceTree = "<group>"; };
 		1F676F5F1CCCA349003763F5 /* AppCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCustomButton.h; sourceTree = "<group>"; };
 		1F676F601CCCA349003763F5 /* AppCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCustomButton.m; sourceTree = "<group>"; };
 		1F7FF5F01CCCCD3B00EE14C3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -129,14 +128,15 @@
 		1FBDFAE11CCA2A0900F73CDA /* Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Topic.h; sourceTree = "<group>"; };
 		1FBDFAE21CCA2A0900F73CDA /* Topic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Topic.m; sourceTree = "<group>"; };
 		1FBDFAF31CCA46D200F73CDA /* InteractiveImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveImageView.h; sourceTree = "<group>"; };
-		1FBDFB081CCA734E00F73CDA /* FBShimmering-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBShimmering-Prefix.pch"; sourceTree = "<group>"; };
-		1FBDFB091CCA734E00F73CDA /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
-		1FBDFB0A1CCA734E00F73CDA /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
-		1FBDFB0B1CCA734E00F73CDA /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
-		1FBDFB0C1CCA734E00F73CDA /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
-		1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
 		1FC8EBC01CD4A35300D3E68C /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
 		1FC8EBC11CD4A35300D3E68C /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
+		1FC8EBCC1CD56BCF00D3E68C /* QuoteCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteCollectionViewCell.h; sourceTree = "<group>"; };
+		1FC8EBCD1CD56BCF00D3E68C /* QuoteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteCollectionViewCell.m; sourceTree = "<group>"; };
+		1FC8EBCF1CD56D2200D3E68C /* TopicQuote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicQuote.h; sourceTree = "<group>"; };
+		1FC8EBD01CD56D2200D3E68C /* TopicQuote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicQuote.m; sourceTree = "<group>"; };
+		1FC8EBD21CD5720400D3E68C /* NSArrayUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSArrayUtilities.swift; sourceTree = "<group>"; };
+		1FC8EBD41CD61C2500D3E68C /* BOSImageResizeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOSImageResizeOperation.h; sourceTree = "<group>"; };
+		1FC8EBD51CD61C2500D3E68C /* BOSImageResizeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOSImageResizeOperation.m; sourceTree = "<group>"; };
 		1FF871BC1CD3AF3B00A17F12 /* InteractiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveImageView.m; sourceTree = "<group>"; };
 		1FF871C41CD3C55D00A17F12 /* MVConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVConstants.h; sourceTree = "<group>"; };
 		1FF871C51CD3C55D00A17F12 /* MVConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVConstants.m; sourceTree = "<group>"; };
@@ -238,6 +238,8 @@
 				1F7FF69B1CD25C1000EE14C3 /* TopicSkill.m */,
 				1FF871E91CD3E9F400A17F12 /* TopicDribbble.h */,
 				1FF871EA1CD3E9F400A17F12 /* TopicDribbble.m */,
+				1FC8EBCF1CD56D2200D3E68C /* TopicQuote.h */,
+				1FC8EBD01CD56D2200D3E68C /* TopicQuote.m */,
 			);
 			name = Topics;
 			sourceTree = "<group>";
@@ -245,8 +247,8 @@
 		1F7FF5FA1CCD11B700EE14C3 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				1FC8EBD71CD61C2700D3E68C /* BOSImageResizeOperation */,
 				1FF871E81CD3C5B600A17F12 /* ISO8601DateFormatter */,
-				1FBDFB101CCA735000F73CDA /* FBShimmering */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -280,6 +282,8 @@
 				1F7FF6241CCE5F5E00EE14C3 /* ProjectCollectionViewCell.m */,
 				1F7FF6971CD25B3B00EE14C3 /* SkillCollectionViewCell.h */,
 				1F7FF6981CD25B3B00EE14C3 /* SkillCollectionViewCell.m */,
+				1FC8EBCC1CD56BCF00D3E68C /* QuoteCollectionViewCell.h */,
+				1FC8EBCD1CD56BCF00D3E68C /* QuoteCollectionViewCell.m */,
 			);
 			name = "Collection View Cells";
 			sourceTree = "<group>";
@@ -380,28 +384,23 @@
 		1FBDFAB91CC9858300F73CDA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1FC8EBD21CD5720400D3E68C /* NSArrayUtilities.swift */,
 				1F7FF5F01CCCCD3B00EE14C3 /* Constants.h */,
 				1FBDFABD1CC9859A00F73CDA /* UIColor+Colors.h */,
 				1FBDFABE1CC9859A00F73CDA /* UIColor+Colors.m */,
-				1F4C7DA51CCAECCB00F11033 /* ArrayUtilities.h */,
-				1F4C7DA61CCAECCB00F11033 /* ArrayUtilities.m */,
 				1F7FF6461CCFBBBA00EE14C3 /* UIImage+Helpers.h */,
 				1F7FF6471CCFBBBA00EE14C3 /* UIImage+Helpers.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		1FBDFB101CCA735000F73CDA /* FBShimmering */ = {
+		1FC8EBD71CD61C2700D3E68C /* BOSImageResizeOperation */ = {
 			isa = PBXGroup;
 			children = (
-				1FBDFB081CCA734E00F73CDA /* FBShimmering-Prefix.pch */,
-				1FBDFB091CCA734E00F73CDA /* FBShimmering.h */,
-				1FBDFB0A1CCA734E00F73CDA /* FBShimmeringLayer.h */,
-				1FBDFB0B1CCA734E00F73CDA /* FBShimmeringLayer.m */,
-				1FBDFB0C1CCA734E00F73CDA /* FBShimmeringView.h */,
-				1FBDFB0D1CCA734E00F73CDA /* FBShimmeringView.m */,
+				1FC8EBD41CD61C2500D3E68C /* BOSImageResizeOperation.h */,
+				1FC8EBD51CD61C2500D3E68C /* BOSImageResizeOperation.m */,
 			);
-			name = FBShimmering;
+			name = BOSImageResizeOperation;
 			sourceTree = "<group>";
 		};
 		1FF871BE1CD3C39A00A17F12 /* MVDribbbleKit */ = {
@@ -595,6 +594,7 @@
 			files = (
 				1FF871E31CD3C59700A17F12 /* MVShot.m in Sources */,
 				1FF871BD1CD3AF3B00A17F12 /* InteractiveImageView.m in Sources */,
+				1FC8EBD31CD5720400D3E68C /* NSArrayUtilities.swift in Sources */,
 				1F7FF5FD1CCD11E700EE14C3 /* OWMObject.m in Sources */,
 				1F7FF61B1CCE325600EE14C3 /* TopicImage.m in Sources */,
 				1FF871C91CD3C56700A17F12 /* MVDribbbleKit.m in Sources */,
@@ -603,7 +603,6 @@
 				1FF871E21CD3C59700A17F12 /* MVProject.m in Sources */,
 				1FF871C61CD3C55D00A17F12 /* MVConstants.m in Sources */,
 				1F7FF6611CD11F5800EE14C3 /* MainViewController.m in Sources */,
-				1FBDFB0E1CCA734E00F73CDA /* FBShimmeringLayer.m in Sources */,
 				1FF871E71CD3C5B300A17F12 /* ISO8601DateFormatter.m in Sources */,
 				1FF871D81CD3C58700A17F12 /* MVLike.m in Sources */,
 				1F93C5721CCA8B8F001EA941 /* TopicLayout.m in Sources */,
@@ -613,9 +612,11 @@
 				1FBDFABF1CC9859A00F73CDA /* UIColor+Colors.m in Sources */,
 				1F7FF60C1CCD3A4300EE14C3 /* MapViewer.swift in Sources */,
 				1F93C57F1CCAC3F1001EA941 /* CustomMenuButton.m in Sources */,
-				1FBDFB0F1CCA734E00F73CDA /* FBShimmeringView.m in Sources */,
+				1FC8EBCE1CD56BCF00D3E68C /* QuoteCollectionViewCell.m in Sources */,
 				1F7FF6991CD25B3B00EE14C3 /* SkillCollectionViewCell.m in Sources */,
 				1FBDFAE31CCA2A0900F73CDA /* Topic.m in Sources */,
+				1FC8EBD11CD56D2200D3E68C /* TopicQuote.m in Sources */,
+				1FC8EBD61CD61C2500D3E68C /* BOSImageResizeOperation.m in Sources */,
 				1F7FF6281CCEB07C00EE14C3 /* TopicApp.m in Sources */,
 				1F7FF6481CCFBBBA00EE14C3 /* UIImage+Helpers.m in Sources */,
 				1FF871D21CD3C58100A17F12 /* MVBucket.m in Sources */,
@@ -630,7 +631,6 @@
 				1FF871E41CD3C59700A17F12 /* MVUser.m in Sources */,
 				1F7FF61F1CCE544700EE14C3 /* GenericCollectionViewCell.m in Sources */,
 				1FF871D71CD3C58700A17F12 /* MVComment.m in Sources */,
-				1F4C7DA71CCAECCB00F11033 /* ArrayUtilities.m in Sources */,
 				1F676F611CCCA349003763F5 /* AppCustomButton.m in Sources */,
 				1F7FF6121CCD5F2A00EE14C3 /* WeatherCard.m in Sources */,
 			);
@@ -756,12 +756,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = "Marcel Voss/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.marcelvoss.Marcel-Voss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Marcel Voss/Marcel Voss-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -773,12 +775,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = "Marcel Voss/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.marcelvoss.Marcel-Voss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Marcel Voss/Marcel Voss-Bridging-Header.h";
 			};
 			name = Release;

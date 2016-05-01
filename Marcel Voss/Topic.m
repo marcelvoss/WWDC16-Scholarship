@@ -47,4 +47,14 @@
     return self;
 }
 
+- (instancetype)initWithQuote:(TopicQuote *)quoteItem
+{
+    self = [super init];
+    if (self) {
+        _topicOption = OptionsQuote;
+        _topicQuote = quoteItem;
+    }
+    return self;
+}
+
 @end
